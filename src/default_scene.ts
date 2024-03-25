@@ -20,13 +20,14 @@ export default class default_scene extends Scene {
 
   startScene(): void {
     this.addLayer("primary");
+    this.addLayer("cast");
     this.add.tilemap("level1", new Vec2(2, 2));
 
     let center = this.viewport.getCenter();
 
     let options = {
       size: new Vec2(40, 40),
-      position: new Vec2(center.x, center.y),
+      position: new Vec2(80, 80),
     };
 
     this.player = new Player(
@@ -34,8 +35,7 @@ export default class default_scene extends Scene {
     );
 
     this.player.node.color = Color.RED;
-    this.player.node.addPhysics(new AABB(Vec2.ZERO, new Vec2(20, 20)));
-    this.player.node.colliderOffset.set(0, 2);
+    this.player.node.addPhysics();
   }
 
   updateScene(deltaT: number): void {
