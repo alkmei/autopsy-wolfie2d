@@ -1,19 +1,11 @@
 import Vec2 from "./Wolfie2D/DataTypes/Vec2";
 import Input from "./Wolfie2D/Input/Input";
-import Graphic from "./Wolfie2D/Nodes/Graphic";
-import { GraphicType } from "./Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Sprite from "./Wolfie2D/Nodes/Sprites/Sprite";
 import Scene from "./Wolfie2D/Scene/Scene";
-import Color from "./Wolfie2D/Utils/Color";
-import Line from "./Wolfie2D/Nodes/Graphics/Line";
-import Player from "./Player";
-import AABB from "./Wolfie2D/DataTypes/Shapes/AABB";
 
 export default class default_scene extends Scene {
   private logo: Sprite;
-  private player: Player;
 
-  private strips: Line[];
   loadScene(): void {
     this.load.tilemap("level1", "hw5_assets/tilemaps/level1.json");
   }
@@ -29,13 +21,6 @@ export default class default_scene extends Scene {
       size: new Vec2(40, 40),
       position: new Vec2(80, 80),
     };
-
-    this.player = new Player(
-      this.add.graphic(GraphicType.RECT, "primary", options),
-    );
-
-    this.player.node.color = Color.RED;
-    this.player.node.addPhysics();
   }
 
   updateScene(deltaT: number): void {
@@ -51,7 +36,5 @@ export default class default_scene extends Scene {
 
     const speed = 100 * deltaT;
     const velocity = direction.scale(speed);
-
-    this.player.node.position.add(velocity);
   }
 }
