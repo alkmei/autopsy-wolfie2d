@@ -16,3 +16,4 @@ dist/*
 ### IF YOU ARE MAKING A PROJECT, YOU MAY WANT TO UNCOMMENT THIS LINE ###
 # !dist/assets/
 
+!dist/benchmark1
