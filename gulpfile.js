@@ -1,15 +1,15 @@
-var gulp = require("gulp");
-var browserify = require("browserify");
-var source = require("vinyl-source-stream");
-var watchify = require("watchify");
-var tsify = require("tsify");
-var fancy_log = require("fancy-log");
+const gulp = require("gulp");
+const browserify = require("browserify");
+const source = require("vinyl-source-stream");
+const watchify = require("watchify");
+const tsify = require("tsify");
+const fancy_log = require("fancy-log");
 const { exit } = require("process");
-var paths = {
+const paths = {
   pages: ["src/*.html"],
 };
 
-var b = browserify({
+const b = browserify({
   basedir: ".",
   debug: true,
   entries: ["src/main.ts"],
@@ -19,7 +19,7 @@ var b = browserify({
 
 b.plugin(tsify);
 
-var watchedBrowserify = watchify(b);
+const watchedBrowserify = watchify(b);
 
 gulp.task("copy-html", function () {
   return gulp.src(paths.pages).pipe(gulp.dest("dist"));
