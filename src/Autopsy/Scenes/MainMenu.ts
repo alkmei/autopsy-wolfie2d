@@ -5,6 +5,7 @@ import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Color from "../../Wolfie2D/Utils/Color";
 import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
 import UILayer from "../../Wolfie2D/Scene/Layers/UILayer";
+import GameLevel from "./GameLevel";
 
 enum Layers {
   Main = "main",
@@ -20,9 +21,6 @@ export default class MainMenu extends Scene {
   currentScreen: Layers;
   loadScene() {
     this.load.image("logo", "/assets/images/autopsy_logo.png");
-  }
-
-  startScene() {
     this.screens = {
       [Layers.Main]: this.addUILayer(Layers.Main),
       [Layers.Levels]: this.addUILayer(Layers.Levels),
@@ -30,7 +28,9 @@ export default class MainMenu extends Scene {
       [Layers.Help]: this.addUILayer(Layers.Help),
       [Layers.Back]: this.addUILayer(Layers.Back),
     };
+  }
 
+  startScene() {
     // Center the viewport
     const halfSize = this.viewport.getHalfSize();
     this.viewport.setFocus(halfSize);
@@ -150,6 +150,9 @@ export default class MainMenu extends Scene {
     playButton.setHAlign(HAlign.LEFT);
     playButton.size.x = buttonWidth;
     playButton.size.y = 80;
+    playButton.onClick = () => {
+      this.sceneManager.changeToScene(GameLevel);
+    };
 
     const levelsButton = this.newButton(
       new Vec2(buttonWidth / 2, 400 + 90),
