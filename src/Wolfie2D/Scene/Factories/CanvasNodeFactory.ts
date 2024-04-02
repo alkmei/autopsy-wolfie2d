@@ -15,6 +15,7 @@ import Rect from "../../Nodes/Graphics/Rect";
 import ResourceManager from "../../ResourceManager/ResourceManager";
 import Line from "../../Nodes/Graphics/Line";
 import Particle from "../../Nodes/Graphics/Particle";
+import GameNode from "../../Nodes/GameNode";
 
 // @ignorePage
 

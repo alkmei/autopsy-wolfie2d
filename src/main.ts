@@ -9,7 +9,7 @@ import MainMenu from "./Autopsy/Scenes/MainMenu";
   // Set up options for our game
   let options = {
     canvasSize: { x: 1200, y: 800 }, // The size of the game
-    clearColor: { r: 34, g: 32, b: 52 }, // The color the game clears to
+    clearColor: { r: 34, g: 28, b: 41 }, // The color the game clears to
     inputs: [
       { name: "left", keys: ["a"] },
       { name: "right", keys: ["d"] },
