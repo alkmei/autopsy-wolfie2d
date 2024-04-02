@@ -5,7 +5,6 @@ import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Color from "../../Wolfie2D/Utils/Color";
 import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
 import UILayer from "../../Wolfie2D/Scene/Layers/UILayer";
-import Layer from "../../Wolfie2D/Scene/Layer";
 
 enum Layers {
   Main = "main",
@@ -72,7 +71,40 @@ export default class MainMenu extends Scene {
     };
   }
 
-  private initHelpLayer() {}
+  private initHelpLayer() {
+    [
+      "You play as an undertaker and have to hunt souls that",
+      " have escaped from hell using an arsenal of weapons. ",
+    ].forEach((value, index) => {
+      const helpLine = <Label>this.add.uiElement(
+        UIElementType.LABEL,
+        Layers.Help,
+        {
+          position: new Vec2(this.viewport.getCenter().x, 100 + index * 40),
+          text: value,
+        },
+      );
+      helpLine.textColor = this.textColor;
+      helpLine.font = "Mister Pixel";
+    });
+
+    const authorLineWidth = 500;
+    const authorLine = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.Help,
+      {
+        position: new Vec2(
+          this.viewport.getHalfSize().x * 2 - authorLineWidth / 2 - 10,
+          this.viewport.getHalfSize().y * 2 - 20,
+        ),
+        text: "By Alvin Mei, Yu-Xiang Zheng, Andrew Ton",
+      },
+    );
+    authorLine.size.x = authorLineWidth;
+    authorLine.setHAlign(HAlign.RIGHT);
+    authorLine.textColor = this.textColor;
+    authorLine.font = "Mister Pixel";
+  }
 
   private initLevelsLayer() {}
 
