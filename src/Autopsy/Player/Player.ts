@@ -1,6 +1,7 @@
 import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import PlayerController from "./PlayerController";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
+import Constants from "../../globals";
 
 export default class Player {
   node: AnimatedSprite;
@@ -8,13 +9,11 @@ export default class Player {
 
   constructor(sprite: AnimatedSprite) {
     this.node = sprite;
-    this.node.scale = new Vec2(3, 3);
+    // this.node.scale = Constants.SCALE;
     this.node.addPhysics();
     this.node.addAI(PlayerController);
     this.node.position = new Vec2(100, 100);
     this.node.animation.play("IDLE", true);
     this.health = 10;
   }
-
-  update(deltaT: number): void {}
 }

@@ -1,8 +1,8 @@
 {
   "name": "Reaper",
   "spriteSheetImage": "ReaperHooded.png",
-  "spriteWidth": 18,
-  "spriteHeight": 24,
+  "spriteWidth": 36,
+  "spriteHeight": 48,
   "columns": 2,
   "rows": 2,
   "durationType": "time",

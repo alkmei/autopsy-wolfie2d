@@ -2,7 +2,6 @@ import StateMachineAI from "../../Wolfie2D/AI/StateMachineAI";
 import GameNode from "../../Wolfie2D/Nodes/GameNode";
 import Input from "../../Wolfie2D/Input/Input";
 import { Action } from "../../globals";
-import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 
 export default class PlayerController extends StateMachineAI {
   protected owner: GameNode;
@@ -28,9 +27,9 @@ export default class PlayerController extends StateMachineAI {
     if (Input.isPressed(Action.Right)) dir += 1;
 
     const velocity = this.owner.getLastVelocity();
-    velocity.x = dir * 100 * deltaT;
+    velocity.x = dir * 300 * deltaT;
 
-    velocity.y += (this.gravity / 10) * deltaT;
+    velocity.y += this.gravity * deltaT;
 
     this.owner.move(velocity);
   }

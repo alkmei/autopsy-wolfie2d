@@ -6,6 +6,7 @@ import Color from "../../Wolfie2D/Utils/Color";
 import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
 import UILayer from "../../Wolfie2D/Scene/Layers/UILayer";
 import GameLevel from "./GameLevel";
+import Level1 from "./Level1";
 
 enum Layers {
   Main = "main",
@@ -151,7 +152,7 @@ export default class MainMenu extends Scene {
     playButton.size.x = buttonWidth;
     playButton.size.y = 80;
     playButton.onClick = () => {
-      this.sceneManager.changeToScene(GameLevel);
+      this.sceneManager.changeToScene(Level1);
     };
 
     const levelsButton = this.newButton(
