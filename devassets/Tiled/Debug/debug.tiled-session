@@ -1,0 +1,57 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "/home/alvin/Documents/notes/CSE380/Homework/cse380-final/dist/assets/tilemaps/Debug/Debug.json",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "file.lastUsedOpenFilter": "All Files (*)",
+    "fileStates": {
+        "/home/alvin/Documents/notes/CSE380/Homework/cse380-final/dist/assets/tilemaps/Debug/Debug.json": {
+            "scale": 1.1142708333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 478.3397214172198,
+                "y": 320.3888940824531
+            }
+        },
+        "/home/alvin/Documents/notes/CSE380/Homework/cse380-final/dist/assets/tilemaps/Debug/Debug.json#Debug": {
+            "scaleInDock": 1
+        },
+        "Debug.tmx": {
+            "scale": 1.1142708333333333,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 476.54482565205205,
+                "y": 249.4905113583248
+            }
+        },
+        "Debug.tsj": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "Debug.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        }
+    },
+    "last.exportedFilePath": "/home/alvin/Documents/notes/CSE380/Homework/cse380-final/dist/assets/tilemaps/Debug",
+    "last.imagePath": "/home/alvin/Documents/notes/CSE380/Homework/cse380-final/dist/assets/tilemaps/Debug",
+    "map.lastUsedExportFilter": "JSON map files (*.tmj *.json)",
+    "map.lastUsedFormat": "tmx",
+    "openFiles": [
+        "Debug.tmx",
+        "Debug.tsj",
+        "/home/alvin/Documents/notes/CSE380/Homework/cse380-final/dist/assets/tilemaps/Debug/Debug.json"
+    ],
+    "project": "debug.tiled-project",
+    "recentFiles": [
+        "Debug.tmx",
+        "Debug.tsj",
+        "/home/alvin/Documents/notes/CSE380/Homework/cse380-final/dist/assets/tilemaps/Debug/Debug.json",
+        "Debug.tsx"
+    ],
+    "tileset.lastUsedFormat": "json"
+}

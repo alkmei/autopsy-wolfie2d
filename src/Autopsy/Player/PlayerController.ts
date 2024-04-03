@@ -2,18 +2,28 @@ import StateMachineAI from "../../Wolfie2D/AI/StateMachineAI";
 import GameNode from "../../Wolfie2D/Nodes/GameNode";
 import Input from "../../Wolfie2D/Input/Input";
 import { Action } from "../../globals";
+import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
+import Grounded from "./States/Grounded";
 
 export default class PlayerController extends StateMachineAI {
-  protected owner: GameNode;
+  owner: GameNode;
+  velocity: Vec2 = Vec2.ZERO;
   private speed = 300;
   private timeToApex = 0.35;
   private jumpHeight = 70;
-  private gravity: number;
-  private jumpVelocity: number;
+  gravity: number;
+  jumpVelocity: number;
 
   initializeAI(owner: GameNode, config: Record<string, any>) {
     this.owner = owner;
     this.updateGravity();
+    this.initializeStates();
+  }
+
+  initializeStates() {
+    const grounded = new Grounded(this, this.owner);
+    this.addState("grounded", grounded);
+    this.initialize("grounded");
   }
 
   updateGravity() {
@@ -22,15 +32,7 @@ export default class PlayerController extends StateMachineAI {
   }
 
   update(deltaT: number) {
-    let dir = 0;
-    if (Input.isPressed(Action.Left)) dir -= 1;
-    if (Input.isPressed(Action.Right)) dir += 1;
-
-    const velocity = this.owner.getLastVelocity();
-    velocity.x = dir * 300 * deltaT;
-
-    velocity.y += this.gravity * deltaT;
-
-    this.owner.move(velocity);
+    super.update(deltaT);
+    this.owner.move(this.velocity);
   }
 }

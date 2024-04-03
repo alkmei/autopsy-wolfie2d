@@ -1,0 +1,140 @@
+{ "frames": [
+   {
+    "filename": "ReaperHooded 0.aseprite",
+    "frame": { "x": 0, "y": 0, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 100
+   },
+   {
+    "filename": "ReaperHooded 1.aseprite",
+    "frame": { "x": 65, "y": 0, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 100
+   },
+   {
+    "filename": "ReaperHooded 2.aseprite",
+    "frame": { "x": 130, "y": 0, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 100
+   },
+   {
+    "filename": "ReaperHooded 3.aseprite",
+    "frame": { "x": 195, "y": 0, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 100
+   },
+   {
+    "filename": "ReaperHooded 4.aseprite",
+    "frame": { "x": 0, "y": 24, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 20
+   },
+   {
+    "filename": "ReaperHooded 5.aseprite",
+    "frame": { "x": 65, "y": 24, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 20
+   },
+   {
+    "filename": "ReaperHooded 6.aseprite",
+    "frame": { "x": 130, "y": 24, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 20
+   },
+   {
+    "filename": "ReaperHooded 7.aseprite",
+    "frame": { "x": 195, "y": 24, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 20
+   },
+   {
+    "filename": "ReaperHooded 8.aseprite",
+    "frame": { "x": 0, "y": 48, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 20
+   },
+   {
+    "filename": "ReaperHooded 9.aseprite",
+    "frame": { "x": 65, "y": 48, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 35
+   },
+   {
+    "filename": "ReaperHooded 10.aseprite",
+    "frame": { "x": 130, "y": 48, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 35
+   },
+   {
+    "filename": "ReaperHooded 11.aseprite",
+    "frame": { "x": 195, "y": 48, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 100
+   },
+   {
+    "filename": "ReaperHooded 12.aseprite",
+    "frame": { "x": 0, "y": 72, "w": 65, "h": 24 },
+    "rotated": false,
+    "trimmed": true,
+    "spriteSourceSize": { "x": 84, "y": 88, "w": 65, "h": 24 },
+    "sourceSize": { "w": 192, "h": 192 },
+    "duration": 100
+   }
+ ],
+ "meta": {
+  "app": "http://www.aseprite.org/",
+  "version": "1.x-dev",
+  "image": "ReaperHooded.png",
+  "format": "RGBA8888",
+  "size": { "w": 260, "h": 96 },
+  "scale": "1",
+  "frameTags": [
+   { "name": "Idle", "from": 0, "to": 3, "direction": "forward", "color": "#000000ff" },
+   { "name": "Scythe Slash", "from": 4, "to": 12, "direction": "forward", "repeat": "1", "color": "#000000ff" }
+  ],
+  "layers": [
+   { "name": "Body", "opacity": 255, "blendMode": "normal" },
+   { "name": "Cloak", "opacity": 255, "blendMode": "normal" },
+   { "name": "Head", "opacity": 255, "blendMode": "normal" },
+   { "name": "VFX", "opacity": 255, "blendMode": "normal" }
+  ],
+  "slices": [
+  ]
+ }
+}

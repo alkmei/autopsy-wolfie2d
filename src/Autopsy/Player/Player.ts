@@ -1,7 +1,6 @@
 import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import PlayerController from "./PlayerController";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
-import Constants from "../../globals";
 
 export default class Player {
   node: AnimatedSprite;
