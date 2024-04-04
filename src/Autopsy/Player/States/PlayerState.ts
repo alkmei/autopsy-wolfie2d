@@ -46,7 +46,5 @@ export default abstract class PlayerState extends State {
 
     this.parent.velocity = this.owner.getLastVelocity();
     this.parent.velocity.x = dir * 300 * deltaT;
-
-    this.parent.velocity.y += this.parent.gravity * deltaT;
   }
 }

@@ -17,10 +17,10 @@
     "gulp-typescript": "^6.0.0-alpha.1",
     "live-server": "^1.2.2",
     "prettier": "^3.2.5",
+    "process": "^0.11.10",
     "tsify": "^5.0.0",
     "typescript": "^3.9.7",
     "vinyl-source-stream": "^2.0.0",
-    "watchify": "^3.11.1",
-    "process": "^0.11.10"
+    "watchify": "^3.11.1"
   }
 }
