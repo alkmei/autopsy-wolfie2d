@@ -35,11 +35,6 @@ export default abstract class PlayerState extends State {
     return direction;
   }
 
-  /**This function is left to be overrided by any of the classes that extend this base class. That way, each
-   * class can swap their animations accordingly.
-   */
-  updateSuit() {}
-
   update(deltaT: number): void {
     let dir = 0;
     if (Input.isPressed(Action.Left)) dir -= 1;
