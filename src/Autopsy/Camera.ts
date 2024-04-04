@@ -3,7 +3,6 @@ import Point from "../Wolfie2D/Nodes/Graphics/Point";
 import Updateable from "../Wolfie2D/DataTypes/Interfaces/Updateable";
 import Vec2 from "../Wolfie2D/DataTypes/Vec2";
 import MathUtils from "../Wolfie2D/Utils/MathUtils";
-import Timer from "../Wolfie2D/Timing/Timer";
 
 export default class Camera implements Updateable {
   node: GameNode;

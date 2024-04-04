@@ -10,10 +10,11 @@ export default class Player {
   constructor(sprite: AnimatedSprite) {
     this.node = sprite;
     // this.node.scale = Constants.SCALE;
-    this.node.addPhysics(new AABB(new Vec2(18, 24), new Vec2(18, 24)));
+    this.node.addPhysics(new AABB(new Vec2(0, 0), new Vec2(18, 24)));
     this.node.addAI(PlayerController);
-    this.node.position = new Vec2(100, 100);
-    this.node.animation.play("IDLE", true);
+    this.node.position = new Vec2(100, 50);
+    console.debug(this.node.imageId);
+    this.node.animation.play("IdleWeaponLess", true);
     this.health = 10;
   }
 }
