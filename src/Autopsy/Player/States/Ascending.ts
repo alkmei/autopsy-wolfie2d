@@ -9,8 +9,7 @@ export default class Ascending extends InAir {
 
   update(deltaT: number) {
     super.update(deltaT);
-    if (this.parent.velocity.y > 0) {
-      this.finished(PState.Descending);
-    }
+
+    if (this.parent.velocity.y >= 0) this.finished(PState.Descending);
   }
 }

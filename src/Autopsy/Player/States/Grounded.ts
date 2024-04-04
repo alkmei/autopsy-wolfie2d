@@ -15,8 +15,14 @@ export default class Grounded extends PlayerState {
       if (Input.isJustPressed(Action.Jump)) {
         this.parent.velocity.y = this.parent.jumpVelocity;
         this.finished(PState.Ascending);
+      } else {
+        this.parent.velocity.y = 0.1;
       }
+    } else {
+      this.parent.velocity.y = 0.1;
     }
+
+    if (!this.owner.onGround) this.finished(PState.Descending);
   }
 
   onExit(): Record<string, any> {
