@@ -12,6 +12,7 @@ export default abstract class PlayerState extends State {
   owner: GameNode;
   parent: PlayerController;
   positionTimer: Timer;
+  stateName: string; // For debug purposes
 
   constructor(parent: StateMachine, owner: GameNode) {
     super(parent);
@@ -45,6 +46,6 @@ export default abstract class PlayerState extends State {
     if (Input.isPressed(Action.Right)) dir += 1;
 
     this.parent.velocity = this.owner.getLastVelocity();
-    this.parent.velocity.x = dir * 300 * deltaT;
+    this.parent.velocity.x = dir * this.parent.speed * deltaT;
   }
 }

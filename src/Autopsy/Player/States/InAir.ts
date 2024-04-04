@@ -2,7 +2,9 @@ import PlayerState from "./PlayerState";
 import { PState } from "../PlayerController";
 
 export default class InAir extends PlayerState {
-  onEnter(options: Record<string, any>): void {}
+  onEnter(options: Record<string, any>): void {
+    this.stateName = "InAir";
+  }
 
   update(deltaT: number) {
     super.update(deltaT);

@@ -1,11 +1,10 @@
 import StateMachineAI from "../../Wolfie2D/AI/StateMachineAI";
 import GameNode from "../../Wolfie2D/Nodes/GameNode";
-import Input from "../../Wolfie2D/Input/Input";
-import { Action } from "../../globals";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Grounded from "./States/Grounded";
 import Ascending from "./States/Ascending";
 import Descending from "./States/Descending";
+import PlayerState from "./States/PlayerState";
 
 export enum PState {
   Grounded = "grounded",
@@ -16,7 +15,7 @@ export enum PState {
 export default class PlayerController extends StateMachineAI {
   owner: GameNode;
   velocity: Vec2 = Vec2.ZERO;
-  private speed = 300;
+  speed = 300;
   private timeToApex = 0.35;
   private jumpHeight = 20;
   gravity: number;
@@ -44,5 +43,9 @@ export default class PlayerController extends StateMachineAI {
   update(deltaT: number) {
     super.update(deltaT);
     this.owner.move(this.velocity);
+  }
+
+  get state() {
+    return <PlayerState>this.stack.peek();
   }
 }

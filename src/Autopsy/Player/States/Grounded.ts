@@ -4,7 +4,9 @@ import { Action } from "../../../globals";
 import { PState } from "../PlayerController";
 
 export default class Grounded extends PlayerState {
-  onEnter(options: Record<string, any>): void {}
+  onEnter(options: Record<string, any>): void {
+    this.stateName = "Grounded";
+  }
 
   update(deltaT: number) {
     super.update(deltaT);
