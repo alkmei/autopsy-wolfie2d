@@ -90,7 +90,9 @@ export default class Label extends UIElement {
     if (this.hAlign === HAlign.CENTER) {
       offset.x = hDiff / 2;
     } else if (this.hAlign === HAlign.RIGHT) {
-      offset.x = hDiff;
+      offset.x = hDiff - this.padding.x;
+    } else {
+      offset.x = this.padding.x;
     }
 
     if (this.vAlign === VAlign.TOP) {

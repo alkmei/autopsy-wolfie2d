@@ -11,6 +11,11 @@ import AnimatedSprite from "../../Nodes/Sprites/AnimatedSprite";
 import Vec2 from "../../DataTypes/Vec2";
 import Layer from "../Layer";
 
+interface UIElementOptions {
+  position: Vec2;
+  text?: string;
+}
+
 /**
  * The manager of all factories used for adding @reference[GameNode]s to the @reference[Scene].
  */
@@ -35,7 +40,7 @@ export default class FactoryManager {
   uiElement(
     type: string | UIElementType,
     layerName: string,
-    options?: Record<string, any>,
+    options?: UIElementOptions,
   ): UIElement {
     return this.canvasNodeFactory.addUIElement(type, layerName, options);
   }

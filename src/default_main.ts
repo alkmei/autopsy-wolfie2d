@@ -17,6 +17,7 @@ import default_scene from "./default_scene";
   const game = new Game(options);
 
   // Start our game
+  
   game.start(default_scene, {});
 })();
 

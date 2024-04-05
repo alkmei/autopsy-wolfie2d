@@ -212,7 +212,7 @@ export default class Game {
         this.showDebug = !this.showDebug;
       }
 
-      // Debug render
+      // Debug.json render
       if (this.showDebug) {
         Debug.render();
       }

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="8c8a2861-7aa2-40ce-9634-d37bc3b89d36" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../dist/assets/spritesheets/Reaper/ReaperHooded.png" beforeDir="false" afterPath="$PROJECT_DIR$/../dist/assets/spritesheets/Reaper/ReaperHooded.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dist/assets/spritesheets/Reaper/reaper.json" beforeDir="false" afterPath="$PROJECT_DIR$/../dist/assets/spritesheets/Reaper/reaper.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/scripts.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReaperHooded.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/aseprite_to_wolfie.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/output.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Autopsy/Player/Player.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Autopsy/Player/Player.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Wolfie2D/DataTypes/Spritesheet.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Wolfie2D/DataTypes/Spritesheet.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Wolfie2D/Nodes/Sprites/AnimatedSprite.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Wolfie2D/Nodes/Sprites/AnimatedSprite.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Wolfie2D/Rendering/Animations/AnimationManager.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Wolfie2D/Rendering/Animations/AnimationManager.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/Wolfie2D/Rendering/Animations/AnimationTypes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../src/Wolfie2D/Rendering/Animations/AnimationTypes.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 4
+}]]></component>
+  <component name="ProjectId" id="2eei0T8TbcOBcNJhxKWgCyPeEuU" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "devel",
+    "last_opened_file_path": "/home/alvin/Documents/notes/CSE380/Homework/cse380-final/devassets/scripts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.black.configuration.BlackFormatterConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="8c8a2861-7aa2-40ce-9634-d37bc3b89d36" name="Changes" comment="" />
+      <created>1712271222718</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1712271222718</updated>
+      <workItem from="1712271223333" duration="795000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

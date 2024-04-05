@@ -171,7 +171,7 @@ export default class Viewport {
    * @param smoothingFactor The smoothing factor for the viewport
    */
   setSmoothingFactor(smoothingFactor: number): void {
-    if (smoothingFactor < 1) smoothingFactor = 1;
+    if (smoothingFactor < 0) smoothingFactor = 0;
     this.smoothingFactor = smoothingFactor;
   }
 
@@ -233,14 +233,18 @@ export default class Viewport {
   }
 
   updateView(): void {
-    if (this.lastPositions.getSize() > this.smoothingFactor) {
+    if (this.lastPositions.getSize() > Math.min(this.smoothingFactor, 1)) {
       this.lastPositions.dequeue();
     }
 
     // Get the average of the last 10 positions
     let pos = Vec2.ZERO;
-    this.lastPositions.forEach(position => pos.add(position));
-    pos.scale(1 / this.lastPositions.getSize());
+    if (this.smoothingFactor != 0) {
+      this.lastPositions.forEach(position => pos.add(position));
+      pos.scale(1 / this.lastPositions.getSize());
+    } else {
+      this.lastPositions.forEach(position => (pos = position));
+    }
 
     // Set this position either to the object or to its bounds
     pos.x = MathUtils.clamp(

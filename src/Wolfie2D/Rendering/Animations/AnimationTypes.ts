@@ -11,8 +11,17 @@ export enum AnimationState {
 
 export class AnimationData {
   name: string;
-  frames: Array<{ index: number; duration: number }>;
+  frames: Array<AnimationFrame>;
   repeat: boolean = false;
+}
+
+export class AnimationFrame {
+  index: number;
+  duration: number;
+  w: number;
+  h: number;
+  x: number;
+  y: number;
 }
 
 export class TweenEffect {

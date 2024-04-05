@@ -4,7 +4,7 @@ import GameNode from "../Nodes/GameNode";
 import Color from "../Utils/Color";
 
 /**
- * A util class for rendering Debug messages to the canvas.
+ * A util class for rendering Debug.json messages to the canvas.
  */
 export default class Debug {
   /** A map of log messages to display on the screen */
@@ -181,7 +181,7 @@ export default class Debug {
   }
 
   /**
-   * Performs any necessary setup operations on the Debug canvas
+   * Performs any necessary setup operations on the Debug.json canvas
    * @param canvas The debug canvas
    * @param width The desired width of the canvas
    * @param height The desired height of the canvas
@@ -212,13 +212,13 @@ export default class Debug {
     );
   }
 
-  /** Renders the text and nodes sent to the Debug system */
+  /** Renders the text and nodes sent to the Debug.json system */
   static render(): void {
     this.renderText();
     this.renderNodes();
   }
 
-  /** Renders the text sent to the Debug canvas */
+  /** Renders the text sent to the Debug.json canvas */
   static renderText(): void {
     let y = 20;
     this.debugRenderingContext.font = "20px Arial";

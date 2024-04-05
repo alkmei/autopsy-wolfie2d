@@ -1,7 +1,11 @@
 import Map from "../../DataTypes/Map";
 import Emitter from "../../Events/Emitter";
 import CanvasNode from "../../Nodes/CanvasNode";
-import { AnimationData, AnimationState } from "./AnimationTypes";
+import {
+  AnimationData,
+  AnimationFrame,
+  AnimationState,
+} from "./AnimationTypes";
 
 /**
  * An animation manager class for an animated CanvasNode.
@@ -86,6 +90,14 @@ export default class AnimationManager {
         `Animation index was requested, but the current animation: ${this.currentAnimation} was invalid`,
       );
       return 0;
+    }
+  }
+
+  getAnimationData(): AnimationFrame {
+    if (this.animations.has(this.currentAnimation)) {
+      return this.animations.get(this.currentAnimation).frames[
+        this.currentFrame
+      ];
     }
   }
 
