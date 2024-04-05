@@ -7,16 +7,20 @@ import GameNode from "../../../Wolfie2D/Nodes/GameNode";
 import Timer from "../../../Wolfie2D/Timing/Timer";
 import PlayerController from "../PlayerController";
 import { Action } from "../../../globals";
+import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
+
+const physOffsetRight = new Vec2(5, 0);
+const physOffsetLeft = new Vec2(-5, 0);
 
 export default abstract class PlayerState extends State {
-  owner: GameNode;
+  owner: AnimatedSprite;
   parent: PlayerController;
   positionTimer: Timer;
   stateName: string; // For debug purposes
 
   constructor(parent: StateMachine, owner: GameNode) {
     super(parent);
-    this.owner = owner;
+    this.owner = <AnimatedSprite>owner;
     this.positionTimer = new Timer(250);
     this.positionTimer.start();
   }
@@ -37,8 +41,16 @@ export default abstract class PlayerState extends State {
 
   update(deltaT: number): void {
     let dir = 0;
-    if (Input.isPressed(Action.Left)) dir -= 1;
-    if (Input.isPressed(Action.Right)) dir += 1;
+    if (Input.isPressed(Action.Left)) {
+      dir -= 1;
+      this.owner.invertX = true;
+      this.owner.colliderOffset = physOffsetLeft;
+    }
+    if (Input.isPressed(Action.Right)) {
+      dir += 1;
+      this.owner.invertX = false;
+      this.owner.colliderOffset = physOffsetRight;
+    }
 
     this.parent.velocity = this.owner.getLastVelocity();
     this.parent.velocity.x = dir * this.parent.speed * deltaT;

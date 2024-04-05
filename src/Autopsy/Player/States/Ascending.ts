@@ -5,7 +5,6 @@ import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 export default class Ascending extends InAir {
   onEnter(options: Record<string, any>) {
     super.onEnter(options);
-    (<AnimatedSprite>this.parent.owner).animation.play("Scythe Slash");
     this.stateName = "Ascending";
   }
 
