@@ -1,50 +1,45 @@
 {
     "name": "Reaper",
     "spriteSheetImage": "ReaperHooded.png",
-    "spriteWidth": 146,
-    "spriteHeight": 48,
-    "columns": 4,
-    "rows": 4,
+    "spriteWidth": 0,
+    "spriteHeight": 0,
+    "columns": 0,
+    "rows": 0,
     "animations": [
-        {
-            "name": "IdleWeaponLess",
-            "frames": [
-                {
-                    "index": 0,
-                    "duration": 100
-                },
-                {
-                    "index": 1,
-                    "duration": 100
-                },
-                {
-                    "index": 2,
-                    "duration": 100
-                },
-                {
-                    "index": 3,
-                    "duration": 100
-                }
-            ]
-        },
         {
             "name": "Idle",
             "frames": [
                 {
-                    "index": 4,
-                    "duration": 100
+                    "index": 0,
+                    "duration": 10.0,
+                    "x": 0,
+                    "y": 0,
+                    "w": 68,
+                    "h": 48
                 },
                 {
-                    "index": 5,
-                    "duration": 100
+                    "index": 1,
+                    "duration": 10.0,
+                    "x": 68,
+                    "y": 0,
+                    "w": 68,
+                    "h": 48
                 },
                 {
-                    "index": 6,
-                    "duration": 100
+                    "index": 2,
+                    "duration": 10.0,
+                    "x": 136,
+                    "y": 0,
+                    "w": 68,
+                    "h": 48
                 },
                 {
-                    "index": 7,
-                    "duration": 100
+                    "index": 3,
+                    "duration": 10.0,
+                    "x": 204,
+                    "y": 0,
+                    "w": 68,
+                    "h": 48
                 }
             ]
         },
@@ -52,40 +47,76 @@
             "name": "Scythe Slash",
             "frames": [
                 {
+                    "index": 4,
+                    "duration": 2.0,
+                    "x": 0,
+                    "y": 48,
+                    "w": 68,
+                    "h": 48
+                },
+                {
+                    "index": 5,
+                    "duration": 2.0,
+                    "x": 68,
+                    "y": 48,
+                    "w": 68,
+                    "h": 48
+                },
+                {
+                    "index": 6,
+                    "duration": 2.0,
+                    "x": 136,
+                    "y": 48,
+                    "w": 68,
+                    "h": 48
+                },
+                {
+                    "index": 7,
+                    "duration": 2.0,
+                    "x": 204,
+                    "y": 48,
+                    "w": 68,
+                    "h": 48
+                },
+                {
                     "index": 8,
-                    "duration": 20
+                    "duration": 2.0,
+                    "x": 272,
+                    "y": 48,
+                    "w": 68,
+                    "h": 48
                 },
                 {
                     "index": 9,
-                    "duration": 20
+                    "duration": 3.5,
+                    "x": 340,
+                    "y": 48,
+                    "w": 68,
+                    "h": 48
                 },
                 {
                     "index": 10,
-                    "duration": 20
+                    "duration": 3.5,
+                    "x": 408,
+                    "y": 48,
+                    "w": 68,
+                    "h": 48
                 },
                 {
                     "index": 11,
-                    "duration": 20
+                    "duration": 10.0,
+                    "x": 476,
+                    "y": 48,
+                    "w": 68,
+                    "h": 48
                 },
                 {
                     "index": 12,
-                    "duration": 20
-                },
-                {
-                    "index": 13,
-                    "duration": 35
-                },
-                {
-                    "index": 14,
-                    "duration": 35
-                },
-                {
-                    "index": 15,
-                    "duration": 100
-                },
-                {
-                    "index": 16,
-                    "duration": 100
+                    "duration": 10.0,
+                    "x": 544,
+                    "y": 48,
+                    "w": 68,
+                    "h": 48
                 }
             ]
         }
