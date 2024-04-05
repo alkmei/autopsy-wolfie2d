@@ -21,6 +21,9 @@
         "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Debug.json#Debug": {
             "scaleInDock": 1
         },
+        "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Level1.json#Debug": {
+            "scaleInEditor": 3
+        },
         "Debug/Debug.tmx": {
             "scale": 1,
             "selectedLayer": 0,

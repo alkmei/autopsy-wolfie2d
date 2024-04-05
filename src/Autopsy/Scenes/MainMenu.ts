@@ -7,6 +7,11 @@ import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
 import UILayer from "../../Wolfie2D/Scene/Layers/UILayer";
 import GameLevel from "./GameLevel";
 import Level1 from "./Level1";
+import Level2 from "./Level2";
+import Level3 from "./Level3";
+import Level4 from "./Level4";
+import Level5 from "./Level5";
+import Level6 from "./Level6";
 
 enum Layers {
   Main = "main",
@@ -58,15 +63,15 @@ export default class MainMenu extends Scene {
   }
 
   private initBackLayer() {
-    const buttonWidth = 100;
+    const buttonWidth = 120;
     const backButton = this.newButton(
       new Vec2(buttonWidth / 2, this.viewport.getHalfSize().y * 2 - 100),
       "BACK",
-      30,
+      40,
       Layers.Back,
     );
     backButton.size.x = buttonWidth;
-    backButton.size.y = 50;
+    backButton.size.y = 70;
     backButton.onClick = () => {
       this.changeLayer(Layers.Main);
     };
@@ -107,7 +112,90 @@ export default class MainMenu extends Scene {
     authorLine.font = "Mister Pixel";
   }
 
-  private initLevelsLayer() {}
+  private initLevelsLayer() {
+    const fontSize = 40;
+    const buttonSize = new Vec2(70, 70);
+    const paddingSize = new Vec2(15, 15);
+
+    const levelOne = this.newButton(
+      new Vec2(240, 590),
+      "1",
+      fontSize,
+      Layers.Levels,
+    );
+    const levelTwo = this.newButton(
+      new Vec2(380, 290),
+      "2",
+      fontSize,
+      Layers.Levels,
+    );
+    const levelThree = this.newButton(
+      new Vec2(560, 480),
+      "3",
+      fontSize,
+      Layers.Levels,
+    );
+    const levelFour = this.newButton(
+      new Vec2(780, 550),
+      "4",
+      fontSize,
+      Layers.Levels,
+    );
+    const levelFive = this.newButton(
+      new Vec2(950, 350),
+      "5",
+      fontSize,
+      Layers.Levels,
+    );
+    const levelSix = this.newButton(
+      new Vec2(820, 120),
+      "6",
+      fontSize,
+      Layers.Levels,
+    );
+
+    levelOne.font = "Mister Pixel";
+    levelOne.setPadding(paddingSize);
+    levelOne.size = buttonSize;
+    levelOne.onClick = () => {
+      this.sceneManager.changeToScene(Level1);
+    };
+
+    levelTwo.font = "Mister Pixel";
+    levelTwo.setPadding(paddingSize);
+    levelTwo.size = buttonSize;
+    levelTwo.onClick = () => {
+      this.sceneManager.changeToScene(Level2);
+    };
+
+    levelThree.font = "Mister Pixel";
+    levelThree.setPadding(paddingSize);
+    levelThree.size = buttonSize;
+    levelThree.onClick = () => {
+      this.sceneManager.changeToScene(Level3);
+    };
+
+    levelFour.font = "Mister Pixel";
+    levelFour.setPadding(paddingSize);
+    levelFour.size = buttonSize;
+    levelFour.onClick = () => {
+      this.sceneManager.changeToScene(Level4);
+    };
+
+    levelFive.font = "Mister Pixel";
+    levelFive.setPadding(paddingSize);
+    levelFive.size = buttonSize;
+    levelFive.onClick = () => {
+      this.sceneManager.changeToScene(Level5);
+    };
+
+    levelSix.font = "Mister Pixel";
+    levelSix.setPadding(paddingSize);
+    levelSix.size = buttonSize;
+    levelSix.onClick = () => {
+      this.sceneManager.changeToScene(Level6);
+    };
+  }
 
   private initControlsMenu() {
     [
