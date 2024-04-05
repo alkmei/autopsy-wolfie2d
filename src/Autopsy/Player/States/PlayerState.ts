@@ -25,7 +25,6 @@ export default abstract class PlayerState extends State {
     this.positionTimer.start();
   }
 
-  // Change the suit color on receiving a suit color change event
   handleInput(event: GameEvent): void {}
 
   /**

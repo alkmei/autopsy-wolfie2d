@@ -15,6 +15,7 @@ import { Action } from "./globals";
       { name: Action.Left, keys: ["a"] },
       { name: Action.Right, keys: ["d"] },
       { name: Action.Jump, keys: ["space"] },
+      { name: Action.Attack, keys: ["j"] },
     ],
     useWebGL: false, // Tell the game we want to use webgl
     showDebug: true, // Whether to show debug messages. You can change this to true if you want

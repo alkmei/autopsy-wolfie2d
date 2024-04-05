@@ -1,6 +1,8 @@
 # Exclude node modules
 node_modules
 
+.vscode
+
 # Exclude the compiled project
 dist/*
 

@@ -6,6 +6,11 @@ import Viewport from "../SceneGraph/Viewport";
 import GameEvent from "../Events/GameEvent";
 import { GameEventType } from "../Events/GameEventType";
 
+type KeyMap = {
+  name: string;
+  keys: string[];
+};
+
 /**
  * Receives input events from the @reference[EventQueue] and allows for easy access of information about input by other systems
  */
@@ -35,8 +40,9 @@ export default class Input {
   /**
    * Initializes the Input object
    * @param viewport A reference to the viewport of the game
+   * @param keyMap List of keys
    */
-  static initialize(viewport: Viewport, keyMap: Array<Record<string, any>>) {
+  static initialize(viewport: Viewport, keyMap: Array<KeyMap>) {
     Input.viewport = viewport;
     Input.mousePressed = false;
     Input.mouseJustPressed = false;
@@ -72,6 +78,15 @@ export default class Input {
       GameEventType.WHEEL_UP,
       GameEventType.WHEEL_DOWN,
     ]);
+  }
+
+  static changeKeyMap(keyMap: Array<KeyMap>) {
+    Input.keyMap = new Map();
+    for (const entry in keyMap) {
+      const name = keyMap[entry].name;
+      const keys = keyMap[entry].keys;
+      Input.keyMap.add(name, keys);
+    }
   }
 
   static update(deltaT: number): void {
