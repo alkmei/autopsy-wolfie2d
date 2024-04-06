@@ -67,9 +67,17 @@ export default class GameLevel extends Scene {
     this.viewport.setSmoothingFactor(0);
 
     this.initPauseLayer();
+    
+    // subscribe to events
+    this.receiver.subscribe(Events.MAIN_MENU);
   }
 
   update(deltaT: number) {
+    if (Input.isJustPressed(Action.Pause)) {
+      Input.disableInput();
+      this.uiLayers.get(Layers.Pause).setHidden(false);
+    }
+
     this.camera.update(deltaT);
     super.update(deltaT);
     this.playerStateLabel.text = (<PlayerController>(
@@ -78,11 +86,6 @@ export default class GameLevel extends Scene {
     this.playerStateLabel.position = this.player.node.position
       .clone()
       .add(new Vec2(0, -40));
-
-    if (Input.isJustPressed(Action.Pause)) {
-      Input.disableInput();
-      this.uiLayers.get(Layers.Pause).setHidden(false);
-    }
 
     // handle events
     while (this.receiver.hasNextEvent()) {
@@ -136,9 +139,8 @@ export default class GameLevel extends Scene {
       52,
       Layers.Pause,
     );
-    menuButton.onClick = () => {
-      this.emitter.fireEvent(Events.MAIN_MENU);
-    }
+
+    menuButton.onClickEventId = Events.MAIN_MENU;
     menuButton.size.x = buttonWidth;
     menuButton.size.y = buttonHeight;
   }
@@ -153,7 +155,6 @@ export default class GameLevel extends Scene {
       position: position,
       text: text,
     });
-    button.backgroundColor = Color.TRANSPARENT;
     button.borderColor = Color.WHITE;
     button.borderWidth = 2;
     button.borderRadius = 0;
@@ -164,15 +165,13 @@ export default class GameLevel extends Scene {
 
     const transColor = new Color(16, 14, 18, 0.9);
     const fillColor = new Color(16, 14, 18, 1);
+    button.backgroundColor = fillColor;
     button.onEnter = () => {
       button.backgroundColor = transColor;
     };
     button.onLeave = () => {
       button.backgroundColor = fillColor;
     };
-    button.onClick  = () => {
-      console.log("hi")
-    }
 
     button.scale.set(1 / this.viewport.getZoomLevel(), 1 / this.viewport.getZoomLevel());
 
