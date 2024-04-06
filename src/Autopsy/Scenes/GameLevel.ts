@@ -139,7 +139,9 @@ export default class GameLevel extends Scene {
       52,
       Layers.Pause,
     );
-
+    menuButton.onClick = () => {
+      Input.enableInput();
+    }
     menuButton.onClickEventId = Events.MAIN_MENU;
     menuButton.size.x = buttonWidth;
     menuButton.size.y = buttonHeight;
