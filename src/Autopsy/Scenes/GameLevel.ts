@@ -30,7 +30,11 @@ export default class GameLevel extends Scene {
 
   playerStateLabel: Label;
 
+  healthBar: Label;
+  healthBarBg: Label;
+
   textColor = new Color(231, 224, 241);
+  healthBarColor = new Color(215, 74, 91);
 
   loadScene() {
     this.load.spritesheet("reaper", "assets/spritesheets/Reaper/reaper.json");
@@ -67,7 +71,8 @@ export default class GameLevel extends Scene {
     this.viewport.setSmoothingFactor(0);
 
     this.initPauseLayer();
-    
+    this.initUI();
+
     // subscribe to events
     this.receiver.subscribe(Events.MAIN_MENU);
   }
@@ -104,12 +109,24 @@ export default class GameLevel extends Scene {
     }
   }
 
+  initUI() {
+    this.healthBar = <Label>this.add.uiElement(UIElementType.LABEL, Layers.UI, {
+      position: new Vec2(70, 30),
+      text: "",
+    });
+    this.healthBar.size = new Vec2(320, 50);
+    this.healthBar.backgroundColor = this.healthBarColor;
+    this.healthBar.borderColor = Color.WHITE;
+    this.healthBar.borderWidth = 2;
+    this.healthBar.borderRadius = 0;
+  }
+
   initPauseLayer() {
     const buttonWidth: number = 450;
     const buttonHeight: number = 65;
 
-    const resumeButton = <Button>this.newButton(
-      new Vec2(100, 50),
+    const resumeButton = this.newButton(
+      new Vec2(100, 70),
       "RESUME",
       52,
       Layers.Pause,
@@ -122,6 +139,19 @@ export default class GameLevel extends Scene {
       this.uiLayers.get(Layers.Pause).setHidden(true);
     };
 
+    const menuButton = this.newButton(
+      new Vec2(100, 70 + 38),
+      "MENU",
+      52,
+      Layers.Pause,
+    );
+    menuButton.onClick = () => {
+      Input.enableInput();
+    };
+    menuButton.onClickEventId = Events.MAIN_MENU;
+    menuButton.size.x = buttonWidth;
+    menuButton.size.y = buttonHeight;
+
     // const controlsButton = this.newButton(
     //   new Vec2(100, 50 + 38),
     //   "CONTROLS",
@@ -132,19 +162,21 @@ export default class GameLevel extends Scene {
     // controlsButton.size.y = buttonHeight;
     // controlsButton.onClick = () => {
     // };
+  }
 
-    const menuButton = this.newButton(
-      new Vec2(100, 50 + 38),
-      "MENU",
-      52,
-      Layers.Pause,
+  protected handleHealthChange(currentHealth: number, maxHealth: number): void {
+    console.log(currentHealth);
+    let unit = this.healthBarBg.size.x / maxHealth;
+
+    this.healthBar.size.set(
+      this.healthBarBg.size.x - unit * (maxHealth - currentHealth),
+      this.healthBarBg.size.y,
     );
-    menuButton.onClick = () => {
-      Input.enableInput();
-    }
-    menuButton.onClickEventId = Events.MAIN_MENU;
-    menuButton.size.x = buttonWidth;
-    menuButton.size.y = buttonHeight;
+    this.healthBar.position.set(
+      this.healthBarBg.position.x -
+        (unit / 2 / this.getViewScale()) * (maxHealth - currentHealth),
+      this.healthBarBg.position.y,
+    );
   }
 
   private newButton(
@@ -164,18 +196,12 @@ export default class GameLevel extends Scene {
     button.font = "MEGAPIX";
     button.fontSize = fontSize;
     button.textColor = this.textColor;
+    button.backgroundColor = new Color(16, 14, 18, 1);
 
-    const transColor = new Color(16, 14, 18, 0.9);
-    const fillColor = new Color(16, 14, 18, 1);
-    button.backgroundColor = fillColor;
-    button.onEnter = () => {
-      button.backgroundColor = transColor;
-    };
-    button.onLeave = () => {
-      button.backgroundColor = fillColor;
-    };
-
-    button.scale.set(1 / this.viewport.getZoomLevel(), 1 / this.viewport.getZoomLevel());
+    button.scale.set(
+      1 / this.viewport.getZoomLevel(),
+      1 / this.viewport.getZoomLevel(),
+    );
 
     return button;
   }
