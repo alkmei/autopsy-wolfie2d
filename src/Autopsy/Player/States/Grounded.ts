@@ -29,6 +29,10 @@ export default class Grounded extends PlayerState {
       this.parent.velocity.y = 0.1;
     }
 
+    if (Input.isJustPressed(Action.Dash)) {
+      this.finished(PState.Dashing);
+    }
+
     if (!this.owner.onGround) this.finished(PState.Descending);
   }
 

@@ -1,5 +1,7 @@
 import InAir from "./InAir";
 import { PState } from "../PlayerController";
+import Input from "../../../Wolfie2D/Input/Input";
+import { Action } from "../../../globals";
 
 export default class Descending extends InAir {
   onEnter(options: Record<string, any>) {
@@ -9,6 +11,11 @@ export default class Descending extends InAir {
 
   update(deltaT: number) {
     super.update(deltaT);
+
+    if (Input.isJustPressed(Action.Dash)) {
+      this.finished(PState.Dashing);
+    }
+
     if (this.parent.velocity.y < 0) this.finished(PState.Ascending);
   }
 }

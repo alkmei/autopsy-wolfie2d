@@ -358,15 +358,15 @@ export default class Input {
    * Disables all keypress and mouse click inputs
    */
   static disableInput(): void {
+    // changed to only disable keyboard input
     Input.keysDisabled = true;
-    Input.mouseDisabled = true;
   }
 
   /**
    * Enables all keypress and mouse click inputs
    */
   static enableInput(): void {
+    // changed to only enable keyboard input
     Input.keysDisabled = false;
-    Input.mouseDisabled = false;
   }
 }

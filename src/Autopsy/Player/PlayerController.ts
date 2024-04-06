@@ -4,12 +4,14 @@ import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Grounded from "./States/Grounded";
 import Ascending from "./States/Ascending";
 import Descending from "./States/Descending";
+import Dashing from "./States/Dashing";
 import PlayerState from "./States/PlayerState";
 
 export enum PState {
   Grounded = "grounded",
   Ascending = "ascending",
   Descending = "descending",
+  Dashing = "dashing",
 }
 
 export default class PlayerController extends StateMachineAI {
@@ -31,6 +33,7 @@ export default class PlayerController extends StateMachineAI {
     this.addState(PState.Grounded, new Grounded(this, this.owner));
     this.addState(PState.Ascending, new Ascending(this, this.owner));
     this.addState(PState.Descending, new Descending(this, this.owner));
+    this.addState(PState.Dashing, new Dashing(this, this.owner));
 
     this.initialize(PState.Descending);
   }
