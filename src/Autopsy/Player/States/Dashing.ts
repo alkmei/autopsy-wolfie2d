@@ -1,7 +1,6 @@
 import PlayerState from "./PlayerState";
 import { PState } from "../PlayerController";
 import Timer from "../../../Wolfie2D/Timing/Timer";
-import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 
 export default class Dashing extends PlayerState {
   private dashTimer: Timer;
@@ -9,8 +8,9 @@ export default class Dashing extends PlayerState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "Dashing";
 
-    this.parent.velocity.x = 200;
     this.parent.velocity.y = 0;
+
+    this.owner.animation.playIfNotAlready("Dash");
 
     this.dashTimer = new Timer(
       200,
@@ -22,10 +22,10 @@ export default class Dashing extends PlayerState {
 
   update(deltaT: number) {
     super.update(deltaT);
-    this.owner.move(new Vec2(200, 0));
-    if (this.owner.onWall) {
-        this.finished(PState.Descending);
-    }
+    this.parent.velocity.x = 600 * this.getInputDirection().x * deltaT;
+    // if (this.owner.onWall) {
+    //   this.finished(PState.Descending);
+    // }
   }
 
   onExit(): Record<string, any> {
