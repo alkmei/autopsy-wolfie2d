@@ -5,7 +5,6 @@ import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Color from "../../Wolfie2D/Utils/Color";
 import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
 import UILayer from "../../Wolfie2D/Scene/Layers/UILayer";
-import GameLevel from "./GameLevel";
 import Level1 from "./Level1";
 import Level2 from "./Level2";
 import Level3 from "./Level3";
