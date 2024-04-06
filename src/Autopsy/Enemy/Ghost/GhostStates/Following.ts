@@ -16,6 +16,7 @@ export default class Following extends GhostState {
         this.parent.direction = this.parent.randomDirection();
         this.FollowingCDTimer.start();
         this.finished(GState.Drifting);
+        return;
 
       }
       else if(this.owner.onWall || this.owner.onCeiling || this.owner.onGround){
@@ -23,6 +24,7 @@ export default class Following extends GhostState {
             this.parent.direction = this.parent.randomDirection();
             this.FollowingCDTimer.start();
             this.finished(GState.Drifting);
+            return;
 
         }
       }
@@ -31,6 +33,12 @@ export default class Following extends GhostState {
       }
 
       this.parent.direction = this.owner.position.dirTo(this.playerPos);
+
+      if (Math.sign(this.parent.direction.x) == -1) {
+        (<AnimatedSprite>this.owner).invertX = true;
+      } else if (Math.sign(this.parent.direction.x) == 1) {
+        (<AnimatedSprite>this.owner).invertX = false;
+      }
 
       this.parent.velocity.x = this.parent.direction.x * this.parent.follow_speed * deltaT;
       this.parent.velocity.y = this.parent.direction.y * this.parent.follow_speed * deltaT;

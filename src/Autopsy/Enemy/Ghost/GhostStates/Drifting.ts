@@ -17,10 +17,16 @@ export default class Drifting extends GhostState {
             this.finished(GState.Following);
         }
         else{
-        this.parent.velocity.x = this.parent.direction.x * this.parent.drift_speed * deltaT;
-        this.parent.velocity.y = this.parent.direction.y * this.parent.drift_speed * deltaT;
+            if (Math.sign(this.parent.direction.x) == -1) {
+                (<AnimatedSprite>this.owner).invertX = true;
+              } else if (Math.sign(this.parent.direction.x) == 1) {
+                (<AnimatedSprite>this.owner).invertX = false;
+            }
 
-        this.owner.move(this.parent.velocity);
+            this.parent.velocity.x = this.parent.direction.x * this.parent.drift_speed * deltaT;
+            this.parent.velocity.y = this.parent.direction.y * this.parent.drift_speed * deltaT;
+
+            this.owner.move(this.parent.velocity);
         }
     }
 
