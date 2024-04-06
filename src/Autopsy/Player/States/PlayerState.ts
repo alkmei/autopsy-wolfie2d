@@ -9,9 +9,6 @@ import PlayerController from "../PlayerController";
 import { Action } from "../../../globals";
 import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 
-const physOffsetRight = new Vec2(5, 0);
-const physOffsetLeft = new Vec2(-5, 0);
-
 export default abstract class PlayerState extends State {
   owner: AnimatedSprite;
   parent: PlayerController;
@@ -39,19 +36,14 @@ export default abstract class PlayerState extends State {
   }
 
   update(deltaT: number): void {
-    let dir = 0;
-    if (Input.isPressed(Action.Left)) {
-      dir -= 1;
+    let dir = this.getInputDirection();
+    if (dir.x == -1) {
       this.owner.invertX = true;
-      this.owner.colliderOffset = physOffsetLeft;
-    }
-    if (Input.isPressed(Action.Right)) {
-      dir += 1;
+    } else if (dir.x == 1) {
       this.owner.invertX = false;
-      this.owner.colliderOffset = physOffsetRight;
     }
 
     this.parent.velocity = this.owner.getLastVelocity();
-    this.parent.velocity.x = dir * this.parent.speed * deltaT;
+    this.parent.velocity.x = dir.x * this.parent.speed * deltaT;
   }
 }

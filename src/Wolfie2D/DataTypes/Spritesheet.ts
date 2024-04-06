@@ -10,13 +10,13 @@ export default class Spritesheet {
   /** The image key of the spritesheet */
   spriteSheetImage: string;
   /** The width of the sprite */
-  // spriteWidth: number;
-  // /** The height of the sprite */
-  // spriteHeight: number;
-  // /** The number of columns in the spritesheet */
-  // columns: number;
-  // /** The number of rows in the spritesheet */
-  // rows: number;
+  spriteWidth: number;
+  /** The height of the sprite */
+  spriteHeight: number;
+  /** The number of columns in the spritesheet */
+  columns: number;
+  /** The number of rows in the spritesheet */
+  rows: number;
   /** An array of the animations associated with this spritesheet */
   animations: Array<AnimationData>;
 }

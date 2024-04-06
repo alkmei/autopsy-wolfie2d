@@ -18,8 +18,6 @@ export class AnimationData {
 export class AnimationFrame {
   index: number;
   duration: number;
-  w: number;
-  h: number;
   x: number;
   y: number;
 }
