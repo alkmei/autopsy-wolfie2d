@@ -17,8 +17,8 @@ export default class GhostController extends StateMachineAI {
   //direction_op = [new Vec2(1,1),new Vec2(1,-1),new Vec2(-1,1),new Vec2(-1,-1)]
   direction: Vec2 = Vec2.ZERO;
   velocity: Vec2 = Vec2.ZERO;
-  drift_speed = 200;
-  follow_speed = 300
+  drift_speed = 100;
+  follow_speed = 200;
   gravity = 0;
 
   initializeAI(owner: GameNode, config: Record<string, any>) {
