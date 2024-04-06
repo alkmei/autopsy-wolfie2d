@@ -5,6 +5,7 @@ import Grounded from "./States/Grounded";
 import Ascending from "./States/Ascending";
 import Descending from "./States/Descending";
 import PlayerState from "./States/PlayerState";
+import { Events } from "../Event_enum";
 
 export enum PState {
   Grounded = "grounded",
@@ -43,6 +44,7 @@ export default class PlayerController extends StateMachineAI {
   update(deltaT: number) {
     super.update(deltaT);
     this.owner.move(this.velocity);
+    this.emitter.fireEvent(Events.PLAYER_MOVE,{pos: this.owner.position.clone()})
   }
 
   get state() {

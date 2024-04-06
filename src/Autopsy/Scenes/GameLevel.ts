@@ -8,7 +8,7 @@ import { UIElementType } from "../../Wolfie2D/Nodes/UIElements/UIElementTypes";
 import PlayerController from "../Player/PlayerController";
 import Color from "../../Wolfie2D/Utils/Color";
 
-enum Layers {
+export enum Layers {
   Main = "main",
   UI = "ui",
   Background = "bg",
@@ -28,6 +28,10 @@ export default class GameLevel extends Scene {
     this.addUILayer(Layers.UI);
     this.addLayer(Layers.Debug, 2);
     this.addLayer(Layers.Hidden, 1).setHidden(true);
+  }
+
+  unloadScene(): void {
+    this.resourceManager.keepSpritesheet("reaper");
   }
 
   startScene() {
