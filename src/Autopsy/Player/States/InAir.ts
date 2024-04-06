@@ -5,6 +5,7 @@ import MathUtils from "../../../Wolfie2D/Utils/MathUtils";
 export default class InAir extends PlayerState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "InAir";
+    this.owner.animation.playIfNotAlready("Jump");
   }
 
   update(deltaT: number) {
@@ -12,7 +13,7 @@ export default class InAir extends PlayerState {
     this.parent.velocity.y = Math.min(
       this.parent.gravity * deltaT + this.parent.velocity.y,
       10,
-    );  
+    );
 
     // TODO: Remove in actual game release :)
     if (this.owner.position.y > 2000) this.owner.position.y = 900;

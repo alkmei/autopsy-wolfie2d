@@ -22,31 +22,29 @@ class AnimationData:
 
 
 class Frame:
-    def __init__(self, index, duration, x, y, w, h):
+    def __init__(self, index, duration, x, y):
         self.index = index
         self.duration = duration
         self.x = x
         self.y = y
-        self.w = w
-        self.h = h
 
 
 def from_aseprite(sheet, name, scale):
     sprite_sheet = Spritesheet()
     sprite_sheet.name = name
     sprite_sheet.spriteSheetImage = sheet["meta"]["image"]
-    # sprite_sheet.spriteWidth = sheet['frames'][0]['frame']['w']
-    # sprite_sheet.spriteHeight = sheet['frames'][0]['frame']['h']
+    sprite_sheet.spriteWidth = sheet["frames"][0]["frame"]["w"]
+    sprite_sheet.spriteHeight = sheet["frames"][0]["frame"]["h"]
 
-    # max_x = 0
-    # max_y = 0
+    max_x = 0
+    max_y = 0
 
-    # for f in sheet['frames']:
-    #     max_x = max(max_x, f['frame']['x'] + f['frame']['w'])
-    #     max_y = max(max_y, f['frame']['y'] + f['frame']['h'])
+    for f in sheet["frames"]:
+        max_x = max(max_x, f["frame"]["x"] + f["frame"]["w"])
+        max_y = max(max_y, f["frame"]["y"] + f["frame"]["h"])
 
-    # sprite_sheet.columns = -(-max_x // sprite_sheet.spriteWidth)
-    # sprite_sheet.rows = -(-max_y // sprite_sheet.spriteHeight)
+    sprite_sheet.columns = -(-max_x // sprite_sheet.spriteWidth)
+    sprite_sheet.rows = -(-max_y // sprite_sheet.spriteHeight)
 
     sprite_sheet.animations = []
 
@@ -59,10 +57,8 @@ def from_aseprite(sheet, name, scale):
             frame = Frame(
                 i,
                 sheet["frames"][i]["duration"] / 10,
-                sheet["frames"][i]["frame"]["x"] * scale,
-                sheet["frames"][i]["frame"]["y"] * scale,
-                sheet["frames"][i]["frame"]["w"] * scale,
-                sheet["frames"][i]["frame"]["h"] * scale,
+                sheet["frames"][i]["frame"]["x"],
+                sheet["frames"][i]["frame"]["y"],
             )
             animation.frames.append(frame)
 

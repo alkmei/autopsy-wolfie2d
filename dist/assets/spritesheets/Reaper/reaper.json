@@ -1,10 +1,10 @@
 {
-    "name": "Reaper",
+    "name": "ReaperHooded.json",
     "spriteSheetImage": "ReaperHooded.png",
-    "spriteWidth": 0,
-    "spriteHeight": 0,
-    "columns": 0,
-    "rows": 0,
+    "spriteWidth": 132,
+    "spriteHeight": 88,
+    "columns": 6,
+    "rows": 5,
     "animations": [
         {
             "name": "Idle",
@@ -12,34 +12,73 @@
                 {
                     "index": 0,
                     "duration": 10.0,
-                    "x": 0,
-                    "y": 0,
-                    "w": 68,
-                    "h": 48
+                    "x": 120,
+                    "y": 176
                 },
                 {
                     "index": 1,
                     "duration": 10.0,
-                    "x": 68,
-                    "y": 0,
-                    "w": 68,
-                    "h": 48
+                    "x": 120,
+                    "y": 352
                 },
                 {
                     "index": 2,
                     "duration": 10.0,
-                    "x": 136,
-                    "y": 0,
-                    "w": 68,
-                    "h": 48
+                    "x": 0,
+                    "y": 352
                 },
                 {
                     "index": 3,
                     "duration": 10.0,
-                    "x": 204,
-                    "y": 0,
-                    "w": 68,
-                    "h": 48
+                    "x": 600,
+                    "y": 264
+                }
+            ]
+        },
+        {
+            "name": "Walk",
+            "frames": [
+                {
+                    "index": 4,
+                    "duration": 5.5,
+                    "x": 480,
+                    "y": 264
+                },
+                {
+                    "index": 5,
+                    "duration": 5.5,
+                    "x": 360,
+                    "y": 264
+                },
+                {
+                    "index": 6,
+                    "duration": 5.5,
+                    "x": 240,
+                    "y": 264
+                },
+                {
+                    "index": 7,
+                    "duration": 5.5,
+                    "x": 120,
+                    "y": 264
+                },
+                {
+                    "index": 8,
+                    "duration": 5.5,
+                    "x": 0,
+                    "y": 264
+                },
+                {
+                    "index": 9,
+                    "duration": 5.5,
+                    "x": 600,
+                    "y": 176
+                },
+                {
+                    "index": 10,
+                    "duration": 5.5,
+                    "x": 480,
+                    "y": 176
                 }
             ]
         },
@@ -47,76 +86,104 @@
             "name": "Scythe Slash",
             "frames": [
                 {
-                    "index": 4,
-                    "duration": 2.0,
-                    "x": 0,
-                    "y": 48,
-                    "w": 68,
-                    "h": 48
-                },
-                {
-                    "index": 5,
-                    "duration": 2.0,
-                    "x": 68,
-                    "y": 48,
-                    "w": 68,
-                    "h": 48
-                },
-                {
-                    "index": 6,
-                    "duration": 2.0,
-                    "x": 136,
-                    "y": 48,
-                    "w": 68,
-                    "h": 48
-                },
-                {
-                    "index": 7,
-                    "duration": 2.0,
-                    "x": 204,
-                    "y": 48,
-                    "w": 68,
-                    "h": 48
-                },
-                {
-                    "index": 8,
-                    "duration": 2.0,
-                    "x": 272,
-                    "y": 48,
-                    "w": 68,
-                    "h": 48
-                },
-                {
-                    "index": 9,
-                    "duration": 3.5,
-                    "x": 340,
-                    "y": 48,
-                    "w": 68,
-                    "h": 48
-                },
-                {
-                    "index": 10,
-                    "duration": 3.5,
-                    "x": 408,
-                    "y": 48,
-                    "w": 68,
-                    "h": 48
-                },
-                {
                     "index": 11,
-                    "duration": 10.0,
-                    "x": 476,
-                    "y": 48,
-                    "w": 68,
-                    "h": 48
+                    "duration": 2.0,
+                    "x": 360,
+                    "y": 176
                 },
                 {
                     "index": 12,
+                    "duration": 2.0,
+                    "x": 240,
+                    "y": 176
+                },
+                {
+                    "index": 13,
+                    "duration": 2.0,
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "index": 14,
+                    "duration": 2.0,
+                    "x": 0,
+                    "y": 176
+                },
+                {
+                    "index": 15,
+                    "duration": 2.0,
+                    "x": 600,
+                    "y": 88
+                },
+                {
+                    "index": 16,
+                    "duration": 3.5,
+                    "x": 480,
+                    "y": 88
+                },
+                {
+                    "index": 17,
+                    "duration": 3.5,
+                    "x": 360,
+                    "y": 88
+                },
+                {
+                    "index": 18,
                     "duration": 10.0,
-                    "x": 544,
-                    "y": 48,
-                    "w": 68,
-                    "h": 48
+                    "x": 240,
+                    "y": 88
+                },
+                {
+                    "index": 19,
+                    "duration": 10.0,
+                    "x": 120,
+                    "y": 88
+                }
+            ]
+        },
+        {
+            "name": "Jump",
+            "frames": [
+                {
+                    "index": 20,
+                    "duration": 5.0,
+                    "x": 0,
+                    "y": 88
+                },
+                {
+                    "index": 21,
+                    "duration": 5.0,
+                    "x": 600,
+                    "y": 0
+                },
+                {
+                    "index": 22,
+                    "duration": 30.0,
+                    "x": 480,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "name": "Dash",
+            "frames": [
+                {
+                    "index": 23,
+                    "duration": 4.0,
+                    "x": 360,
+                    "y": 0
+                },
+                {
+                    "index": 24,
+                    "duration": 4.0,
+                    "x": 240,
+                    "y": 0
+                },
+                {
+                    "index": 25,
+                    "duration": 15.0,
+                    "x": 120,
+                    "y": 0
                 }
             ]
         }
