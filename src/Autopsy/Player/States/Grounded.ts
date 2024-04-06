@@ -26,6 +26,10 @@ export default class Grounded extends PlayerState {
       this.owner.animation.play("Scythe Slash", false);
     }
 
+    if (Input.isJustPressed(Action.Dash)) {
+      this.finished(PState.Dashing);
+    }
+
     if (!this.owner.onGround) this.finished(PState.Descending);
   }
 
