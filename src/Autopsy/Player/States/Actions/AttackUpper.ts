@@ -1,10 +1,10 @@
 import PlayerActionState from "./PlayerActionState";
 import Hitbox from "../../../Hitbox/Hitbox";
-import { Events } from "../../../../globals";
 import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 import { ActionState } from "../../Player";
 import { Layers } from "../../../Scenes/GameLevel";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
+import { DamageType } from "../../../Hitbox/DamageType";
 
 export default class AttackUpper extends PlayerActionState {
   onEnter(options: Record<string, any>): void {
@@ -23,11 +23,11 @@ export default class AttackUpper extends PlayerActionState {
         let hitbox = new Hitbox(
           this.owner,
           sprite,
-          Events.ENEMY_DAMAGE,
+          DamageType.TO_ENEMY,
           new Vec2(0, 0),
           new Vec2(24, 48),
           this.player.node.invertX,
-          offset
+          offset,
         );
       },
       false,

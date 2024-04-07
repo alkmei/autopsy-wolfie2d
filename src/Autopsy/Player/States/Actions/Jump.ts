@@ -20,5 +20,6 @@ export default class Jump extends PlayerActionState {
         this.player.movementStateMachine.changeState(MovementState.Descending);
       this.finished(ActionState.Idle);
     }
+    if (Input.isJustPressed(Action.Dash)) this.finished(ActionState.Dash);
   }
 }

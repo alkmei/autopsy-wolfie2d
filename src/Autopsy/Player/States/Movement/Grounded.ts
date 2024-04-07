@@ -3,6 +3,8 @@ import Input from "../../../../Wolfie2D/Input/Input";
 import { Action } from "../../../../globals";
 import { ActionState, MovementState } from "../../Player";
 import PlayerMovementState from "./PlayerMovementState";
+import PlayerActionState from "../Actions/PlayerActionState";
+import Idle from "../Actions/Idle";
 
 export default class Grounded extends PlayerMovementState {
   onEnter(options: Record<string, any>): void {
@@ -31,7 +33,10 @@ export default class Grounded extends PlayerMovementState {
       this.player.velocity.y = 0.00001;
     }
 
-    if (Input.isJustPressed(Action.Attack)) {
+    if (
+      Input.isJustPressed(Action.Attack) &&
+      this.player.actionStateMachine.getState() instanceof Idle
+    ) {
       this.player.actionStateMachine.changeState(ActionState.Attack);
     }
 

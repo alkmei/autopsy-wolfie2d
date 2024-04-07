@@ -21,7 +21,7 @@ export default class Ghost {
       new Vec2(0, 0),
     );
     this.node.addAI(GhostController);
-    this.node.setGroup("ghost");
+    this.node.setGroup("enemy");
     this.node.position = pos;
     this.node.animation.play("Idle", true);
     this.health = 10;

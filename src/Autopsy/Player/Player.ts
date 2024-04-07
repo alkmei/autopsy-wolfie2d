@@ -49,6 +49,7 @@ export default class Player implements Updateable {
   constructor(sprite: AnimatedSprite) {
     this.node = sprite;
     this.node.addPhysics(new AABB(new Vec2(0, 0), new Vec2(18, 24)));
+    this.node.setGroup("player");
     this.node.position = new Vec2(100, 50);
     this.node.animation.play("Idle", true);
     this.health = 10;

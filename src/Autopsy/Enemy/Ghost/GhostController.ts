@@ -4,7 +4,6 @@ import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import GhostState from "./GhostStates/GhostState";
 import Drifting from "./GhostStates/Drifting";
 import Following from "./GhostStates/Following";
-import { Events } from "../../Event_enum";
 
 export enum GState {
   Drifting = "drifting",
@@ -16,14 +15,12 @@ export default class GhostController extends StateMachineAI {
   //direction_op = [new Vec2(1,1),new Vec2(1,-1),new Vec2(-1,1),new Vec2(-1,-1)]
   direction: Vec2 = Vec2.ZERO;
   velocity: Vec2 = Vec2.ZERO;
-  drift_speed = 100;
-  follow_speed = 200;
+  drift_speed = 50;
+  follow_speed = 100;
   gravity = 0;
 
   initializeAI(owner: GameNode, config: Record<string, any>) {
     this.owner = owner;
-
-    this.receiver.subscribe(Events.PLAYER_MOVE);
 
     this.direction = this.randomDirection();
     this.initializeStates();
