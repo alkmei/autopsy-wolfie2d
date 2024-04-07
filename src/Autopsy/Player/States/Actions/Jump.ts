@@ -11,7 +11,7 @@ export default class Jump extends PlayerActionState {
   }
 
   onExit(): Record<string, any> {
-    return undefined;
+    return {};
   }
 
   update(deltaT: number): void {

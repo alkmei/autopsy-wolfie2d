@@ -2,16 +2,22 @@ import StateMachineAI from "../../Wolfie2D/AI/StateMachineAI";
 import GameNode from "../../Wolfie2D/Nodes/GameNode";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import HitboxState from "./HitboxStates/HitboxState";
-import Active from "./HitboxStates/Active";
+import BasicSlash from "./HitboxStates/BasicSlash";
 import { HState } from "./Hitbox";
+import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 
 export default class HitboxController extends StateMachineAI {
+  player: AnimatedSprite;
   owner: GameNode;
-  direction: Vec2 = Vec2.ZERO;
   velocity: Vec2 = Vec2.ZERO;
+  invertX: boolean;
+  offset: Vec2;
 
   initializeAI(owner: GameNode, config: Record<string, any>) {
     this.owner = owner;
+    this.player = config.player;
+    this.invertX = config.invertX;
+    this.offset = config.offset;
 
     // subscribe to events maybe
 
@@ -20,7 +26,7 @@ export default class HitboxController extends StateMachineAI {
 
   initializeStates() {
     // add states
-    this.addState(HState.Active, new Active(this, this.owner));
+    this.addState(HState.Active, new BasicSlash(this, this.owner));
 
     // add initial state
     this.initialize(HState.Active);

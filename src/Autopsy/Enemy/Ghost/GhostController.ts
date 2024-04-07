@@ -6,10 +6,9 @@ import Drifting from "./GhostStates/Drifting";
 import Following from "./GhostStates/Following";
 import { Events } from "../../Event_enum";
 
-
 export enum GState {
   Drifting = "drifting",
-  Following = "following"
+  Following = "following",
 }
 
 export default class GhostController extends StateMachineAI {
@@ -24,7 +23,7 @@ export default class GhostController extends StateMachineAI {
   initializeAI(owner: GameNode, config: Record<string, any>) {
     this.owner = owner;
 
-    this.receiver.subscribe(Events.PLAYER_MOVE)
+    this.receiver.subscribe(Events.PLAYER_MOVE);
 
     this.direction = this.randomDirection();
     this.initializeStates();
@@ -42,8 +41,8 @@ export default class GhostController extends StateMachineAI {
     this.owner.move(this.velocity);
   }
 
-  randomDirection(){
-    return Vec2.UP.rotateCCW(Math.random()*Math.PI*2);
+  randomDirection() {
+    return Vec2.UP.rotateCCW(Math.random() * Math.PI * 2);
   }
 
   get state() {

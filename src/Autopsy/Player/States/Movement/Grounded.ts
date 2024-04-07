@@ -13,16 +13,22 @@ export default class Grounded extends PlayerMovementState {
     super.update(deltaT);
     const dir = this.getInputDirection();
 
-    if (dir.x != 0) {
-      this.owner.animation.playIfNotAlready("Walk", true);
-    } else {
-      this.owner.animation.playIfNotAlready("Idle", true);
+    if (!this.owner.animation.isPlaying("Scythe Slash")) {
+      if (dir.x != 0) {
+        this.owner.animation.playIfNotAlready("Walk", true);
+      } else {
+        this.owner.animation.playIfNotAlready("Idle", true);
+      }
     }
-
+    
     if (Input.isJustPressed(Action.Jump)) {
       this.player.actionStateMachine.changeState(ActionState.Jump);
     } else {
       this.player.velocity.y = 0.00001;
+    }
+
+    if (Input.isJustPressed(Action.Attack)) {
+      this.player.actionStateMachine.changeState(ActionState.Attack);
     }
 
     if (!this.owner.onGround) this.finished(MovementState.Descending);

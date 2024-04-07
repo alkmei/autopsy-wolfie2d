@@ -9,6 +9,8 @@ import Descending from "./States/Movement/Descending";
 import Dashing from "./States/Actions/Dashing";
 import Idle from "./States/Actions/Idle";
 import Jump from "./States/Actions/Jump";
+import { Action } from "../../globals";
+import Attack from "./States/Actions/Attack";
 
 export enum MovementState {
   Grounded = "grounded",
@@ -80,6 +82,10 @@ export default class Player implements Updateable {
       .addState(
         ActionState.Jump,
         new Jump(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.Attack,
+        new Attack(this.actionStateMachine, this.node, this),
       )
       .initialize(ActionState.Idle);
   }
