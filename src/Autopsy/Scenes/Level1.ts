@@ -8,7 +8,6 @@ export default class Level1 extends GameLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
-    //this.load.spritesheet("ghost","assets/spritesheets/Ghost/blueBalloon.json")
   }
 
   startScene() {
@@ -17,10 +16,20 @@ export default class Level1 extends GameLevel {
     this.camera.node.position = this.player.node.position.clone();
     this.add.tilemap("tilemap", new Vec2(1, 1));
     this.viewport.setBounds(0, 0, 6400, 1280);
-    let ghost = new Ghost(
-      this.add.animatedSprite('reaper', Layers.Main),
-      new Vec2(4160, 448),
-      GhostType.RED
-    )
+
+    this.initializeGhosts();
+
+  }
+
+  initializeGhosts() {
+    for (let i = 0; i < 1; i++) {
+      const ghost = new Ghost(
+        this.add.animatedSprite("RedSoul", Layers.Main),
+        new Vec2(200, 1000),
+        GhostType.RED,
+      );
+
+      this.enemies.push(ghost);
+    }
   }
 }

@@ -39,8 +39,17 @@ export default class StateMachine implements Updateable {
     this.emitEventOnStateChange = false;
   }
 
+  subscribe(eventTypes: string | string[]) {
+    this.receiver.subscribe(eventTypes);
+    return this;
+  }
+
   getState() {
     return this.currentState;
+  }
+
+  isState(state: string) {
+    return this.stateMap.get(state) == this.currentState;
   }
 
   /**

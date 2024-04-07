@@ -13,6 +13,10 @@ import MainMenu from "./MainMenu";
 import Input from "../../Wolfie2D/Input/Input";
 import { Action } from "../../globals";
 import PlayerState from "../Player/States/PlayerState";
+import Ghost from "../Enemy/Ghost/Ghost";
+import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
+import SceneManager from "../../Wolfie2D/Scene/SceneManager";
+import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
 
 export enum Layers {
   Main = "main",
@@ -27,7 +31,11 @@ export default class GameLevel extends Scene {
   player: Player;
   camera: Camera;
 
+  // TODO: Make Enemy.ts and ghost inherit from that
+  enemies: Array<Ghost>;
+
   playerStateLabel: Label;
+  playerActionStateLabel: Label;
 
   healthBar: Label;
   healthBarBg: Label;
@@ -35,8 +43,37 @@ export default class GameLevel extends Scene {
   textColor = new Color(231, 224, 241);
   healthBarColor = new Color(215, 74, 91);
 
+  public constructor(
+    viewport: Viewport,
+    sceneManager: SceneManager,
+    renderingManager: RenderingManager,
+    options: Record<string, any>,
+  ) {
+    super(viewport, sceneManager, renderingManager, options);
+
+    // TODO: change to type enemy when implemented
+    this.enemies = new Array<Ghost>();
+  }
+
   loadScene() {
+    // reaper and animations
     this.load.spritesheet("reaper", "assets/spritesheets/Reaper/reaper.json");
+    this.load.spritesheet(
+      "ScytheSlash",
+      "assets/spritesheets/Reaper/ReaperVFX/ScytheSlash.json",
+    );
+    this.load.spritesheet(
+      "ScytheUpper",
+      "assets/spritesheets/Reaper/ReaperVFX/ScytheUpper.json",
+    );
+    this.load.spritesheet(
+      "ScytheDown",
+      "assets/spritesheets/Reaper/ReaperVFX/ScytheDown.json",
+    );
+
+    // red soul enemy
+    this.load.spritesheet("RedSoul", "assets/spritesheets/RedSoul/RedSoul.json");
+
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
     this.addUILayer(Layers.Pause).setHidden(true);
@@ -69,6 +106,18 @@ export default class GameLevel extends Scene {
     );
     this.playerStateLabel.font = "Mister Pixel";
     this.playerStateLabel.textColor = Color.WHITE;
+
+    this.playerActionStateLabel = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.Debug,
+      {
+        position: this.player.node.position.clone(),
+        text: "",
+      },
+    );
+    this.playerActionStateLabel.font = "Mister Pixel";
+    this.playerActionStateLabel.textColor = Color.WHITE;
+
     this.viewport.follow(this.camera.node);
     this.viewport.setZoomLevel(2);
     this.viewport.setSmoothingFactor(0);
@@ -78,6 +127,10 @@ export default class GameLevel extends Scene {
 
     // subscribe to events
     this.receiver.subscribe(Events.MAIN_MENU);
+    this.receiver.subscribe(Events.ENEMY_DAMAGE);
+    this.receiver.subscribe(Events.PLAYER_DAMAGE);
+    this.receiver.subscribe(Events.ENEMY_DEATH);
+    this.receiver.subscribe(Events.PLAYER_DEATH);
   }
 
   update(deltaT: number) {
@@ -98,9 +151,15 @@ export default class GameLevel extends Scene {
       .clone()
       .add(new Vec2(0, -40));
 
+    this.playerActionStateLabel.text = (<PlayerState>(
+      this.player.actionStateMachine.getState()
+    )).stateName;
+    this.playerActionStateLabel.position = this.player.node.position
+      .clone()
+      .add(new Vec2(0, -80));
+
     // handle events
     while (this.receiver.hasNextEvent()) {
-      console.log("this should go off if there is event");
       this.handleEvent(this.receiver.getNextEvent());
     }
   }
@@ -109,7 +168,43 @@ export default class GameLevel extends Scene {
     switch (event.type) {
       case Events.MAIN_MENU: {
         this.sceneManager.changeToScene(MainMenu);
-        console.log("attempt to swap to main menu");
+
+        break;
+      }
+
+      // Damage events
+      case Events.ENEMY_DAMAGE: {
+        let enemy = event.data.get("enemy");
+        enemy.health -= 1;
+
+        if (enemy.health <= 0)
+          this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });
+
+        break;
+      }
+      case Events.PLAYER_DAMAGE: {
+        this.player.health -= 1;
+
+        if (this.player.health <= 0)
+          this.emitter.fireEvent(Events.PLAYER_DEATH);
+
+        break;
+      }
+
+      // Death events
+      // TODO: Death animations
+      case Events.ENEMY_DEATH: {
+        let enemy = event.data.get("enemy");
+        console.log(enemy);
+        enemy.node.destroy();
+        this.enemies = this.enemies.filter((e) => e !== enemy);
+
+        break;
+      }
+      case Events.PLAYER_DEATH: {
+        // death anim -> some screen/main menu for now
+        this.sceneManager.changeToScene(MainMenu);
+
         break;
       }
     }
