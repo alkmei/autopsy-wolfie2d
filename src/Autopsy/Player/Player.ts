@@ -11,6 +11,8 @@ import Idle from "./States/Actions/Idle";
 import Jump from "./States/Actions/Jump";
 import { Action } from "../../globals";
 import Attack from "./States/Actions/Attack";
+import AttackDown from "./States/Actions/AttackDown";
+import AttackUpper from "./States/Actions/AttackUpper";
 
 export enum MovementState {
   Grounded = "grounded",
@@ -21,6 +23,8 @@ export enum MovementState {
 export enum ActionState {
   Dash = "dash",
   Attack = "attack",
+  AttackUpper = "attackUpper",
+  AttackDown = "attackDown",
   Idle = "idle",
   Jump = "jump",
 }
@@ -86,6 +90,14 @@ export default class Player implements Updateable {
       .addState(
         ActionState.Attack,
         new Attack(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.AttackUpper,
+        new AttackUpper(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.AttackDown,
+        new AttackDown(this.actionStateMachine, this.node, this),
       )
       .initialize(ActionState.Idle);
   }

@@ -13,15 +13,14 @@ export default class Hitbox {
   node: AnimatedSprite;
   eventType: string;
 
-  constructor(player: AnimatedSprite, sprite: AnimatedSprite, pos: Vec2, eventType: string, center: Vec2, halfSize: Vec2, invertX: boolean, offset: Vec2) {
+  constructor(player: AnimatedSprite, sprite: AnimatedSprite, eventType: string, center: Vec2, halfSize: Vec2, invertX: boolean, offset: Vec2) {
     this.node = sprite;
     this.node.addPhysics(
         new AABB(center, halfSize),
         new Vec2(0, 0),
     );
-    
+
     this.node.addAI(HitboxController, { player: player, invertX: invertX, offset: offset });   
-    this.node.position = pos;
     this.eventType = eventType;
   }
 }

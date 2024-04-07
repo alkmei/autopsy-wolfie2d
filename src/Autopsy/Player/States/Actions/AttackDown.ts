@@ -6,26 +6,26 @@ import { ActionState } from "../../Player";
 import { Layers } from "../../../Scenes/GameLevel";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 
-export default class Attack extends PlayerActionState {
+export default class AttackDown extends PlayerActionState {
   onEnter(options: Record<string, any>): void {
-    this.stateName = "Attack";
-    this.owner.animation.playIfNotAlready("Scythe Slash");
+    this.stateName = "AttackDown";
+    this.owner.animation.playIfNotAlready("Scythe Down");
 
-    const offset = new Vec2(60, 0);
+    const offset = new Vec2(40, 0);
 
     const sprite = this.player.node
       .getScene()
-      .add.animatedSprite("ScytheSlash", Layers.Main);
+      .add.animatedSprite("ScytheDown", Layers.Main);
 
     const timer = new Timer(
-      100,
+      250,
       () => {
         let hitbox = new Hitbox(
           this.owner,
           sprite,
           Events.ENEMY_DAMAGE,
           new Vec2(0, 0),
-          new Vec2(48, 16),
+          new Vec2(24, 48),
           this.player.node.invertX,
           offset
         );
@@ -41,7 +41,7 @@ export default class Attack extends PlayerActionState {
   }
 
   update(deltaT: number): void {
-    if (!this.owner.animation.isPlaying("Scythe Slash"))
+    if (!this.owner.animation.isPlaying("Scythe Down"))
       this.player.actionStateMachine.changeState(ActionState.Idle);
   }
 }

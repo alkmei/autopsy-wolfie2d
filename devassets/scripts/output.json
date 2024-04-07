@@ -1,25 +1,289 @@
 {
-    "name": "ScytheSlash",
-    "spriteSheetImage": "ScytheSlash.png",
-    "spriteWidth": 96,
-    "spriteHeight": 32,
-    "columns": 2,
-    "rows": 1,
+    "name": "reaper",
+    "spriteSheetImage": "ReaperHooded.png",
+    "spriteWidth": 152,
+    "spriteHeight": 136,
+    "columns": 7,
+    "rows": 6,
     "animations": [
         {
-            "name": "Slash",
+            "name": "Idle",
             "frames": [
                 {
                     "index": 0,
-                    "duration": 3.5,
+                    "duration": 10.0,
                     "x": 0,
                     "y": 0
                 },
                 {
                     "index": 1,
-                    "duration": 3.5,
-                    "x": 96,
+                    "duration": 10.0,
+                    "x": 152,
                     "y": 0
+                },
+                {
+                    "index": 2,
+                    "duration": 10.0,
+                    "x": 304,
+                    "y": 0
+                },
+                {
+                    "index": 3,
+                    "duration": 10.0,
+                    "x": 456,
+                    "y": 0
+                }
+            ]
+        },
+        {
+            "name": "Walk",
+            "frames": [
+                {
+                    "index": 4,
+                    "duration": 3.5,
+                    "x": 608,
+                    "y": 0
+                },
+                {
+                    "index": 5,
+                    "duration": 3.5,
+                    "x": 760,
+                    "y": 0
+                },
+                {
+                    "index": 6,
+                    "duration": 3.5,
+                    "x": 912,
+                    "y": 0
+                },
+                {
+                    "index": 7,
+                    "duration": 3.5,
+                    "x": 0,
+                    "y": 136
+                },
+                {
+                    "index": 8,
+                    "duration": 3.5,
+                    "x": 152,
+                    "y": 136
+                },
+                {
+                    "index": 9,
+                    "duration": 3.5,
+                    "x": 304,
+                    "y": 136
+                },
+                {
+                    "index": 10,
+                    "duration": 3.5,
+                    "x": 456,
+                    "y": 136
+                }
+            ]
+        },
+        {
+            "name": "Scythe Slash",
+            "frames": [
+                {
+                    "index": 11,
+                    "duration": 2.0,
+                    "x": 608,
+                    "y": 136
+                },
+                {
+                    "index": 12,
+                    "duration": 2.0,
+                    "x": 760,
+                    "y": 136
+                },
+                {
+                    "index": 13,
+                    "duration": 2.0,
+                    "x": 912,
+                    "y": 136
+                },
+                {
+                    "index": 14,
+                    "duration": 2.0,
+                    "x": 0,
+                    "y": 272
+                },
+                {
+                    "index": 15,
+                    "duration": 2.0,
+                    "x": 152,
+                    "y": 272
+                },
+                {
+                    "index": 16,
+                    "duration": 3.5,
+                    "x": 304,
+                    "y": 272
+                },
+                {
+                    "index": 17,
+                    "duration": 3.5,
+                    "x": 456,
+                    "y": 272
+                },
+                {
+                    "index": 18,
+                    "duration": 10.0,
+                    "x": 608,
+                    "y": 272
+                },
+                {
+                    "index": 19,
+                    "duration": 10.0,
+                    "x": 760,
+                    "y": 272
+                }
+            ]
+        },
+        {
+            "name": "Jump",
+            "frames": [
+                {
+                    "index": 20,
+                    "duration": 5.0,
+                    "x": 912,
+                    "y": 272
+                },
+                {
+                    "index": 21,
+                    "duration": 5.0,
+                    "x": 0,
+                    "y": 408
+                },
+                {
+                    "index": 22,
+                    "duration": 30.0,
+                    "x": 152,
+                    "y": 408
+                }
+            ]
+        },
+        {
+            "name": "Dash",
+            "frames": [
+                {
+                    "index": 23,
+                    "duration": 4.0,
+                    "x": 304,
+                    "y": 408
+                },
+                {
+                    "index": 24,
+                    "duration": 4.0,
+                    "x": 456,
+                    "y": 408
+                },
+                {
+                    "index": 25,
+                    "duration": 15.0,
+                    "x": 608,
+                    "y": 408
+                }
+            ]
+        },
+        {
+            "name": "Scythe Upper",
+            "frames": [
+                {
+                    "index": 26,
+                    "duration": 4.0,
+                    "x": 760,
+                    "y": 408
+                },
+                {
+                    "index": 27,
+                    "duration": 4.0,
+                    "x": 912,
+                    "y": 408
+                },
+                {
+                    "index": 28,
+                    "duration": 10.0,
+                    "x": 0,
+                    "y": 544
+                },
+                {
+                    "index": 29,
+                    "duration": 3.5,
+                    "x": 152,
+                    "y": 544
+                },
+                {
+                    "index": 30,
+                    "duration": 3.5,
+                    "x": 304,
+                    "y": 544
+                },
+                {
+                    "index": 31,
+                    "duration": 10.0,
+                    "x": 456,
+                    "y": 544
+                },
+                {
+                    "index": 32,
+                    "duration": 10.0,
+                    "x": 608,
+                    "y": 544
+                },
+                {
+                    "index": 33,
+                    "duration": 10.0,
+                    "x": 760,
+                    "y": 544
+                }
+            ]
+        },
+        {
+            "name": "Scythe Down",
+            "frames": [
+                {
+                    "index": 34,
+                    "duration": 4.0,
+                    "x": 912,
+                    "y": 544
+                },
+                {
+                    "index": 35,
+                    "duration": 6.0,
+                    "x": 0,
+                    "y": 680
+                },
+                {
+                    "index": 36,
+                    "duration": 6.0,
+                    "x": 152,
+                    "y": 680
+                },
+                {
+                    "index": 37,
+                    "duration": 10.0,
+                    "x": 304,
+                    "y": 680
+                },
+                {
+                    "index": 38,
+                    "duration": 10.0,
+                    "x": 456,
+                    "y": 680
+                },
+                {
+                    "index": 39,
+                    "duration": 5.0,
+                    "x": 608,
+                    "y": 680
+                },
+                {
+                    "index": 40,
+                    "duration": 3.5,
+                    "x": 760,
+                    "y": 680
                 }
             ]
         }
