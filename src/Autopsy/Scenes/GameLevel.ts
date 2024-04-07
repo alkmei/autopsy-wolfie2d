@@ -43,9 +43,14 @@ export default class GameLevel extends Scene {
   textColor = new Color(231, 224, 241);
   healthBarColor = new Color(215, 74, 91);
 
-  public constructor(viewport: Viewport, sceneManager: SceneManager, renderingManager: RenderingManager, options: Record<string, any>) {
+  public constructor(
+    viewport: Viewport,
+    sceneManager: SceneManager,
+    renderingManager: RenderingManager,
+    options: Record<string, any>,
+  ) {
     super(viewport, sceneManager, renderingManager, options);
-    
+
     // TODO: change to type enemy when implemented
     this.enemies = new Array<Ghost>();
   }
@@ -64,7 +69,7 @@ export default class GameLevel extends Scene {
       "ScytheDown",
       "assets/spritesheets/Reaper/ReaperVFX/ScytheDown.json",
     );
-    
+
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
     this.addUILayer(Layers.Pause).setHidden(true);
@@ -118,6 +123,10 @@ export default class GameLevel extends Scene {
 
     // subscribe to events
     this.receiver.subscribe(Events.MAIN_MENU);
+    this.receiver.subscribe(Events.ENEMY_DAMAGE);
+    this.receiver.subscribe(Events.PLAYER_DAMAGE);
+    this.receiver.subscribe(Events.ENEMY_DEATH);
+    this.receiver.subscribe(Events.PLAYER_DEATH);
   }
 
   update(deltaT: number) {
@@ -147,7 +156,6 @@ export default class GameLevel extends Scene {
 
     // handle events
     while (this.receiver.hasNextEvent()) {
-      console.log("this should go off if there is event");
       this.handleEvent(this.receiver.getNextEvent());
     }
   }
@@ -156,7 +164,43 @@ export default class GameLevel extends Scene {
     switch (event.type) {
       case Events.MAIN_MENU: {
         this.sceneManager.changeToScene(MainMenu);
-        console.log("attempt to swap to main menu");
+
+        break;
+      }
+
+      // Damage events
+      case Events.ENEMY_DAMAGE: {
+        let enemy = event.data.get("enemy");
+        enemy.health -= 1;
+
+        if (enemy.health <= 0)
+          this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });
+
+        break;
+      }
+      case Events.PLAYER_DAMAGE: {
+        this.player.health -= 1;
+
+        if (this.player.health <= 0)
+          this.emitter.fireEvent(Events.PLAYER_DEATH);
+
+        break;
+      }
+
+      // Death events
+      // TODO: Death animations
+      case Events.ENEMY_DEATH: {
+        let enemy = event.data.get("enemy");
+        console.log(enemy);
+        enemy.node.destroy();
+        this.enemies = this.enemies.filter((e) => e !== enemy);
+        
+        break;
+      }
+      case Events.PLAYER_DEATH: {
+        // death anim -> some screen/main menu for now
+        this.sceneManager.changeToScene(MainMenu);
+
         break;
       }
     }

@@ -4,6 +4,7 @@ import HitboxState from "./HitboxState";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import GameLevel from "../../Scenes/GameLevel";
 import { DamageType } from "../DamageType";
+import { Events } from "../../../globals";
 
 export default class BasicSlash extends HitboxState {
   onEnter(options: Record<string, any>) {
@@ -23,25 +24,28 @@ export default class BasicSlash extends HitboxState {
     }
 
     this.owner.position = new Vec2(posX, posY);
-
-    // TODO: Maybe make hitboxes only damage once in their lifetime?
-
+    
     // Hitbox damaging enemies
-    if (this.parent.eventType === DamageType.TO_ENEMY) {
-      const enemies = (<GameLevel>this.owner.getScene()).enemies;
-      enemies.forEach(enemy => {
-        if (this.owner.collisionShape.overlaps(enemy.node.collisionShape)) {
-          enemy.health -= 1;
-          console.log(enemy.health);
-        }
-      });
-    }
+    if (this.hasHit) {
+      if (this.parent.eventType === DamageType.TO_ENEMY) {
+        const enemies = (<GameLevel>this.owner.getScene()).enemies;
+        enemies.forEach(enemy => {
+          if (this.owner.collisionShape.overlaps(enemy.node.collisionShape)) {
+            this.emitter.fireEvent(Events.ENEMY_DAMAGE, { enemy: enemy });
+            console.log(enemy.health);
+            this.hasHit = false;
+          }
+        });
+      }
 
-    // Hitbox damaging player
-    if (this.parent.eventType === DamageType.TO_PLAYER) {
-      const player = (<GameLevel>this.owner.getScene()).player;
-        if (this.owner.collisionShape.overlaps(player.node.collisionShape))
-          player.health -= 1;
+      // Hitbox damaging player
+      if (this.parent.eventType === DamageType.TO_PLAYER) {
+        const player = (<GameLevel>this.owner.getScene()).player;
+        if (this.owner.collisionShape.overlaps(player.node.collisionShape)) {
+          this.emitter.fireEvent(Events.PLAYER_DAMAGE);
+          this.hasHit = false;
+        }
+      }
     }
 
     if (!this.owner.animation.isPlaying("animation")) {

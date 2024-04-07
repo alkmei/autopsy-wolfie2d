@@ -24,7 +24,7 @@ export default class Ghost {
     this.node.setGroup("enemy");
     this.node.position = pos;
     this.node.animation.play("Idle", true);
-    this.health = 10;
+    this.health = 5;
     this.type = type;
   }
 }
