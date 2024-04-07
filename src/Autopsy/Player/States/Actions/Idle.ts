@@ -1,12 +1,23 @@
-import PlayerState from "../PlayerState";
 import PlayerActionState from "./PlayerActionState";
+import Input from "../../../../Wolfie2D/Input/Input";
+import { ActionState } from "../../Player";
+import { Action } from "../../../../globals";
+import GameEvent from "../../../../Wolfie2D/Events/GameEvent";
 
 export default class Idle extends PlayerActionState {
-  onEnter(options: Record<string, any>): void {}
-
-  onExit(): Record<string, any> {
-    return undefined;
+  onEnter(options: Record<string, any>): void {
+    this.stateName = "Idle";
   }
 
-  update(deltaT: number): void {}
+  handleInput(event: GameEvent) {
+    super.handleInput(event);
+  }
+
+  onExit(): Record<string, any> {
+    return {};
+  }
+
+  update(deltaT: number): void {
+    if (Input.isJustPressed(Action.Dash)) this.finished(ActionState.Dash);
+  }
 }

@@ -28,6 +28,7 @@ export default class GameLevel extends Scene {
   camera: Camera;
 
   playerStateLabel: Label;
+  playerActionStateLabel: Label;
 
   healthBar: Label;
   healthBarBg: Label;
@@ -37,7 +38,10 @@ export default class GameLevel extends Scene {
 
   loadScene() {
     this.load.spritesheet("reaper", "assets/spritesheets/Reaper/reaper.json");
-    this.load.spritesheet("ScytheSlash", "assets/spritesheets/Reaper/ReaperVFX/ScytheSlash.json");
+    this.load.spritesheet(
+      "ScytheSlash",
+      "assets/spritesheets/Reaper/ReaperVFX/ScytheSlash.json",
+    );
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
     this.addUILayer(Layers.Pause).setHidden(true);
@@ -70,6 +74,18 @@ export default class GameLevel extends Scene {
     );
     this.playerStateLabel.font = "Mister Pixel";
     this.playerStateLabel.textColor = Color.WHITE;
+
+    this.playerActionStateLabel = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.Debug,
+      {
+        position: this.player.node.position.clone(),
+        text: "",
+      },
+    );
+    this.playerActionStateLabel.font = "Mister Pixel";
+    this.playerActionStateLabel.textColor = Color.WHITE;
+
     this.viewport.follow(this.camera.node);
     this.viewport.setZoomLevel(2);
     this.viewport.setSmoothingFactor(0);
@@ -98,6 +114,13 @@ export default class GameLevel extends Scene {
     this.playerStateLabel.position = this.player.node.position
       .clone()
       .add(new Vec2(0, -40));
+
+    this.playerActionStateLabel.text = (<PlayerState>(
+      this.player.actionStateMachine.getState()
+    )).stateName;
+    this.playerActionStateLabel.position = this.player.node.position
+      .clone()
+      .add(new Vec2(0, -80));
 
     // handle events
     while (this.receiver.hasNextEvent()) {

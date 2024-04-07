@@ -7,6 +7,8 @@ import Updateable from "../../Wolfie2D/DataTypes/Interfaces/Updateable";
 import Ascending from "./States/Movement/Ascending";
 import Descending from "./States/Movement/Descending";
 import Dashing from "./States/Actions/Dashing";
+import Idle from "./States/Actions/Idle";
+import Jump from "./States/Actions/Jump";
 
 export enum MovementState {
   Grounded = "grounded",
@@ -16,6 +18,13 @@ export enum MovementState {
 
 export enum ActionState {
   Dash = "dash",
+  Attack = "attack",
+  Idle = "idle",
+  Jump = "jump",
+}
+
+export enum PlayerEvents {
+  Jump = "ev_jump",
 }
 
 export default class Player implements Updateable {
@@ -59,10 +68,20 @@ export default class Player implements Updateable {
       .initialize(MovementState.Grounded);
 
     this.actionStateMachine = new StateMachine();
-    this.actionStateMachine.addState(
-      ActionState.Dash,
-      new Dashing(this.movementStateMachine, this.node, this),
-    );
+    this.actionStateMachine
+      .addState(
+        ActionState.Dash,
+        new Dashing(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.Idle,
+        new Idle(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.Jump,
+        new Jump(this.actionStateMachine, this.node, this),
+      )
+      .initialize(ActionState.Idle);
   }
 
   updateGravity() {
@@ -72,6 +91,7 @@ export default class Player implements Updateable {
 
   update(deltaT: number): void {
     this.movementStateMachine.update(deltaT);
+    this.actionStateMachine.update(deltaT);
     this.node.move(this.velocity);
   }
 }
