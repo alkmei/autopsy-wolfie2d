@@ -118,6 +118,5 @@ export default class Player implements Updateable {
   update(deltaT: number): void {
     this.movementStateMachine.update(deltaT);
     this.actionStateMachine.update(deltaT);
-    this.node.move(this.velocity);
   }
 }

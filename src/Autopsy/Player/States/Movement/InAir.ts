@@ -31,7 +31,6 @@ export default class InAir extends PlayerMovementState {
         this.player.actionStateMachine.changeState(ActionState.AttackDown);
       else this.player.actionStateMachine.changeState(ActionState.Attack);
     }
-
     // TODO: Remove in actual game release :)
     if (this.owner.position.y > 2000) this.owner.position.y = 900;
 

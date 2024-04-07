@@ -12,7 +12,6 @@ export enum GState {
 
 export default class GhostController extends StateMachineAI {
   owner: GameNode;
-  //direction_op = [new Vec2(1,1),new Vec2(1,-1),new Vec2(-1,1),new Vec2(-1,-1)]
   direction: Vec2 = Vec2.ZERO;
   velocity: Vec2 = Vec2.ZERO;
   driftSpeed = 50;
@@ -21,7 +20,6 @@ export default class GhostController extends StateMachineAI {
 
   initializeAI(owner: GameNode, config: Record<string, any>) {
     this.owner = owner;
-
     this.direction = this.randomDirection();
     this.initializeStates();
   }
@@ -29,7 +27,6 @@ export default class GhostController extends StateMachineAI {
   initializeStates() {
     this.addState(GState.Drifting, new Drifting(this, this.owner));
     this.addState(GState.Following, new Following(this, this.owner));
-
     this.initialize(GState.Drifting);
   }
 

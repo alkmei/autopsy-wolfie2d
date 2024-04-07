@@ -7,7 +7,6 @@ export default class Dashing extends PlayerActionState {
 
   onEnter(options: Record<string, any>): void {
     this.stateName = "Dashing";
-
     this.owner.animation.playIfNotAlready(PlayerAnimations.Dash);
 
     this.dashTimer = new Timer(

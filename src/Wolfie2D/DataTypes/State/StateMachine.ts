@@ -51,7 +51,6 @@ export default class StateMachine implements Updateable {
   isState(state: string) {
     return this.stateMap.get(state) == this.currentState;
   }
-
   /**
    * Sets the activity state of this state machine
    * @param flag True if you want to set this machine running, false otherwise
