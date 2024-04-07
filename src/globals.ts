@@ -9,4 +9,7 @@ export enum Action {
 
 export const Events = {
   MAIN_MENU: "MAIN_MENU",
+
+  PLAYER_DAMAGE: "PLAYER_DAMAGE",
+  ENEMY_DAMAGE: "ENEMY_DAMAGE",
 }
