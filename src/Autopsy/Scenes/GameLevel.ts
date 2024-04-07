@@ -13,6 +13,10 @@ import MainMenu from "./MainMenu";
 import Input from "../../Wolfie2D/Input/Input";
 import { Action } from "../../globals";
 import PlayerState from "../Player/States/PlayerState";
+import Ghost from "../Enemy/Ghost/Ghost";
+import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
+import SceneManager from "../../Wolfie2D/Scene/SceneManager";
+import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
 
 export enum Layers {
   Main = "main",
@@ -27,6 +31,9 @@ export default class GameLevel extends Scene {
   player: Player;
   camera: Camera;
 
+  // TODO: Make Enemy.ts and ghost inherit from that
+  enemies: Array<Ghost>;
+
   playerStateLabel: Label;
   playerActionStateLabel: Label;
 
@@ -35,6 +42,13 @@ export default class GameLevel extends Scene {
 
   textColor = new Color(231, 224, 241);
   healthBarColor = new Color(215, 74, 91);
+
+  public constructor(viewport: Viewport, sceneManager: SceneManager, renderingManager: RenderingManager, options: Record<string, any>) {
+    super(viewport, sceneManager, renderingManager, options);
+    
+    // TODO: change to type enemy when implemented
+    this.enemies = new Array<Ghost>();
+  }
 
   loadScene() {
     this.load.spritesheet("reaper", "assets/spritesheets/Reaper/reaper.json");

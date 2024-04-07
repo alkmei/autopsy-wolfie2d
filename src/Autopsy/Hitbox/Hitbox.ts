@@ -11,7 +11,6 @@ export enum HState {
 
 export default class Hitbox {
   node: AnimatedSprite;
-  eventType: string;
 
   constructor(player: AnimatedSprite, sprite: AnimatedSprite, eventType: string, center: Vec2, halfSize: Vec2, invertX: boolean, offset: Vec2) {
     this.node = sprite;
@@ -19,8 +18,7 @@ export default class Hitbox {
         new AABB(center, halfSize),
         new Vec2(0, 0),
     );
-
-    this.node.addAI(HitboxController, { player: player, invertX: invertX, offset: offset });   
-    this.eventType = eventType;
+      
+    this.node.addAI(HitboxController, { player: player, invertX: invertX, offset: offset, eventType: eventType});   
   }
 }

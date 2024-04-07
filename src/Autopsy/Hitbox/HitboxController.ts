@@ -12,12 +12,14 @@ export default class HitboxController extends StateMachineAI {
   velocity: Vec2 = Vec2.ZERO;
   invertX: boolean;
   offset: Vec2;
+  eventType: string;
 
   initializeAI(owner: GameNode, config: Record<string, any>) {
     this.owner = owner;
     this.player = config.player;
     this.invertX = config.invertX;
     this.offset = config.offset;
+    this.eventType = config.eventType;
 
     // subscribe to events maybe
 
