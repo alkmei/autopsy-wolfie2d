@@ -37,6 +37,7 @@ export default class GameLevel extends Scene {
 
   loadScene() {
     this.load.spritesheet("reaper", "assets/spritesheets/Reaper/reaper.json");
+    this.load.spritesheet("ScytheSlash", "assets/spritesheets/Reaper/ReaperVFX/ScytheSlash.json");
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
     this.addUILayer(Layers.Pause).setHidden(true);
