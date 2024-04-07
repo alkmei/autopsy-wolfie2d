@@ -1,11 +1,10 @@
 import PlayerActionState from "./PlayerActionState";
 import Hitbox from "../../../Hitbox/Hitbox";
 import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
-import { ActionState } from "../../Player";
+import { ActionState, PlayerAnimations } from "../../Player";
 import { Layers } from "../../../Scenes/GameLevel";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 import { DamageType } from "../../../Hitbox/DamageType";
-import { PlayerAnimations } from "../../../../globals";
 
 export default class AttackDown extends PlayerActionState {
   onEnter(options: Record<string, any>): void {

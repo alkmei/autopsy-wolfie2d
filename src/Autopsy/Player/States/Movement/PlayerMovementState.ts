@@ -1,4 +1,5 @@
 import PlayerState from "../PlayerState";
+import { PlayerAnimations } from "../../Player";
 
 export default abstract class PlayerMovementState extends PlayerState {
   update(deltaT: number): void {
@@ -11,5 +12,14 @@ export default abstract class PlayerMovementState extends PlayerState {
 
     this.player.velocity = this.owner.getLastVelocity();
     this.player.velocity.x = dir.x * this.player.speed * deltaT;
+  }
+
+  isActionAnimationPlaying() {
+    return [
+      PlayerAnimations.ScytheSlash,
+      PlayerAnimations.Dash,
+      PlayerAnimations.ScytheUpper,
+      PlayerAnimations.ScytheDown,
+    ].some(x => this.owner.animation.isPlaying(x));
   }
 }

@@ -1,6 +1,6 @@
 import Input from "../../../../Wolfie2D/Input/Input";
-import { Action, PlayerAnimations } from "../../../../globals";
-import { ActionState, MovementState } from "../../Player";
+import { Action } from "../../../../globals";
+import { ActionState, MovementState, PlayerAnimations } from "../../Player";
 import PlayerMovementState from "./PlayerMovementState";
 import Idle from "../Actions/Idle";
 
@@ -9,15 +9,13 @@ export default class Grounded extends PlayerMovementState {
     this.stateName = "Grounded";
   }
 
+  performingAction() {}
+
   update(deltaT: number) {
     super.update(deltaT);
     const dir = this.getInputDirection();
 
-    if (
-      !this.owner.animation.isPlaying("Scythe Slash") &&
-      !this.owner.animation.isPlaying("Scythe Upper") &&
-      !this.owner.animation.isPlaying("Scythe Down")
-    ) {
+    if (!this.isActionAnimationPlaying()) {
       if (dir.x != 0) {
         this.owner.animation.playIfNotAlready(PlayerAnimations.Walk, true);
       } else {

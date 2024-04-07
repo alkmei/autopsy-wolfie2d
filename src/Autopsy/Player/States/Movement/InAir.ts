@@ -1,14 +1,15 @@
-import { ActionState, MovementState } from "../../Player";
+import { ActionState, MovementState, PlayerAnimations } from "../../Player";
 import PlayerMovementState from "./PlayerMovementState";
 import Input from "../../../../Wolfie2D/Input/Input";
-import { Action, PlayerAnimations } from "../../../../globals";
+import { Action } from "../../../../globals";
 import Jump from "../Actions/Jump";
 import Idle from "../Actions/Idle";
 
 export default class InAir extends PlayerMovementState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "InAir";
-    this.owner.animation.playIfNotAlready(PlayerAnimations.Jump);
+    if (!this.isActionAnimationPlaying())
+      this.owner.animation.playIfNotAlready(PlayerAnimations.Jump);
   }
 
   update(deltaT: number) {
