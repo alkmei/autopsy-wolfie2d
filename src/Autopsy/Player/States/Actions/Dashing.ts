@@ -19,8 +19,15 @@ export default class Dashing extends PlayerActionState {
   }
 
   update(deltaT: number) {
+    if (!this.owner.onGround) this.player.canDash = false;
     this.player.velocity.y = this.player.node.onGround ? 0.00001 : 0;
-    this.player.velocity.x = 600 * this.getInputDirection().x * deltaT;
+    const direction =
+      this.getInputDirection().x == 0
+        ? this.owner.invertX
+          ? -1
+          : 1
+        : this.getInputDirection().x;
+    this.player.velocity.x = 600 * direction * deltaT;
   }
 
   onExit(): Record<string, any> {

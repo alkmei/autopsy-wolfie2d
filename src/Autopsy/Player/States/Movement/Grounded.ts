@@ -7,6 +7,7 @@ import Idle from "../Actions/Idle";
 export default class Grounded extends PlayerMovementState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "Grounded";
+    this.player.canDash = true;
   }
 
   performingAction() {}

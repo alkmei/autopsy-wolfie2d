@@ -51,6 +51,8 @@ export default class Player implements Updateable {
   movementStateMachine: StateMachine;
   actionStateMachine: StateMachine;
 
+  canDash: boolean;
+
   constructor(sprite: AnimatedSprite) {
     this.node = sprite;
     this.node.addPhysics(new AABB(new Vec2(0, 0), new Vec2(18, 24)));

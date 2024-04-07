@@ -2,8 +2,9 @@ import PlayerActionState from "./PlayerActionState";
 import Input from "../../../../Wolfie2D/Input/Input";
 import { Action } from "../../../../globals";
 import { ActionState, MovementState } from "../../Player";
+import Idle from "./Idle";
 
-export default class Jump extends PlayerActionState {
+export default class Jump extends Idle {
   onEnter(options: Record<string, any>): void {
     this.stateName = "Jump";
     this.player.velocity.y = this.player.jumpVelocity;
@@ -20,6 +21,5 @@ export default class Jump extends PlayerActionState {
         this.player.movementStateMachine.changeState(MovementState.Descending);
       this.finished(ActionState.Idle);
     }
-    if (Input.isJustPressed(Action.Dash)) this.finished(ActionState.Dash);
   }
 }

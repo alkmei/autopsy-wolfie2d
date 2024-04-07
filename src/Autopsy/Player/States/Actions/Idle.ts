@@ -18,6 +18,8 @@ export default class Idle extends PlayerActionState {
   }
 
   update(deltaT: number): void {
-    if (Input.isJustPressed(Action.Dash)) this.finished(ActionState.Dash);
+    if (Input.isJustPressed(Action.Dash) && this.player.canDash) {
+      this.finished(ActionState.Dash);
+    }
   }
 }
