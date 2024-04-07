@@ -5,21 +5,19 @@ import GameEvent from "../../../Wolfie2D/Events/GameEvent";
 import Input from "../../../Wolfie2D/Input/Input";
 import GameNode from "../../../Wolfie2D/Nodes/GameNode";
 import Timer from "../../../Wolfie2D/Timing/Timer";
-import PlayerController from "../PlayerController";
-import { Action } from "../../../globals";
 import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import Player from "../Player";
 
 export default abstract class PlayerState extends State {
   owner: AnimatedSprite;
-  parent: PlayerController;
-  positionTimer: Timer;
+  parent: StateMachine;
+  player: Player;
   stateName: string; // For debug purposes
 
-  constructor(parent: StateMachine, owner: GameNode) {
+  constructor(parent: StateMachine, owner: GameNode, player: Player) {
     super(parent);
     this.owner = <AnimatedSprite>owner;
-    this.positionTimer = new Timer(250);
-    this.positionTimer.start();
+    this.player = player;
   }
 
   handleInput(event: GameEvent): void {}
@@ -33,17 +31,5 @@ export default abstract class PlayerState extends State {
       (Input.isPressed("left") ? -1 : 0) + (Input.isPressed("right") ? 1 : 0);
     direction.y = Input.isJustPressed("jump") ? -1 : 0;
     return direction;
-  }
-
-  update(deltaT: number): void {
-    let dir = this.getInputDirection();
-    if (dir.x == -1) {
-      this.owner.invertX = true;
-    } else if (dir.x == 1) {
-      this.owner.invertX = false;
-    }
-
-    this.parent.velocity = this.owner.getLastVelocity();
-    this.parent.velocity.x = dir.x * this.parent.speed * deltaT;
   }
 }

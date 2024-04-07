@@ -4,16 +4,15 @@ import { GraphicType } from "../../Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Camera from "../Camera";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import { UIElementType } from "../../Wolfie2D/Nodes/UIElements/UIElementTypes";
-import PlayerController from "../Player/PlayerController";
 import Color from "../../Wolfie2D/Utils/Color";
 import { Events } from "../../globals";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
-import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
+import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import Button from "../../Wolfie2D/Nodes/UIElements/Button";
 import MainMenu from "./MainMenu";
 import Input from "../../Wolfie2D/Input/Input";
 import { Action } from "../../globals";
-import Layer from "../../Wolfie2D/Scene/Layer";
+import PlayerState from "../Player/States/PlayerState";
 
 export enum Layers {
   Main = "main",
@@ -65,7 +64,7 @@ export default class GameLevel extends Scene {
       Layers.Debug,
       {
         position: this.player.node.position.clone(),
-        text: (<PlayerController>this.player.node.ai).state.stateName,
+        text: "",
       },
     );
     this.playerStateLabel.font = "Mister Pixel";
@@ -88,10 +87,13 @@ export default class GameLevel extends Scene {
     }
 
     this.camera.update(deltaT);
+    this.player.update(deltaT);
+
     super.update(deltaT);
-    this.playerStateLabel.text = (<PlayerController>(
-      this.player.node.ai
-    )).state.stateName;
+
+    this.playerStateLabel.text = (<PlayerState>(
+      this.player.movementStateMachine.getState()
+    )).stateName;
     this.playerStateLabel.position = this.player.node.position
       .clone()
       .add(new Vec2(0, -40));
@@ -155,17 +157,6 @@ export default class GameLevel extends Scene {
     menuButton.onClickEventId = Events.MAIN_MENU;
     menuButton.size.x = buttonWidth;
     menuButton.size.y = buttonHeight;
-
-    // const controlsButton = this.newButton(
-    //   new Vec2(100, 50 + 38),
-    //   "CONTROLS",
-    //   52,
-    //   Layers.Pause,
-    // );
-    // controlsButton.size.x = buttonWidth;
-    // controlsButton.size.y = buttonHeight;
-    // controlsButton.onClick = () => {
-    // };
   }
 
   protected handleHealthChange(currentHealth: number, maxHealth: number): void {
