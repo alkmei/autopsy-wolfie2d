@@ -1,9 +1,10 @@
-import PlayerState from "./PlayerState";
-import Input from "../../../Wolfie2D/Input/Input";
-import { Action } from "../../../globals";
-import { PState } from "../PlayerController";
+import PlayerState from "../PlayerState";
+import Input from "../../../../Wolfie2D/Input/Input";
+import { Action } from "../../../../globals";
+import { MovementState } from "../../Player";
+import PlayerMovementState from "./PlayerMovementState";
 
-export default class Grounded extends PlayerState {
+export default class Grounded extends PlayerMovementState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "Grounded";
   }
@@ -23,17 +24,13 @@ export default class Grounded extends PlayerState {
     }
 
     if (Input.isJustPressed(Action.Jump)) {
-      this.parent.velocity.y = this.parent.jumpVelocity;
-      this.finished(PState.Ascending);
+      this.player.velocity.y = this.player.jumpVelocity;
+      this.finished(MovementState.Ascending);
     } else {
-      this.parent.velocity.y = 0.1;
+      this.player.velocity.y = 0.1;
     }
 
-    if (Input.isJustPressed(Action.Dash)) {
-      this.finished(PState.Dashing);
-    }
-
-    if (!this.owner.onGround) this.finished(PState.Descending);
+    if (!this.owner.onGround) this.finished(MovementState.Descending);
   }
 
   onExit(): Record<string, any> {
