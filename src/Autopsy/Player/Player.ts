@@ -9,7 +9,6 @@ import Descending from "./States/Movement/Descending";
 import Dashing from "./States/Actions/Dashing";
 import Idle from "./States/Actions/Idle";
 import Jump from "./States/Actions/Jump";
-import { PlayerAnimations } from "../../globals";
 import Attack from "./States/Actions/Attack";
 import AttackDown from "./States/Actions/AttackDown";
 import AttackUpper from "./States/Actions/AttackUpper";
@@ -27,6 +26,16 @@ export enum ActionState {
   AttackDown = "attackDown",
   Idle = "idle",
   Jump = "jump",
+}
+
+export enum PlayerAnimations {
+  Idle = "Idle",
+  Walk = "Walk",
+  ScytheSlash = "Scythe Slash",
+  Jump = "Jump",
+  Dash = "Dash",
+  ScytheUpper = "Scythe Upper",
+  ScytheDown = "Scythe Down",
 }
 
 export default class Player implements Updateable {
