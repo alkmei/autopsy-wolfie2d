@@ -2,12 +2,10 @@ import State from "../../../../Wolfie2D/DataTypes/State/State";
 import StateMachine from "../../../../Wolfie2D/DataTypes/State/StateMachine";
 import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 import GameEvent from "../../../../Wolfie2D/Events/GameEvent";
-import Input from "../../../../Wolfie2D/Input/Input";
 import GameNode from "../../../../Wolfie2D/Nodes/GameNode";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 import GhostController from "../GhostController";
 import AnimatedSprite from "../../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
-import MathUtils from "../../../../Wolfie2D/Utils/MathUtils";
 import { Events } from "../../../Event_enum";
 
 export default abstract class GhostState extends State {

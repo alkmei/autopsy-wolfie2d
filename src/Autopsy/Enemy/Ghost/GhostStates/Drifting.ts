@@ -1,7 +1,6 @@
 import GhostState from "./GhostState";
 import { GState } from "../GhostController";
 import AnimatedSprite from "../../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
-import Timer from "../../../../Wolfie2D/Timing/Timer";
 
 export default class Drifting extends GhostState {
   onEnter(options: Record<string, any>) {
