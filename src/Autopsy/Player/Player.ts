@@ -9,7 +9,7 @@ import Descending from "./States/Movement/Descending";
 import Dashing from "./States/Actions/Dashing";
 import Idle from "./States/Actions/Idle";
 import Jump from "./States/Actions/Jump";
-import { Action } from "../../globals";
+import { PlayerAnimations } from "../../globals";
 import Attack from "./States/Actions/Attack";
 import AttackDown from "./States/Actions/AttackDown";
 import AttackUpper from "./States/Actions/AttackUpper";
@@ -27,10 +27,6 @@ export enum ActionState {
   AttackDown = "attackDown",
   Idle = "idle",
   Jump = "jump",
-}
-
-export enum PlayerEvents {
-  Jump = "ev_jump",
 }
 
 export default class Player implements Updateable {
@@ -51,7 +47,7 @@ export default class Player implements Updateable {
     this.node.addPhysics(new AABB(new Vec2(0, 0), new Vec2(18, 24)));
     this.node.setGroup("player");
     this.node.position = new Vec2(100, 50);
-    this.node.animation.play("Idle", true);
+    this.node.animation.play(PlayerAnimations.Idle, true);
     this.health = 10;
     this.updateGravity();
     this.initializeAI();

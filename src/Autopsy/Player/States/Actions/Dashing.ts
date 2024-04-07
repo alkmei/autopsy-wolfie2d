@@ -1,6 +1,7 @@
 import Timer from "../../../../Wolfie2D/Timing/Timer";
-import { ActionState, MovementState } from "../../Player";
+import { ActionState } from "../../Player";
 import PlayerActionState from "./PlayerActionState";
+import { PlayerAnimations } from "../../../../globals";
 
 export default class Dashing extends PlayerActionState {
   private dashTimer: Timer;
@@ -8,7 +9,7 @@ export default class Dashing extends PlayerActionState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "Dashing";
 
-    this.owner.animation.playIfNotAlready("Dash");
+    this.owner.animation.playIfNotAlready(PlayerAnimations.Dash);
 
     this.dashTimer = new Timer(
       200,

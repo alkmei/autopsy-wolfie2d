@@ -5,11 +5,12 @@ import { ActionState } from "../../Player";
 import { Layers } from "../../../Scenes/GameLevel";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 import { DamageType } from "../../../Hitbox/DamageType";
+import { PlayerAnimations } from "../../../../globals";
 
 export default class Attack extends PlayerActionState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "Attack";
-    this.owner.animation.playIfNotAlready("Scythe Slash");
+    this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheSlash);
 
     const offset = new Vec2(60, 0);
 

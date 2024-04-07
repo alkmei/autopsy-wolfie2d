@@ -5,11 +5,12 @@ import { ActionState } from "../../Player";
 import { Layers } from "../../../Scenes/GameLevel";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 import { DamageType } from "../../../Hitbox/DamageType";
+import { PlayerAnimations } from "../../../../globals";
 
 export default class AttackDown extends PlayerActionState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "AttackDown";
-    this.owner.animation.playIfNotAlready("Scythe Down");
+    this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheDown, false);
 
     const offset = new Vec2(40, 0);
 
@@ -41,7 +42,7 @@ export default class AttackDown extends PlayerActionState {
   }
 
   update(deltaT: number): void {
-    if (!this.owner.animation.isPlaying("Scythe Down"))
+    if (!this.owner.animation.isPlaying(PlayerAnimations.ScytheDown))
       this.player.actionStateMachine.changeState(ActionState.Idle);
   }
 }

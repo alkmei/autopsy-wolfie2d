@@ -5,6 +5,8 @@ export enum Action {
   Attack = "attack",
   Dash = "dash",
   Pause = "pause",
+  Up = "up",
+  Down = "down",
 }
 
 export const Events = {
@@ -12,4 +14,14 @@ export const Events = {
 
   PLAYER_DAMAGE: "PLAYER_DAMAGE",
   ENEMY_DAMAGE: "ENEMY_DAMAGE",
+};
+
+export enum PlayerAnimations {
+  Idle = "Idle",
+  Walk = "Walk",
+  ScytheSlash = "Scythe Slash",
+  Jump = "Jump",
+  Dash = "Dash",
+  ScytheUpper = "Scythe Upper",
+  ScytheDown = "Scythe Down",
 }

@@ -2,7 +2,6 @@ import State from "../../../../Wolfie2D/DataTypes/State/State";
 import StateMachine from "../../../../Wolfie2D/DataTypes/State/StateMachine";
 import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 import GameEvent from "../../../../Wolfie2D/Events/GameEvent";
-import Input from "../../../../Wolfie2D/Input/Input";
 import GameNode from "../../../../Wolfie2D/Nodes/GameNode";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 import GhostController from "../GhostController";
@@ -12,17 +11,17 @@ import GameLevel from "../../../Scenes/GameLevel";
 export default abstract class GhostState extends State {
   owner: GameNode;
   parent: GhostController;
-  FollowingCDTimer: Timer;
-  StuckTimer: Timer;
+  followingCDTimer: Timer;
+  stuckTimer: Timer;
   playerPos: Vec2;
-  CanFollow: boolean;
+  canFollow: boolean;
   stateName: string; // For debug purposes
 
   constructor(parent: StateMachine, owner: GameNode) {
     super(parent);
     this.owner = owner;
-    this.FollowingCDTimer = new Timer(10000);
-    this.StuckTimer = new Timer(5000); // check if a ghost is stuck for too long
+    this.followingCDTimer = new Timer(10000);
+    this.stuckTimer = new Timer(5000); // check if a ghost is stuck for too long
   }
 
   handleInput(event: GameEvent): void {}

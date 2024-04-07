@@ -1,10 +1,14 @@
-import { MovementState } from "../../Player";
+import { ActionState, MovementState } from "../../Player";
 import PlayerMovementState from "./PlayerMovementState";
+import Input from "../../../../Wolfie2D/Input/Input";
+import { Action, PlayerAnimations } from "../../../../globals";
+import Jump from "../Actions/Jump";
+import Idle from "../Actions/Idle";
 
 export default class InAir extends PlayerMovementState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "InAir";
-    this.owner.animation.playIfNotAlready("Jump");
+    this.owner.animation.playIfNotAlready(PlayerAnimations.Jump);
   }
 
   update(deltaT: number) {
@@ -14,6 +18,18 @@ export default class InAir extends PlayerMovementState {
       this.player.gravity * deltaT + this.player.velocity.y,
       10,
     );
+
+    if (
+      Input.isJustPressed(Action.Attack) &&
+      (this.player.actionStateMachine.getState() instanceof Jump ||
+        this.player.actionStateMachine.getState() instanceof Idle)
+    ) {
+      if (Input.isPressed(Action.Up))
+        this.player.actionStateMachine.changeState(ActionState.AttackUpper);
+      else if (Input.isPressed(Action.Down))
+        this.player.actionStateMachine.changeState(ActionState.AttackDown);
+      else this.player.actionStateMachine.changeState(ActionState.Attack);
+    }
 
     // TODO: Remove in actual game release :)
     if (this.owner.position.y > 2000) this.owner.position.y = 900;
