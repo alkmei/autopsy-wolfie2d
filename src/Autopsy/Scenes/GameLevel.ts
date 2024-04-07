@@ -56,6 +56,7 @@ export default class GameLevel extends Scene {
   }
 
   loadScene() {
+    // reaper and animations
     this.load.spritesheet("reaper", "assets/spritesheets/Reaper/reaper.json");
     this.load.spritesheet(
       "ScytheSlash",
@@ -69,6 +70,9 @@ export default class GameLevel extends Scene {
       "ScytheDown",
       "assets/spritesheets/Reaper/ReaperVFX/ScytheDown.json",
     );
+
+    // red soul enemy
+    this.load.spritesheet("RedSoul", "assets/spritesheets/RedSoul/RedSoul.json");
 
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
@@ -194,7 +198,7 @@ export default class GameLevel extends Scene {
         console.log(enemy);
         enemy.node.destroy();
         this.enemies = this.enemies.filter((e) => e !== enemy);
-        
+
         break;
       }
       case Events.PLAYER_DEATH: {
