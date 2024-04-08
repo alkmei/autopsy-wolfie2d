@@ -15,6 +15,7 @@ export default abstract class GhostState extends State {
   followingCDTimer: Timer;
   stuckTimer: Timer;
   contactCooldown: Timer;
+  knockbackTimer: Timer;
   playerPos: Vec2;
   canFollow: boolean;
   stateName: string; // For debug purposes
@@ -25,6 +26,7 @@ export default abstract class GhostState extends State {
     this.followingCDTimer = new Timer(10000);
     this.stuckTimer = new Timer(5000); // check if a ghost is stuck for too long
     this.contactCooldown = new Timer(1000);
+    this.knockbackTimer = new Timer(500);
   }
 
   handleInput(event: GameEvent): void {}

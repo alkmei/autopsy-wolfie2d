@@ -5,6 +5,7 @@ import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import GameLevel from "../../Scenes/GameLevel";
 import { DamageType } from "../DamageType";
 import { Events } from "../../../globals";
+import GhostController, {GState} from "../../Enemy/Ghost/GhostController";
 
 export default class Active extends HitboxState {
   onEnter(options: Record<string, any>) {
@@ -33,6 +34,7 @@ export default class Active extends HitboxState {
         enemies.forEach(enemy => {
           if (this.owner.collisionShape.overlaps(enemy.node.collisionShape)) {
             this.emitter.fireEvent(Events.ENEMY_DAMAGE, { enemy: enemy });
+            (<GhostController>enemy.node._ai).changeState(GState.Knockback);
             this.hasHit = false;
           }
         });

@@ -4,10 +4,12 @@ import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import GhostState from "./GhostStates/GhostState";
 import Drifting from "./GhostStates/Drifting";
 import Following from "./GhostStates/Following";
+import Knockback from "./GhostStates/Knockback";
 
 export enum GState {
   Drifting = "drifting",
   Following = "following",
+  Knockback = "knockback",
 }
 
 export default class GhostController extends StateMachineAI {
@@ -17,6 +19,7 @@ export default class GhostController extends StateMachineAI {
   velocity: Vec2 = Vec2.ZERO;
   driftSpeed = 50;
   followSpeed = 100;
+  knockbackSpeed = 150;
   gravity = 0;
 
   initializeAI(owner: GameNode, config: Record<string, any>) {
@@ -29,6 +32,7 @@ export default class GhostController extends StateMachineAI {
   initializeStates() {
     this.addState(GState.Drifting, new Drifting(this, this.owner));
     this.addState(GState.Following, new Following(this, this.owner));
+    this.addState(GState.Knockback, new Knockback(this, this.owner));
 
     this.initialize(GState.Drifting);
   }
