@@ -25,7 +25,7 @@ export default class Level1 extends GameLevel {
     for (let i = 0; i < 1; i++) {
       const ghost = new Ghost(
         this.add.animatedSprite("RedSoul", Layers.Main),
-        new Vec2(200, 1000),
+        new Vec2(200, 1100),
         GhostType.RED,
       );
 

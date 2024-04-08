@@ -2,14 +2,13 @@ import State from "../../../../Wolfie2D/DataTypes/State/State";
 import StateMachine from "../../../../Wolfie2D/DataTypes/State/StateMachine";
 import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 import GameEvent from "../../../../Wolfie2D/Events/GameEvent";
-import GameNode from "../../../../Wolfie2D/Nodes/GameNode";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 import GhostController from "../GhostController";
 import AnimatedSprite from "../../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GameLevel from "../../../Scenes/GameLevel";
 
 export default abstract class GhostState extends State {
-  owner: GameNode;
+  owner: AnimatedSprite;
   parent: GhostController;
   followingCDTimer: Timer;
   stuckTimer: Timer;
@@ -17,7 +16,7 @@ export default abstract class GhostState extends State {
   canFollow: boolean;
   stateName: string; // For debug purposes
 
-  constructor(parent: StateMachine, owner: GameNode) {
+  constructor(parent: StateMachine, owner: AnimatedSprite) {
     super(parent);
     this.owner = owner;
     this.followingCDTimer = new Timer(10000);

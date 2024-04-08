@@ -178,6 +178,7 @@ export default class GameLevel extends Scene {
       case Events.ENEMY_DAMAGE: {
         let enemy = event.data.get("enemy");
         enemy.health -= 1;
+        console.log(`Enemy: ${enemy.health}`);
 
         if (enemy.health <= 0)
           this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });
@@ -190,6 +191,7 @@ export default class GameLevel extends Scene {
         if (this.player.health <= 0)
           this.emitter.fireEvent(Events.PLAYER_DEATH);
 
+        console.log(`Player: ${this.player.health}`);
         break;
       }
 
@@ -197,7 +199,6 @@ export default class GameLevel extends Scene {
       // TODO: Death animations
       case Events.ENEMY_DEATH: {
         let enemy = event.data.get("enemy");
-        console.log(enemy);
         enemy.node.destroy();
         this.enemies = this.enemies.filter(e => e !== enemy);
 

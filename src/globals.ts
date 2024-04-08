@@ -18,3 +18,9 @@ export const Events = {
   PLAYER_DEATH: "PLAYER_DEATH",
   ENEMY_DEATH: "ENEMY_DEATH",
 };
+
+export const PhysicsGroups = {
+  PLAYER_PHYS: "PLAYER_PHYS",
+  ENEMY_PHYS: "ENEMY_PHYS",
+  HITBOX_PHYS: "HITBOX_PHYS",
+}

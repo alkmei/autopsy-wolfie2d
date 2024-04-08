@@ -1,8 +1,10 @@
 import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GhostController from "./GhostController";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import Label from "../../../Wolfie2D/Nodes/UIElements/Label";
+import { PhysicsGroups } from "../../../globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
+import Hitbox from "../../Hitbox/Hitbox";
+import { DamageType } from "../../Hitbox/DamageType";
 
 export enum GhostType {
   RED = "red",
@@ -14,6 +16,7 @@ export enum GhostAnimations {
 }
 
 export default class Ghost {
+  hitbox: Hitbox;
   node: AnimatedSprite;
   health: number;
   type: string; //red(HP) or blue(MP)
@@ -25,10 +28,22 @@ export default class Ghost {
       new Vec2(0, 0),
     );
     this.node.addAI(GhostController);
-    this.node.setGroup("enemy");
+    this.node.setGroup(PhysicsGroups.ENEMY_PHYS);
     this.node.position = pos;
     this.node.animation.play(GhostAnimations.Idle, true);
     this.health = 5;
     this.type = type;
+
+    // Add contact damage hitbox
+    if (!this.hitbox) {
+      this.hitbox = new Hitbox(
+        this.node,
+        DamageType.CONTACT,
+        new Vec2(0, 0),
+        new Vec2(18, 24),
+        this.node.invertX,
+        new Vec2(0, 0),
+      );
+    }
   }
 }
