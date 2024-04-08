@@ -198,19 +198,17 @@ export default class MainMenu extends Scene {
 
   private initControlsMenu() {
     [
-      "(Left Arrow), (Right Arrow): Move left and right respectively.",
-      "(Z): Jump.",
-      "(X): Attack.",
-      "(Shift): Alt attack",
-      "(Space): Dash.",
-      "(A, S, D, F): Switch weapons",
+      "(A), (D): Move left and right respectively.",
+      "(Space): Jump.",
+      "(J): Attack.",
+      "(Shift): Dash.",
       "(ESC): Pause game.",
     ].forEach((value, index) => {
       const controlLine = <Label>this.add.uiElement(
         UIElementType.LABEL,
         Layers.Controls,
         {
-          position: new Vec2(this.viewport.getCenter().x, 200 + 40 * index),
+          position: new Vec2(600, 200 + 40 * index),
           text: value,
         },
       );
