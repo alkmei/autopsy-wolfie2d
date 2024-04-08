@@ -3,6 +3,7 @@ import { Action } from "../../../../globals";
 import { ActionState, MovementState, PlayerAnimations } from "../../Player";
 import PlayerMovementState from "./PlayerMovementState";
 import Idle from "../Actions/Idle";
+import Dashing from "../Actions/Dashing";
 
 export default class Grounded extends PlayerMovementState {
   onEnter(options: Record<string, any>): void {
@@ -23,6 +24,9 @@ export default class Grounded extends PlayerMovementState {
         this.owner.animation.playIfNotAlready(PlayerAnimations.Idle, true);
       }
     }
+
+    if (!(this.player.actionStateMachine.getState() instanceof Dashing))
+      this.player.speed = 300;
 
     if (Input.isJustPressed(Action.Jump)) {
       this.player.actionStateMachine.changeState(ActionState.Jump);

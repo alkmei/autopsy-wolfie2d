@@ -5,7 +5,10 @@ import { ActionState, MovementState } from "../../Player";
 import Idle from "./Idle";
 
 export default class Jump extends Idle {
+  fromDash: boolean;
+
   onEnter(options: Record<string, any>): void {
+    if (options) this.fromDash = options.state == ActionState.Dash;
     this.stateName = "Jump";
     this.player.velocity.y = this.player.jumpVelocity;
     this.player.movementStateMachine.changeState(MovementState.Ascending);

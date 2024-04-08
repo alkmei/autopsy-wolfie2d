@@ -17,6 +17,7 @@ import Ghost from "../Enemy/Ghost/Ghost";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
 import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
+import Timer from "../../Wolfie2D/Timing/Timer";
 
 export enum Layers {
   Main = "main",
