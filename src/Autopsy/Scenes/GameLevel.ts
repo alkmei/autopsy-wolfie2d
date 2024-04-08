@@ -5,7 +5,7 @@ import Camera from "../Camera";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import { UIElementType } from "../../Wolfie2D/Nodes/UIElements/UIElementTypes";
 import Color from "../../Wolfie2D/Utils/Color";
-import { Events } from "../../globals";
+import { Events, PhysicsGroups } from "../../globals";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
 import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import Button from "../../Wolfie2D/Nodes/UIElements/Button";
@@ -17,7 +17,7 @@ import Ghost, { GhostType } from "../Enemy/Ghost/Ghost";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
 import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
-import Timer from "../../Wolfie2D/Timing/Timer";
+import Rect from "../../Wolfie2D/Nodes/Graphics/Rect";
 
 export enum Layers {
   Main = "main",
@@ -37,6 +37,9 @@ export default class GameLevel extends Scene {
 
   playerStateLabel: Label;
   playerActionStateLabel: Label;
+
+  nextLevel: new (...args: any) => GameLevel;
+  levelEndArea: Rect;
 
   healthBar: Label;
   healthBarBg: Label;
@@ -135,6 +138,10 @@ export default class GameLevel extends Scene {
     this.receiver.subscribe(Events.PLAYER_DAMAGE);
     this.receiver.subscribe(Events.ENEMY_DEATH);
     this.receiver.subscribe(Events.PLAYER_DEATH);
+    this.receiver.subscribe(Events.PLAYER_HEAL);
+
+    this.receiver.subscribe(Events.LEVEL_END);
+    this.receiver.subscribe(Events.ENTER_LEVEL_END);
   }
 
   update(deltaT: number) {
@@ -175,7 +182,6 @@ export default class GameLevel extends Scene {
         break;
       }
 
-      // Damage events
       case Events.ENEMY_DAMAGE: {
         let enemy = event.data.get("enemy");
         enemy.health -= 1;
@@ -186,6 +192,7 @@ export default class GameLevel extends Scene {
 
         break;
       }
+
       case Events.PLAYER_DAMAGE: {
         this.player.health -= 1;
         this.healthBar.size.x = 600 * (this.player.health / 10);
@@ -197,24 +204,67 @@ export default class GameLevel extends Scene {
         break;
       }
 
-      // Death events
+      case Events.PLAYER_HEAL: {
+        if (this.player.health + 1 <= this.player.maxHealth) {
+          this.player.health += 1;
+          this.healthBar.size.x = 600 * (this.player.health / 10);
+          this.healthBar.position.x = 0;
+          console.log(`Player: ${this.player.health}`);
+        }
+        break;
+      }
+
       // TODO: Death animations
       case Events.ENEMY_DEATH: {
         let enemy = event.data.get("enemy");
 
         // Heal player if red soul
-        if (enemy.type === GhostType.RED && this.player.health + 1 <= this.player.maxHealth) {
-            this.player.health += 1;
-        }
-        
+        if (enemy.type === GhostType.RED)
+          this.emitter.fireEvent(Events.PLAYER_HEAL);
+
         enemy.node.destroy();
         this.enemies = this.enemies.filter(e => e !== enemy);
 
         break;
       }
+
       case Events.PLAYER_DEATH: {
         // death anim -> some screen/main menu for now
         this.sceneManager.changeToScene(MainMenu);
+
+        break;
+      }
+
+      case Events.LEVEL_END: {
+        /*
+          Rows in the collisions array represent each physics group by index, 
+          first index of the first row is the first phys group itself,
+          second index in the second row is the second phys group itself, etc.
+
+          0 is does not collide, 1 is collide
+        */
+        let sceneOptions = {
+          physics: {
+            groupNames: [
+              PhysicsGroups.PLAYER_PHYS,
+              PhysicsGroups.ENEMY_PHYS,
+              PhysicsGroups.HITBOX_PHYS,
+            ],
+            collisions: [
+              [0, 1, 1],
+              [0, 1, 1],
+              [0, 0, 0],
+            ],
+          },
+        };
+        this.sceneManager.changeToScene(this.nextLevel, {}, sceneOptions);
+
+        break;
+      }
+
+      case Events.ENTER_LEVEL_END: {
+        if (this.enemies.length === 0)
+          this.emitter.fireEvent(Events.LEVEL_END);
 
         break;
       }
@@ -290,6 +340,20 @@ export default class GameLevel extends Scene {
         (unit / 2 / this.getViewScale()) * (maxHealth - currentHealth),
       this.healthBarBg.position.y,
     );
+  }
+
+  addLevelEnd(startingTile: Vec2, size: Vec2): void {
+    this.levelEndArea = <Rect>this.add.graphic(GraphicType.RECT, Layers.Main, {
+      position: startingTile,
+      size: size,
+    });
+    this.levelEndArea.addPhysics(undefined, undefined, false, true);
+    this.levelEndArea.setTrigger(
+      PhysicsGroups.PLAYER_PHYS,
+      Events.ENTER_LEVEL_END,
+      null,
+    );
+    this.levelEndArea.color = new Color(255, 255, 255, 1);
   }
 
   private newButton(

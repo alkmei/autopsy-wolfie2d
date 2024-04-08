@@ -3,6 +3,7 @@ import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Ghost from "../Enemy/Ghost/Ghost";
 import { Layers } from "./GameLevel";
 import { GhostType } from "../Enemy/Ghost/Ghost";
+import Level2 from "./Level2";
 
 const GhostPositions: Array<Vec2> = [
   new Vec2(3840, 416),
@@ -23,6 +24,10 @@ export default class Level1 extends GameLevel {
     this.camera.node.position = this.player.node.position.clone();
     this.add.tilemap("tilemap", new Vec2(1, 1));
     this.viewport.setBounds(0, 0, 6400, 1280);
+
+    this.nextLevel = Level2;
+
+    this.addLevelEnd(new Vec2(4576, 160), new Vec2(32, 128));
 
     this.initializeGhosts();
   }

@@ -4,6 +4,7 @@ import Input from "../../../../Wolfie2D/Input/Input";
 import { Action } from "../../../../globals";
 import Jump from "../Actions/Jump";
 import Idle from "../Actions/Idle";
+import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 
 export default class InAir extends PlayerMovementState {
   onEnter(options: Record<string, any>): void {
@@ -34,7 +35,7 @@ export default class InAir extends PlayerMovementState {
 
     // TODO: Remove in actual game release :)
     if (this.owner.position.y > 2000)
-      this.owner.position = this.player.lastGroundedPosition;
+      this.owner.position = new Vec2(this.player.lastGroundedPosition.x, this.player.lastGroundedPosition.y - 150);
 
     if (this.owner.onGround) {
       this.finished(MovementState.Grounded);

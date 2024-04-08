@@ -17,9 +17,7 @@ export default class Grounded extends PlayerMovementState {
   update(deltaT: number) {
     super.update(deltaT);
     const dir = this.getInputDirection();
-    this.player.lastGroundedPosition = this.owner.position
-      .clone()
-      .sub(new Vec2(this.getInputDirection().x * 40, 0));
+
 
     if (!this.isActionAnimationPlaying()) {
       if (dir.x != 0) {
@@ -49,6 +47,9 @@ export default class Grounded extends PlayerMovementState {
   }
 
   onExit(): Record<string, any> {
+    this.player.lastGroundedPosition = this.owner.position
+      .clone()
+      .sub(new Vec2(this.getInputDirection().x * 40, 0));
     return {};
   }
 }
