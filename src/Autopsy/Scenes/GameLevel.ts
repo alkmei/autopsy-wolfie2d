@@ -13,7 +13,7 @@ import MainMenu from "./MainMenu";
 import Input from "../../Wolfie2D/Input/Input";
 import { Action } from "../../globals";
 import PlayerState from "../Player/States/PlayerState";
-import Ghost from "../Enemy/Ghost/Ghost";
+import Ghost, { GhostType } from "../Enemy/Ghost/Ghost";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
 import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
@@ -201,6 +201,12 @@ export default class GameLevel extends Scene {
       // TODO: Death animations
       case Events.ENEMY_DEATH: {
         let enemy = event.data.get("enemy");
+
+        // Heal player if red soul
+        if (enemy.type === GhostType.RED && this.player.health + 1 <= this.player.maxHealth) {
+            this.player.health += 1;
+        }
+        
         enemy.node.destroy();
         this.enemies = this.enemies.filter(e => e !== enemy);
 

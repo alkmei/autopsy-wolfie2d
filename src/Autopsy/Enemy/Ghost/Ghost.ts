@@ -34,23 +34,5 @@ export default class Ghost {
     this.node.animation.play(GhostAnimations.Idle, true);
     this.health = 5;
     this.type = type;
-
-    // const hitboxSprite = this.node.getScene()
-    //   .add.animatedSprite("RedSoul", Layers.Main);
-    
-    // hitboxSprite.visible = false;
-
-    // // Add contact damage hitbox
-    // if (!this.hitbox) {
-    //   this.hitbox = new Hitbox(
-    //     this.node,
-    //     hitboxSprite,
-    //     DamageType.CONTACT,
-    //     new Vec2(0, 0),
-    //     SpriteSizes.SOUL,
-    //     this.node.invertX,
-    //     new Vec2(0, 0),
-    //   );
-    // }
   }
 }
