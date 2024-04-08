@@ -188,7 +188,8 @@ export default class GameLevel extends Scene {
       }
       case Events.PLAYER_DAMAGE: {
         this.player.health -= 1;
-        this.healthBar.size.x = 320 * (this.player.health / 10);
+        this.healthBar.size.x = 600 * (this.player.health / 10);
+        this.healthBar.position.x = 0;
         if (this.player.health <= 0)
           this.emitter.fireEvent(Events.PLAYER_DEATH);
 
@@ -216,10 +217,10 @@ export default class GameLevel extends Scene {
 
   initUI() {
     this.healthBar = <Label>this.add.uiElement(UIElementType.LABEL, Layers.UI, {
-      position: new Vec2(70, 30),
+      position: new Vec2(0, 30),
       text: "",
     });
-    this.healthBar.size = new Vec2(320, 50);
+    this.healthBar.size = new Vec2(600, 50);
     this.healthBar.backgroundColor = this.healthBarColor;
     this.healthBar.borderWidth = 2;
     this.healthBar.borderRadius = 0;
