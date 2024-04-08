@@ -16,6 +16,7 @@ export default class Jump extends Idle {
   }
 
   update(deltaT: number): void {
+    super.update(deltaT);
     if (!Input.isPressed(Action.Jump)) {
       if (this.player.velocity.y < 0)
         this.player.movementStateMachine.changeState(MovementState.Descending);
