@@ -6,7 +6,7 @@ import GameLevel from "../../Scenes/GameLevel";
 import { DamageType } from "../DamageType";
 import { Events } from "../../../globals";
 
-export default class BasicSlash extends HitboxState {
+export default class Active extends HitboxState {
   onEnter(options: Record<string, any>) {
     this.stateName = HState.Active;
     this.owner.animation.play("animation", false);
@@ -14,9 +14,10 @@ export default class BasicSlash extends HitboxState {
 
   update(deltaT: number) {
     super.update(deltaT);
+    const player = (<GameLevel>this.owner.getScene()).player.node;
 
-    let posX = this.parent.player.position.x + this.parent.offset.x;
-    let posY = this.parent.player.position.y + this.parent.offset.y;
+    let posX = player.position.x + this.parent.offset.x;
+    let posY = player.position.y + this.parent.offset.y;
     if (this.parent.invertX) {
       posX = posX - this.parent.offset.x * 2;
       posY = posY - this.parent.offset.y * 2;
@@ -24,7 +25,7 @@ export default class BasicSlash extends HitboxState {
     }
 
     this.owner.position = new Vec2(posX, posY);
-    
+
     // Hitbox damaging enemies
     if (this.hasHit) {
       if (this.parent.eventType === DamageType.TO_ENEMY) {
@@ -32,7 +33,6 @@ export default class BasicSlash extends HitboxState {
         enemies.forEach(enemy => {
           if (this.owner.collisionShape.overlaps(enemy.node.collisionShape)) {
             this.emitter.fireEvent(Events.ENEMY_DAMAGE, { enemy: enemy });
-            console.log(enemy.health);
             this.hasHit = false;
           }
         });
@@ -40,8 +40,7 @@ export default class BasicSlash extends HitboxState {
 
       // Hitbox damaging player
       if (this.parent.eventType === DamageType.TO_PLAYER) {
-        const player = (<GameLevel>this.owner.getScene()).player;
-        if (this.owner.collisionShape.overlaps(player.node.collisionShape)) {
+        if (this.owner.collisionShape.overlaps(player.collisionShape)) {
           this.emitter.fireEvent(Events.PLAYER_DAMAGE);
           this.hasHit = false;
         }

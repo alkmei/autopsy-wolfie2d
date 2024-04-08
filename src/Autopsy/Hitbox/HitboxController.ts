@@ -2,12 +2,15 @@ import StateMachineAI from "../../Wolfie2D/AI/StateMachineAI";
 import GameNode from "../../Wolfie2D/Nodes/GameNode";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import HitboxState from "./HitboxStates/HitboxState";
-import BasicSlash from "./HitboxStates/BasicSlash";
+import Active from "./HitboxStates/Active";
 import { HState } from "./Hitbox";
+import ManageHitbox from "./HitboxStates/ManageHitbox";
 import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 
 export default class HitboxController extends StateMachineAI {
-  player: AnimatedSprite;
+  // The entity that this hitbox is coming from
+  owningEntity: AnimatedSprite;
+
   owner: GameNode;
   velocity: Vec2 = Vec2.ZERO;
   invertX: boolean;
@@ -16,11 +19,10 @@ export default class HitboxController extends StateMachineAI {
 
   initializeAI(owner: GameNode, config: Record<string, any>) {
     this.owner = owner;
-    this.player = config.player;
     this.invertX = config.invertX;
     this.offset = config.offset;
     this.eventType = config.eventType;
-
+    this.owningEntity = config.owner;
     // subscribe to events maybe
 
     this.initializeStates();
@@ -28,10 +30,11 @@ export default class HitboxController extends StateMachineAI {
 
   initializeStates() {
     // add states
-    this.addState(HState.Active, new BasicSlash(this, this.owner));
+    this.addState(HState.Active, new Active(this, this.owner));
+    this.addState(HState.Manager, new ManageHitbox(this, this.owner));
 
     // add initial state
-    this.initialize(HState.Active);
+    this.initialize(HState.Manager);
   }
 
   update(deltaT: number) {

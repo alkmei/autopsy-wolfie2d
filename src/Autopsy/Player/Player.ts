@@ -12,6 +12,7 @@ import Jump from "./States/Actions/Jump";
 import Attack from "./States/Actions/Attack";
 import AttackDown from "./States/Actions/AttackDown";
 import AttackUpper from "./States/Actions/AttackUpper";
+import { PhysicsGroups, SpriteSizes } from "../../globals";
 
 export enum MovementState {
   Grounded = "grounded",
@@ -55,8 +56,8 @@ export default class Player implements Updateable {
 
   constructor(sprite: AnimatedSprite) {
     this.node = sprite;
-    this.node.addPhysics(new AABB(new Vec2(0, 0), new Vec2(18, 24)));
-    this.node.setGroup("player");
+    this.node.addPhysics(new AABB(new Vec2(0, 0), SpriteSizes.PLAYER));
+    this.node.setGroup(PhysicsGroups.PLAYER_PHYS);
     this.node.position = new Vec2(100, 50);
     this.node.animation.play(PlayerAnimations.Idle, true);
     this.health = 10;

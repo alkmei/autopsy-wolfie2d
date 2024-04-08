@@ -18,7 +18,6 @@ export default class Level1 extends GameLevel {
     this.viewport.setBounds(0, 0, 6400, 1280);
 
     this.initializeGhosts();
-
   }
 
   initializeGhosts() {

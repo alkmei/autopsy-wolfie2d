@@ -2,17 +2,19 @@ import State from "../../../../Wolfie2D/DataTypes/State/State";
 import StateMachine from "../../../../Wolfie2D/DataTypes/State/StateMachine";
 import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 import GameEvent from "../../../../Wolfie2D/Events/GameEvent";
-import GameNode from "../../../../Wolfie2D/Nodes/GameNode";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 import GhostController from "../GhostController";
 import AnimatedSprite from "../../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GameLevel from "../../../Scenes/GameLevel";
+import GameNode from "../../../../Wolfie2D/Nodes/GameNode";
+import { Events } from "../../../../globals";
 
 export default abstract class GhostState extends State {
   owner: GameNode;
   parent: GhostController;
   followingCDTimer: Timer;
   stuckTimer: Timer;
+  contactCooldown: Timer;
   playerPos: Vec2;
   canFollow: boolean;
   stateName: string; // For debug purposes
@@ -22,6 +24,7 @@ export default abstract class GhostState extends State {
     this.owner = owner;
     this.followingCDTimer = new Timer(10000);
     this.stuckTimer = new Timer(5000); // check if a ghost is stuck for too long
+    this.contactCooldown = new Timer(1000);
   }
 
   handleInput(event: GameEvent): void {}
@@ -44,6 +47,16 @@ export default abstract class GhostState extends State {
       this.parent.direction.x *= -1;
       (<AnimatedSprite>this.owner).invertX = !(<AnimatedSprite>this.owner)
         .invertX;
+    }
+
+    if (
+      this.contactCooldown.isStopped() &&
+      this.owner.collisionShape.overlaps(
+        (<GameLevel>this.owner.getScene()).player.node.collisionShape,
+      )
+    ) {
+      this.emitter.fireEvent(Events.PLAYER_DAMAGE);
+      this.contactCooldown.start();
     }
 
     if (this.owner.onCeiling || this.owner.onGround) {
