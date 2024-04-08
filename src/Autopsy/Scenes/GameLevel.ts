@@ -72,7 +72,10 @@ export default class GameLevel extends Scene {
     );
 
     // red soul enemy
-    this.load.spritesheet("RedSoul", "assets/spritesheets/RedSoul/RedSoul.json");
+    this.load.spritesheet(
+      "RedSoul",
+      "assets/spritesheets/RedSoul/RedSoul.json",
+    );
 
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
@@ -157,7 +160,6 @@ export default class GameLevel extends Scene {
     this.playerActionStateLabel.position = this.player.node.position
       .clone()
       .add(new Vec2(0, -80));
-
     // handle events
     while (this.receiver.hasNextEvent()) {
       this.handleEvent(this.receiver.getNextEvent());
@@ -184,7 +186,7 @@ export default class GameLevel extends Scene {
       }
       case Events.PLAYER_DAMAGE: {
         this.player.health -= 1;
-
+        this.healthBar.size.x = 320 * (this.player.health / 10);
         if (this.player.health <= 0)
           this.emitter.fireEvent(Events.PLAYER_DEATH);
 
@@ -197,7 +199,7 @@ export default class GameLevel extends Scene {
         let enemy = event.data.get("enemy");
         console.log(enemy);
         enemy.node.destroy();
-        this.enemies = this.enemies.filter((e) => e !== enemy);
+        this.enemies = this.enemies.filter(e => e !== enemy);
 
         break;
       }
@@ -217,9 +219,21 @@ export default class GameLevel extends Scene {
     });
     this.healthBar.size = new Vec2(320, 50);
     this.healthBar.backgroundColor = this.healthBarColor;
-    this.healthBar.borderColor = Color.WHITE;
     this.healthBar.borderWidth = 2;
     this.healthBar.borderRadius = 0;
+
+    const healthBarBorder = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.UI,
+      {
+        position: new Vec2(70, 30),
+        text: "",
+      },
+    );
+    healthBarBorder.size = new Vec2(320, 50);
+    healthBarBorder.borderColor = Color.WHITE;
+    healthBarBorder.borderWidth = 2;
+    healthBarBorder.borderRadius = 0;
   }
 
   initPauseLayer() {

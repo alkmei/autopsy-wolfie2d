@@ -208,7 +208,7 @@ export default class MainMenu extends Scene {
         UIElementType.LABEL,
         Layers.Controls,
         {
-          position: new Vec2(this.viewport.getCenter().x, 200 + 40 * index),
+          position: new Vec2(600, 200 + 40 * index),
           text: value,
         },
       );
