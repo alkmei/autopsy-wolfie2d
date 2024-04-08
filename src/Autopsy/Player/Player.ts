@@ -53,6 +53,7 @@ export default class Player implements Updateable {
   actionStateMachine: StateMachine;
 
   canDash: boolean;
+  lastGroundedPosition: Vec2;
 
   constructor(sprite: AnimatedSprite) {
     this.node = sprite;

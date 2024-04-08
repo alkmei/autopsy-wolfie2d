@@ -33,7 +33,8 @@ export default class InAir extends PlayerMovementState {
     }
 
     // TODO: Remove in actual game release :)
-    if (this.owner.position.y > 2000) this.owner.position.y = 900;
+    if (this.owner.position.y > 2000)
+      this.owner.position = this.player.lastGroundedPosition;
 
     if (this.owner.onGround) {
       this.finished(MovementState.Grounded);
