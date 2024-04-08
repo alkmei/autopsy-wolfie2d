@@ -1,10 +1,11 @@
 import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GhostController from "./GhostController";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import { PhysicsGroups } from "../../../globals";
+import { PhysicsGroups, SpriteSizes } from "../../../globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Hitbox from "../../Hitbox/Hitbox";
 import { DamageType } from "../../Hitbox/DamageType";
+import Sprite from "../../../Wolfie2D/Nodes/Sprites/Sprite";
 
 export enum GhostType {
   RED = "red",
@@ -24,7 +25,7 @@ export default class Ghost {
   constructor(sprite: AnimatedSprite, pos: Vec2, type: string) {
     this.node = sprite;
     this.node.addPhysics(
-      new AABB(new Vec2(0, 0), new Vec2(18, 24)),
+      new AABB(new Vec2(0, 0), SpriteSizes.SOUL),
       new Vec2(0, 0),
     );
     this.node.addAI(GhostController);
@@ -40,7 +41,7 @@ export default class Ghost {
         this.node,
         DamageType.CONTACT,
         new Vec2(0, 0),
-        new Vec2(18, 24),
+        SpriteSizes.SOUL,
         this.node.invertX,
         new Vec2(0, 0),
       );
