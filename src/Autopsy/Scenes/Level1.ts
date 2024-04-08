@@ -4,7 +4,14 @@ import Ghost from "../Enemy/Ghost/Ghost";
 import { Layers } from "./GameLevel";
 import { GhostType } from "../Enemy/Ghost/Ghost";
 
+const GhostPositions: Array<Vec2> = [
+  new Vec2(3840, 416),
+  new Vec2(4160, 512),
+  new Vec2(3904, 448),
+]
+
 export default class Level1 extends GameLevel {
+  
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
@@ -21,10 +28,10 @@ export default class Level1 extends GameLevel {
   }
 
   initializeGhosts() {
-    for (let i = 0; i < 1; i++) {
+    for (let i = 0; i < GhostPositions.length; i++) {
       const ghost = new Ghost(
         this.add.animatedSprite("RedSoul", Layers.Main),
-        new Vec2(200, 1000),
+        GhostPositions[i],
         GhostType.RED,
       );
 

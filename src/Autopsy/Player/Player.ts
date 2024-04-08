@@ -41,6 +41,7 @@ export enum PlayerAnimations {
 
 export default class Player implements Updateable {
   node: AnimatedSprite;
+  maxHealth: number;
   health: number;
   velocity: Vec2 = new Vec2();
   speed = 300;
@@ -60,6 +61,7 @@ export default class Player implements Updateable {
     this.node.setGroup(PhysicsGroups.PLAYER_PHYS);
     this.node.position = new Vec2(100, 50);
     this.node.animation.play(PlayerAnimations.Idle, true);
+    this.maxHealth = 10;
     this.health = 10;
     this.updateGravity();
     this.initializeAI();
