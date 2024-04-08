@@ -135,6 +135,7 @@ export default class GameLevel extends Scene {
     this.receiver.subscribe(Events.PLAYER_DAMAGE);
     this.receiver.subscribe(Events.ENEMY_DEATH);
     this.receiver.subscribe(Events.PLAYER_DEATH);
+    this.receiver.subscribe(Events.PLAYER_HEAL);
   }
 
   update(deltaT: number) {
@@ -175,7 +176,6 @@ export default class GameLevel extends Scene {
         break;
       }
 
-      // Damage events
       case Events.ENEMY_DAMAGE: {
         let enemy = event.data.get("enemy");
         enemy.health -= 1;
@@ -186,6 +186,7 @@ export default class GameLevel extends Scene {
 
         break;
       }
+
       case Events.PLAYER_DAMAGE: {
         this.player.health -= 1;
         this.healthBar.size.x = 600 * (this.player.health / 10);
@@ -197,21 +198,30 @@ export default class GameLevel extends Scene {
         break;
       }
 
-      // Death events
+      case Events.PLAYER_HEAL: {
+        if (this.player.health + 1 <= this.player.maxHealth) {
+          this.player.health += 1;
+          this.healthBar.size.x = 600 * (this.player.health / 10);
+          this.healthBar.position.x = 0;
+          console.log(`Player: ${this.player.health}`);
+        }
+        break;
+      }
+
       // TODO: Death animations
       case Events.ENEMY_DEATH: {
         let enemy = event.data.get("enemy");
 
         // Heal player if red soul
-        if (enemy.type === GhostType.RED && this.player.health + 1 <= this.player.maxHealth) {
-            this.player.health += 1;
-        }
+        if (enemy.type === GhostType.RED) 
+            this.emitter.fireEvent(Events.PLAYER_HEAL);
         
         enemy.node.destroy();
         this.enemies = this.enemies.filter(e => e !== enemy);
 
         break;
       }
+
       case Events.PLAYER_DEATH: {
         // death anim -> some screen/main menu for now
         this.sceneManager.changeToScene(MainMenu);
