@@ -4,6 +4,7 @@ import { ActionState, MovementState, PlayerAnimations } from "../../Player";
 import PlayerMovementState from "./PlayerMovementState";
 import Idle from "../Actions/Idle";
 import Dashing from "../Actions/Dashing";
+import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 
 export default class Grounded extends PlayerMovementState {
   onEnter(options: Record<string, any>): void {
@@ -16,6 +17,7 @@ export default class Grounded extends PlayerMovementState {
   update(deltaT: number) {
     super.update(deltaT);
     const dir = this.getInputDirection();
+
 
     if (!this.isActionAnimationPlaying()) {
       if (dir.x != 0) {
@@ -45,8 +47,9 @@ export default class Grounded extends PlayerMovementState {
   }
 
   onExit(): Record<string, any> {
-    this.player.lastGroundedPosition = this.owner.position.clone();
-    
+    this.player.lastGroundedPosition = this.owner.position
+      .clone()
+      .sub(new Vec2(this.getInputDirection().x * 40, 0));
     return {};
   }
 }

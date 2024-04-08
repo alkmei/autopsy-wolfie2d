@@ -17,8 +17,8 @@ export default class GhostController extends StateMachineAI {
   //direction_op = [new Vec2(1,1),new Vec2(1,-1),new Vec2(-1,1),new Vec2(-1,-1)]
   direction: Vec2 = Vec2.ZERO;
   velocity: Vec2 = Vec2.ZERO;
-  driftSpeed = 50;
-  followSpeed = 100;
+  driftSpeed = 10;
+  followSpeed = 30;
   knockbackSpeed = 150;
   gravity = 0;
 
