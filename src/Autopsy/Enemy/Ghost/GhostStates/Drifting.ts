@@ -3,7 +3,6 @@ import { GState } from "../GhostController";
 
 export default class Drifting extends GhostState {
   onEnter(options: Record<string, any>) {
-    // TODO: enemy still keeps the direction that they were following the player in idk why this doesn't work
     this.parent.direction = this.parent.randomDirection();
     this.stateName = "Drifting";
     this.canFollow = false;
@@ -15,7 +14,6 @@ export default class Drifting extends GhostState {
     if (this.withinXBlock(6)) this.canFollow = true;
 
     if (this.canFollow) {
-      this.stuckTimer.start();
       this.finished(GState.Following);
     } else {
       this.parent.velocity.x =

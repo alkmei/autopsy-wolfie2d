@@ -4,6 +4,8 @@ import { GState } from "../GhostController";
 export default class Following extends GhostState {
   onEnter(options: Record<string, any>) {
     this.stateName = "Following";
+    this.stuckTimer.start();
+    this.canFollow = true;
   }
 
   update(deltaT: number) {
@@ -14,15 +16,16 @@ export default class Following extends GhostState {
     if (!this.canFollow) {
       this.followingCDTimer.start();
       this.finished(GState.Drifting);
+      return;
     } else if (
       this.owner.onWall ||
       this.owner.onCeiling ||
       this.owner.onGround
     ) {
       if (this.stuckTimer.isStopped()) {
-        this.parent.direction = this.parent.randomDirection();
         this.followingCDTimer.start();
         this.finished(GState.Drifting);
+        return;
       }
     } else {
       this.stuckTimer.reset();
