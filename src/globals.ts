@@ -20,6 +20,9 @@ export const Events = {
 
   ENEMY_DEATH: "ENEMY_DEATH",
   ENEMY_DAMAGE: "ENEMY_DAMAGE",
+
+  LEVEL_END: "LEVEL_END",
+  ENTER_LEVEL_END: "ENTER_LEVEL_END",
 };
 
 export const PhysicsGroups = {
