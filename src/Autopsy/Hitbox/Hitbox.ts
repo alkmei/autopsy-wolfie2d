@@ -6,23 +6,33 @@ import Sprite from "../../Wolfie2D/Nodes/Sprites/Sprite";
 import { PhysicsGroups } from "../../globals";
 
 export enum HState {
-    Active = "Active",
-    Contact = "Contact",
-    Manager = "Manager",
-  }
+  Active = "Active",
+  Contact = "Contact",
+  Manager = "Manager",
+}
 
 export default class Hitbox {
   node: AnimatedSprite;
 
-  constructor(sprite: AnimatedSprite, eventType: string, center: Vec2, halfSize: Vec2, invertX: boolean, offset: Vec2) {
+  constructor(
+    owner: AnimatedSprite,
+    sprite: AnimatedSprite,
+    eventType: string,
+    center: Vec2,
+    halfSize: Vec2,
+    invertX: boolean,
+    offset: Vec2,
+  ) {
     this.node = sprite;
-    
-    this.node.addPhysics(
-        new AABB(center, halfSize),
-        new Vec2(0, 0),
-    );
-    
+
+    this.node.addPhysics(new AABB(center, halfSize), new Vec2(0, 0));
     this.node.setGroup(PhysicsGroups.HITBOX_PHYS);
-    this.node.addAI(HitboxController, { invertX: invertX, offset: offset, eventType: eventType});   
+
+    this.node.addAI(HitboxController, {
+      invertX: invertX,
+      offset: offset,
+      eventType: eventType,
+      owner: owner,
+    });
   }
 }

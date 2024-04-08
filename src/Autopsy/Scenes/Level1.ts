@@ -18,14 +18,13 @@ export default class Level1 extends GameLevel {
     this.viewport.setBounds(0, 0, 6400, 1280);
 
     this.initializeGhosts();
-
   }
 
   initializeGhosts() {
     for (let i = 0; i < 1; i++) {
       const ghost = new Ghost(
         this.add.animatedSprite("RedSoul", Layers.Main),
-        new Vec2(200, 1100),
+        new Vec2(200, 1000),
         GhostType.RED,
       );
 

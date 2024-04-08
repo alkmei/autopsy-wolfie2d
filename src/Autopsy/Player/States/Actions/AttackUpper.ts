@@ -21,6 +21,7 @@ export default class AttackUpper extends PlayerActionState {
       120,
       () => {
         let hitbox = new Hitbox(
+          this.player.node,
           sprite,
           DamageType.TO_ENEMY,
           new Vec2(0, 0),

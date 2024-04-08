@@ -12,9 +12,7 @@ export default class ManageHitbox extends HitboxState {
   update(deltaT: number) {
     super.update(deltaT);
 
-    if (this.parent.eventType === DamageType.CONTACT)
-      this.finished(HState.Contact);
-    else this.finished(HState.Active);
+    this.finished(HState.Active);
   }
 
   handleInput(event: GameEvent): void {

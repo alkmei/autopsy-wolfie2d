@@ -5,7 +5,7 @@ import { PhysicsGroups, SpriteSizes } from "../../../globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Hitbox from "../../Hitbox/Hitbox";
 import { DamageType } from "../../Hitbox/DamageType";
-import Sprite from "../../../Wolfie2D/Nodes/Sprites/Sprite";
+import { Layers } from "../../Scenes/GameLevel";
 
 export enum GhostType {
   RED = "red",
@@ -20,7 +20,7 @@ export default class Ghost {
   hitbox: Hitbox;
   node: AnimatedSprite;
   health: number;
-  type: string; //red(HP) or blue(MP)
+  type: string; // red(HP) or blue(MP)
 
   constructor(sprite: AnimatedSprite, pos: Vec2, type: string) {
     this.node = sprite;
@@ -35,16 +35,22 @@ export default class Ghost {
     this.health = 5;
     this.type = type;
 
-    // Add contact damage hitbox
-    if (!this.hitbox) {
-      this.hitbox = new Hitbox(
-        this.node,
-        DamageType.CONTACT,
-        new Vec2(0, 0),
-        SpriteSizes.SOUL,
-        this.node.invertX,
-        new Vec2(0, 0),
-      );
-    }
+    // const hitboxSprite = this.node.getScene()
+    //   .add.animatedSprite("RedSoul", Layers.Main);
+    
+    // hitboxSprite.visible = false;
+
+    // // Add contact damage hitbox
+    // if (!this.hitbox) {
+    //   this.hitbox = new Hitbox(
+    //     this.node,
+    //     hitboxSprite,
+    //     DamageType.CONTACT,
+    //     new Vec2(0, 0),
+    //     SpriteSizes.SOUL,
+    //     this.node.invertX,
+    //     new Vec2(0, 0),
+    //   );
+    // }
   }
 }
