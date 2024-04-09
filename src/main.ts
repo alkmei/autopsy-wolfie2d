@@ -22,7 +22,7 @@ import { Action } from "./globals";
       { name: Action.Pause, keys: ["escape"] },
     ],
     useWebGL: false, // Tell the game we want to use webgl
-    showDebug: true, // Whether to show debug messages. You can change this to true if you want
+    showDebug: false, // Whether to show debug messages. You can change this to true if you want
   };
 
   // Create a game with the options specified
