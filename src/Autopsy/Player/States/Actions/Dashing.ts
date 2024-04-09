@@ -28,6 +28,7 @@ export default class Dashing extends PlayerActionState {
           : 1
         : this.getInputDirection().x;
     this.player.speed = 500;
+    this.player.velocity.x = direction * this.player.speed * deltaT;
   }
 
   onExit(): Record<string, any> {
