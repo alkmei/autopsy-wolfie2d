@@ -39,6 +39,19 @@ export default class StateMachine implements Updateable {
     this.emitEventOnStateChange = false;
   }
 
+  subscribe(eventTypes: string | string[]) {
+    this.receiver.subscribe(eventTypes);
+    return this;
+  }
+
+  getState() {
+    return this.currentState;
+  }
+
+  isState(state: string) {
+    return this.stateMap.get(state) == this.currentState;
+  }
+
   /**
    * Sets the activity state of this state machine
    * @param flag True if you want to set this machine running, false otherwise
@@ -79,8 +92,9 @@ export default class StateMachine implements Updateable {
    * @param stateName The name of the state to add
    * @param state The state to add
    */
-  addState(stateName: string, state: State): void {
+  addState(stateName: string, state: State) {
     this.stateMap.add(stateName, state);
+    return this;
   }
 
   /**

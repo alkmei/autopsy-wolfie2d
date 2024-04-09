@@ -1,6 +1,5 @@
 import InAir from "./InAir";
-import { PState } from "../PlayerController";
-import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import { MovementState } from "../../Player";
 
 export default class Ascending extends InAir {
   onEnter(options: Record<string, any>) {
@@ -11,6 +10,6 @@ export default class Ascending extends InAir {
   update(deltaT: number) {
     super.update(deltaT);
 
-    if (this.parent.velocity.y >= 0) this.finished(PState.Descending);
+    if (this.player.velocity.y > 0) this.finished(MovementState.Descending);
   }
 }

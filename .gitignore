@@ -22,3 +22,5 @@ dist/*
 !dist/assets/
 
 !dist/benchmark1
+
+!dist/benchmark2

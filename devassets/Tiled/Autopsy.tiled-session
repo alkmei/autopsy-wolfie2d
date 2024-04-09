@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Debug.json",
+    "activeFile": "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Level1.json",
     "expandedProjectPaths": [
         "Debug",
         "."
@@ -21,6 +21,18 @@
         "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Debug.json#Debug": {
             "scaleInDock": 1
         },
+        "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Level1.json": {
+            "scale": 0.75,
+            "selectedLayer": 0,
+            "viewCenter": {
+                "x": 517.3333333333333,
+                "y": 858
+            }
+        },
+        "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Level1.json#Debug": {
+            "scaleInDock": 1,
+            "scaleInEditor": 3
+        },
         "Debug/Debug.tmx": {
             "scale": 1,
             "selectedLayer": 0,
@@ -34,10 +46,11 @@
         }
     },
     "openFiles": [
-        "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Debug.json"
+        "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Level1.json"
     ],
     "project": "Autopsy.tiled-project",
     "recentFiles": [
+        "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Level1.json",
         "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Debug.json",
         "Debug/Debug.tmx"
     ],
