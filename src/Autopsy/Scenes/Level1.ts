@@ -15,7 +15,8 @@ export default class Level1 extends GameLevel {
   
   loadScene() {
     super.loadScene();
-    this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
+    //this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
+    this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1_remake_v1.json");
   }
 
   startScene() {
