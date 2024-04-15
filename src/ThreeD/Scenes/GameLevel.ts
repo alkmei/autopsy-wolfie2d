@@ -2,8 +2,6 @@ import Scene from "@/Wolfie2D/Scene/Scene";
 import Player from "@/ThreeD/Player/Player";
 import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
-import Line from "@/Wolfie2D/Nodes/Graphics/Line";
-import Color from "@/Wolfie2D/Utils/Color";
 import CanvasRenderer from "@/Wolfie2D/Rendering/CanvasRenderer";
 import RayCaster from "@/ThreeD/RayCaster";
 
@@ -21,7 +19,7 @@ export default class GameLevel extends Scene {
     this.add.tilemap("tilemap");
     this.player = new Player(
       this.add.graphic(GraphicType.POINT, "main", {
-        position: new Vec2(20, 20),
+        position: new Vec2(100, 1000),
       }),
     );
   }
@@ -44,7 +42,7 @@ export default class GameLevel extends Scene {
   render() {
     super.render();
     if (this.player) {
-      const position = this.player.node.relativePosition;
+      // const position = this.player.node.relativePosition;
       for (let i = 0; i < 1200; i++) {
         const collision = RayCaster.cast(
           this.tilemaps[0],
