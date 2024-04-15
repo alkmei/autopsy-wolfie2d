@@ -7,6 +7,12 @@ import Updateable from "../../Wolfie2D/DataTypes/Interfaces/Updateable";
 import Ascending from "./States/Movement/Ascending";
 import Descending from "./States/Movement/Descending";
 import Dashing from "./States/Actions/Dashing";
+import Idle from "./States/Actions/Idle";
+import Jump from "./States/Actions/Jump";
+import Attack from "./States/Actions/Attack";
+import AttackDown from "./States/Actions/AttackDown";
+import AttackUpper from "./States/Actions/AttackUpper";
+import { PhysicsGroups, SpriteSizes } from "../../globals";
 
 export enum MovementState {
   Grounded = "grounded",
@@ -16,10 +22,26 @@ export enum MovementState {
 
 export enum ActionState {
   Dash = "dash",
+  Attack = "attack",
+  AttackUpper = "attackUpper",
+  AttackDown = "attackDown",
+  Idle = "idle",
+  Jump = "jump",
+}
+
+export enum PlayerAnimations {
+  Idle = "Idle",
+  Walk = "Walk",
+  ScytheSlash = "Scythe Slash",
+  Jump = "Jump",
+  Dash = "Dash",
+  ScytheUpper = "Scythe Upper",
+  ScytheDown = "Scythe Down",
 }
 
 export default class Player implements Updateable {
   node: AnimatedSprite;
+  maxHealth: number;
   health: number;
   velocity: Vec2 = new Vec2();
   speed = 300;
@@ -31,11 +53,16 @@ export default class Player implements Updateable {
   movementStateMachine: StateMachine;
   actionStateMachine: StateMachine;
 
+  canDash: boolean;
+  lastGroundedPosition: Vec2;
+
   constructor(sprite: AnimatedSprite) {
     this.node = sprite;
-    this.node.addPhysics(new AABB(new Vec2(0, 0), new Vec2(18, 24)));
+    this.node.addPhysics(new AABB(new Vec2(0, 0), SpriteSizes.PLAYER));
+    this.node.setGroup(PhysicsGroups.PLAYER_PHYS);
     this.node.position = new Vec2(100, 50);
-    this.node.animation.play("Idle", true);
+    this.node.animation.play(PlayerAnimations.Idle, true);
+    this.maxHealth = 10;
     this.health = 10;
     this.updateGravity();
     this.initializeAI();
@@ -59,10 +86,32 @@ export default class Player implements Updateable {
       .initialize(MovementState.Grounded);
 
     this.actionStateMachine = new StateMachine();
-    this.actionStateMachine.addState(
-      ActionState.Dash,
-      new Dashing(this.movementStateMachine, this.node, this),
-    );
+    this.actionStateMachine
+      .addState(
+        ActionState.Dash,
+        new Dashing(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.Idle,
+        new Idle(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.Jump,
+        new Jump(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.Attack,
+        new Attack(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.AttackUpper,
+        new AttackUpper(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.AttackDown,
+        new AttackDown(this.actionStateMachine, this.node, this),
+      )
+      .initialize(ActionState.Idle);
   }
 
   updateGravity() {
@@ -72,6 +121,7 @@ export default class Player implements Updateable {
 
   update(deltaT: number): void {
     this.movementStateMachine.update(deltaT);
+    this.actionStateMachine.update(deltaT);
     this.node.move(this.velocity);
   }
 }

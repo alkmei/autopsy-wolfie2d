@@ -1,25 +1,21 @@
 import GhostState from "./GhostState";
 import { GState } from "../GhostController";
-import AnimatedSprite from "../../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 
 export default class Drifting extends GhostState {
   onEnter(options: Record<string, any>) {
+    this.parent.direction = this.parent.randomDirection();
     this.stateName = "Drifting";
+    this.canFollow = false;
   }
 
   update(deltaT: number) {
     super.update(deltaT);
 
-    if (this.followingCDTimer.isStopped() && this.canFollow) {
-      this.stuckTimer.start();
+    if (this.withinXBlock(6)) this.canFollow = true;
+
+    if (this.canFollow) {
       this.finished(GState.Following);
     } else {
-      if (Math.sign(this.parent.direction.x) == -1) {
-        (<AnimatedSprite>this.owner).invertX = true;
-      } else if (Math.sign(this.parent.direction.x) == 1) {
-        (<AnimatedSprite>this.owner).invertX = false;
-      }
-
       this.parent.velocity.x =
         this.parent.direction.x * this.parent.driftSpeed * deltaT;
       this.parent.velocity.y =

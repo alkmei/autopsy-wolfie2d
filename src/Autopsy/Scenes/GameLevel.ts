@@ -5,7 +5,7 @@ import Camera from "../Camera";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import { UIElementType } from "../../Wolfie2D/Nodes/UIElements/UIElementTypes";
 import Color from "../../Wolfie2D/Utils/Color";
-import { Events } from "../../globals";
+import { Events, PhysicsGroups } from "../../globals";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
 import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import Button from "../../Wolfie2D/Nodes/UIElements/Button";
@@ -13,6 +13,11 @@ import MainMenu from "./MainMenu";
 import Input from "../../Wolfie2D/Input/Input";
 import { Action } from "../../globals";
 import PlayerState from "../Player/States/PlayerState";
+import Ghost, { GhostType } from "../Enemy/Ghost/Ghost";
+import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
+import SceneManager from "../../Wolfie2D/Scene/SceneManager";
+import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
+import Rect from "../../Wolfie2D/Nodes/Graphics/Rect";
 
 export enum Layers {
   Main = "main",
@@ -27,7 +32,14 @@ export default class GameLevel extends Scene {
   player: Player;
   camera: Camera;
 
+  // TODO: Make Enemy.ts and ghost inherit from that
+  enemies: Array<Ghost>;
+
   playerStateLabel: Label;
+  playerActionStateLabel: Label;
+
+  nextLevel: new (...args: any) => GameLevel;
+  levelEndArea: Rect;
 
   healthBar: Label;
   healthBarBg: Label;
@@ -35,8 +47,40 @@ export default class GameLevel extends Scene {
   textColor = new Color(231, 224, 241);
   healthBarColor = new Color(215, 74, 91);
 
+  public constructor(
+    viewport: Viewport,
+    sceneManager: SceneManager,
+    renderingManager: RenderingManager,
+    options: Record<string, any>,
+  ) {
+    super(viewport, sceneManager, renderingManager, options);
+
+    // TODO: change to type enemy when implemented
+    this.enemies = new Array<Ghost>();
+  }
+
   loadScene() {
+    // reaper and animations
     this.load.spritesheet("reaper", "assets/spritesheets/Reaper/reaper.json");
+    this.load.spritesheet(
+      "ScytheSlash",
+      "assets/spritesheets/Reaper/ReaperVFX/ScytheSlash.json",
+    );
+    this.load.spritesheet(
+      "ScytheUpper",
+      "assets/spritesheets/Reaper/ReaperVFX/ScytheUpper.json",
+    );
+    this.load.spritesheet(
+      "ScytheDown",
+      "assets/spritesheets/Reaper/ReaperVFX/ScytheDown.json",
+    );
+
+    // red soul enemy
+    this.load.spritesheet(
+      "RedSoul",
+      "assets/spritesheets/RedSoul/RedSoul.json",
+    );
+
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
     this.addUILayer(Layers.Pause).setHidden(true);
@@ -69,6 +113,18 @@ export default class GameLevel extends Scene {
     );
     this.playerStateLabel.font = "Mister Pixel";
     this.playerStateLabel.textColor = Color.WHITE;
+
+    this.playerActionStateLabel = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.Debug,
+      {
+        position: this.player.node.position.clone(),
+        text: "",
+      },
+    );
+    this.playerActionStateLabel.font = "Mister Pixel";
+    this.playerActionStateLabel.textColor = Color.WHITE;
+
     this.viewport.follow(this.camera.node);
     this.viewport.setZoomLevel(2);
     this.viewport.setSmoothingFactor(0);
@@ -78,6 +134,14 @@ export default class GameLevel extends Scene {
 
     // subscribe to events
     this.receiver.subscribe(Events.MAIN_MENU);
+    this.receiver.subscribe(Events.ENEMY_DAMAGE);
+    this.receiver.subscribe(Events.PLAYER_DAMAGE);
+    this.receiver.subscribe(Events.ENEMY_DEATH);
+    this.receiver.subscribe(Events.PLAYER_DEATH);
+    this.receiver.subscribe(Events.PLAYER_HEAL);
+
+    this.receiver.subscribe(Events.LEVEL_END);
+    this.receiver.subscribe(Events.ENTER_LEVEL_END);
   }
 
   update(deltaT: number) {
@@ -98,9 +162,14 @@ export default class GameLevel extends Scene {
       .clone()
       .add(new Vec2(0, -40));
 
+    this.playerActionStateLabel.text = (<PlayerState>(
+      this.player.actionStateMachine.getState()
+    )).stateName;
+    this.playerActionStateLabel.position = this.player.node.position
+      .clone()
+      .add(new Vec2(0, -80));
     // handle events
     while (this.receiver.hasNextEvent()) {
-      console.log("this should go off if there is event");
       this.handleEvent(this.receiver.getNextEvent());
     }
   }
@@ -109,7 +178,94 @@ export default class GameLevel extends Scene {
     switch (event.type) {
       case Events.MAIN_MENU: {
         this.sceneManager.changeToScene(MainMenu);
-        console.log("attempt to swap to main menu");
+
+        break;
+      }
+
+      case Events.ENEMY_DAMAGE: {
+        let enemy = event.data.get("enemy");
+        enemy.health -= 1;
+        console.log(`Enemy: ${enemy.health}`);
+
+        if (enemy.health <= 0)
+          this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });
+
+        break;
+      }
+
+      case Events.PLAYER_DAMAGE: {
+        this.player.health -= 1;
+        this.healthBar.size.x = 600 * (this.player.health / 10);
+        this.healthBar.position.x = 0;
+        if (this.player.health <= 0)
+          this.emitter.fireEvent(Events.PLAYER_DEATH);
+
+        console.log(`Player: ${this.player.health}`);
+        break;
+      }
+
+      case Events.PLAYER_HEAL: {
+        if (this.player.health + 1 <= this.player.maxHealth) {
+          this.player.health += 1;
+          this.healthBar.size.x = 600 * (this.player.health / 10);
+          this.healthBar.position.x = 0;
+          console.log(`Player: ${this.player.health}`);
+        }
+        break;
+      }
+
+      // TODO: Death animations
+      case Events.ENEMY_DEATH: {
+        let enemy = event.data.get("enemy");
+
+        // Heal player if red soul
+        if (enemy.type === GhostType.RED)
+          this.emitter.fireEvent(Events.PLAYER_HEAL);
+
+        enemy.node.destroy();
+        this.enemies = this.enemies.filter(e => e !== enemy);
+
+        break;
+      }
+
+      case Events.PLAYER_DEATH: {
+        // death anim -> some screen/main menu for now
+        this.sceneManager.changeToScene(MainMenu);
+
+        break;
+      }
+
+      case Events.LEVEL_END: {
+        /*
+          Rows in the collisions array represent each physics group by index, 
+          first index of the first row is the first phys group itself,
+          second index in the second row is the second phys group itself, etc.
+
+          0 is does not collide, 1 is collide
+        */
+        let sceneOptions = {
+          physics: {
+            groupNames: [
+              PhysicsGroups.PLAYER_PHYS,
+              PhysicsGroups.ENEMY_PHYS,
+              PhysicsGroups.HITBOX_PHYS,
+            ],
+            collisions: [
+              [0, 1, 1],
+              [0, 1, 1],
+              [0, 0, 0],
+            ],
+          },
+        };
+        this.sceneManager.changeToScene(this.nextLevel, {}, sceneOptions);
+
+        break;
+      }
+
+      case Events.ENTER_LEVEL_END: {
+        if (this.enemies.length === 0)
+          this.emitter.fireEvent(Events.LEVEL_END);
+
         break;
       }
     }
@@ -117,14 +273,26 @@ export default class GameLevel extends Scene {
 
   initUI() {
     this.healthBar = <Label>this.add.uiElement(UIElementType.LABEL, Layers.UI, {
-      position: new Vec2(70, 30),
+      position: new Vec2(0, 30),
       text: "",
     });
-    this.healthBar.size = new Vec2(320, 50);
+    this.healthBar.size = new Vec2(600, 50);
     this.healthBar.backgroundColor = this.healthBarColor;
-    this.healthBar.borderColor = Color.WHITE;
     this.healthBar.borderWidth = 2;
     this.healthBar.borderRadius = 0;
+
+    const healthBarBorder = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.UI,
+      {
+        position: new Vec2(70, 30),
+        text: "",
+      },
+    );
+    healthBarBorder.size = new Vec2(320, 50);
+    healthBarBorder.borderColor = Color.WHITE;
+    healthBarBorder.borderWidth = 2;
+    healthBarBorder.borderRadius = 0;
   }
 
   initPauseLayer() {
@@ -172,6 +340,20 @@ export default class GameLevel extends Scene {
         (unit / 2 / this.getViewScale()) * (maxHealth - currentHealth),
       this.healthBarBg.position.y,
     );
+  }
+
+  addLevelEnd(startingTile: Vec2, size: Vec2): void {
+    this.levelEndArea = <Rect>this.add.graphic(GraphicType.RECT, Layers.Main, {
+      position: startingTile,
+      size: size,
+    });
+    this.levelEndArea.addPhysics(undefined, undefined, false, true);
+    this.levelEndArea.setTrigger(
+      PhysicsGroups.PLAYER_PHYS,
+      Events.ENTER_LEVEL_END,
+      null,
+    );
+    this.levelEndArea.color = new Color(255, 255, 255, 1);
   }
 
   private newButton(

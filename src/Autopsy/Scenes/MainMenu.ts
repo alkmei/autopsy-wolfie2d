@@ -5,6 +5,7 @@ import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Color from "../../Wolfie2D/Utils/Color";
 import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
 import UILayer from "../../Wolfie2D/Scene/Layers/UILayer";
+import { PhysicsGroups } from "../../globals";
 import Level1 from "./Level1";
 import Level2 from "./Level2";
 import Level3 from "./Level3";
@@ -198,19 +199,17 @@ export default class MainMenu extends Scene {
 
   private initControlsMenu() {
     [
-      "(Left Arrow), (Right Arrow): Move left and right respectively.",
-      "(Z): Jump.",
-      "(X): Attack.",
-      "(Shift): Alt attack",
-      "(Space): Dash.",
-      "(A, S, D, F): Switch weapons",
+      "(A), (D): Move left and right respectively.",
+      "(Space): Jump.",
+      "(J): Attack.",
+      "(Shift): Dash.",
       "(ESC): Pause game.",
     ].forEach((value, index) => {
       const controlLine = <Label>this.add.uiElement(
         UIElementType.LABEL,
         Layers.Controls,
         {
-          position: new Vec2(this.viewport.getCenter().x, 200 + 40 * index),
+          position: new Vec2(600, 200 + 40 * index),
           text: value,
         },
       );
@@ -239,7 +238,21 @@ export default class MainMenu extends Scene {
     playButton.size.x = buttonWidth;
     playButton.size.y = 80;
     playButton.onClick = () => {
-      this.sceneManager.changeToScene(Level1);
+      let sceneOptions = {
+        physics: {
+          groupNames: [
+            PhysicsGroups.PLAYER_PHYS,
+            PhysicsGroups.ENEMY_PHYS,
+            PhysicsGroups.HITBOX_PHYS,
+          ],
+          collisions: [
+            [0, 1, 1],
+            [0, 1, 1],
+            [0, 0, 0],
+          ],
+        },
+      };
+      this.sceneManager.changeToScene(Level1, {}, sceneOptions);
     };
 
     const levelsButton = this.newButton(

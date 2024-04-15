@@ -5,6 +5,7 @@ export default class Descending extends InAir {
   onEnter(options: Record<string, any>) {
     super.onEnter(options);
     this.stateName = "Descending";
+    this.player.velocity.y = 0;
   }
 
   update(deltaT: number) {

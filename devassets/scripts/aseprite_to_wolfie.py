@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 import json
-import os.path
+import pathlib
 import sys
 
 
@@ -29,7 +29,7 @@ class Frame:
         self.y = y
 
 
-def from_aseprite(sheet, name, scale):
+def from_aseprite(sheet, name):
     sprite_sheet = Spritesheet()
     sprite_sheet.name = name
     sprite_sheet.spriteSheetImage = sheet["meta"]["image"]
@@ -88,16 +88,15 @@ def read_json_file(file_path):
 
 
 def main():
-    if len(sys.argv) < 2:
+    if len(sys.argv) != 2:
         print("Usage: python script.py <json_file> <scale>")
     else:
         file_path = sys.argv[1]
-        scale = sys.argv[2] if sys.argv[2] else "1"
-        file_name = os.path.basename(file_path)
+        file_name = pathlib.Path(file_path).stem
         json_data = read_json_file(file_path)
         if json_data:
             write_json_file(
-                from_aseprite(json_data, file_name, int(scale)), "output.json"
+                from_aseprite(json_data, file_name), "output.json"
             )
 
 

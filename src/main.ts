@@ -14,13 +14,15 @@ import { Action } from "./globals";
     inputs: [
       { name: Action.Left, keys: ["a"] },
       { name: Action.Right, keys: ["d"] },
+      { name: Action.Up, keys: ["w"] },
+      { name: Action.Down, keys: ["s"] },
       { name: Action.Jump, keys: ["space"] },
       { name: Action.Attack, keys: ["j"] },
-      { name: Action.Dash, keys: ["shift"]},
-      { name: Action.Pause, keys: ["escape"]},
+      { name: Action.Dash, keys: ["shift"] },
+      { name: Action.Pause, keys: ["escape"] },
     ],
     useWebGL: false, // Tell the game we want to use webgl
-    showDebug: true, // Whether to show debug messages. You can change this to true if you want
+    showDebug: false, // Whether to show debug messages. You can change this to true if you want
   };
 
   // Create a game with the options specified
