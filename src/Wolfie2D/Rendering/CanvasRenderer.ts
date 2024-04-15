@@ -41,6 +41,10 @@ export default class CanvasRenderer extends RenderingManager {
     super();
   }
 
+  get context() {
+    return this.ctx;
+  }
+
   // @override
   setScene(scene: Scene) {
     this.scene = scene;

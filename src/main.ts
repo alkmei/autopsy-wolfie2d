@@ -1,5 +1,5 @@
 import Game from "./Wolfie2D/Loop/Game";
-import MainMenu from "./Autopsy/Scenes/MainMenu";
+import GameLevel from "./ThreeD/Scenes/GameLevel";
 import { Action } from "./globals";
 
 // The main function is your entrypoint into Wolfie2D. Specify your first scene and any options here.
@@ -14,6 +14,8 @@ import { Action } from "./globals";
     inputs: [
       { name: Action.Left, keys: ["a"] },
       { name: Action.Right, keys: ["d"] },
+      { name: "lookleft", keys: ["arrowleft"] },
+      { name: "lookright", keys: ["arrowright"] },
       { name: Action.Up, keys: ["w"] },
       { name: Action.Down, keys: ["s"] },
       { name: Action.Jump, keys: ["space"] },
@@ -29,7 +31,7 @@ import { Action } from "./globals";
   const game = new Game(options);
 
   // Start our game
-  game.start(MainMenu, {});
+  game.start(GameLevel, {});
 })();
 
 function runTests() {}

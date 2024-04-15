@@ -277,6 +277,12 @@ export default class Vec2 {
     return this;
   }
 
+  smult(n: number): Vec2 {
+    this.x *= n;
+    this.y *= n;
+    return this;
+  }
+
   /**
    * Divides this vector with another vector element-wise. In other words, this.x /= other.x and this.y /= other.y
    * @param other The vector to divide this one by
