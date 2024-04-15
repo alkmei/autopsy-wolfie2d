@@ -24,6 +24,7 @@ export default class Ghost {
 
   constructor(sprite: AnimatedSprite, pos: Vec2, type: string) {
     this.node = sprite;
+    this.node.scale = new Vec2(0.5, 0.5);
     this.node.addPhysics(
       new AABB(new Vec2(0, 0), SpriteSizes.SOUL),
       new Vec2(0, 0),
@@ -32,7 +33,7 @@ export default class Ghost {
     this.node.setGroup(PhysicsGroups.ENEMY_PHYS);
     this.node.position = pos;
     this.node.animation.play(GhostAnimations.Idle, true);
-    this.health = 5;
+    this.health = 1;
     this.type = type;
   }
 }
