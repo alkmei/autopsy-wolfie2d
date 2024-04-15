@@ -9,14 +9,13 @@ const GhostPositions: Array<Vec2> = [
   new Vec2(3840, 416),
   new Vec2(4160, 512),
   new Vec2(3904, 448),
-]
+];
 
 export default class Level1 extends GameLevel {
-  
   loadScene() {
     super.loadScene();
-    //this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
-    this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1_remake_v1.json");
+    this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
+    // this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1_remake_v1.json");
   }
 
   startScene() {
