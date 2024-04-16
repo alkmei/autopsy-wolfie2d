@@ -32,7 +32,7 @@ export default class Player implements Updateable {
     const turnDirection =
       (Input.isPressed("lookleft") ? -1 : 0) +
       (Input.isPressed("lookright") ? 1 : 0);
-    this.angle += turnDirection * deltaT;
+    this.angle += turnDirection * deltaT * 3;
     this.node.move(this.velocity.rotateCCW(this.angle + Math.PI / 2));
   }
 }

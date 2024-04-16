@@ -247,16 +247,16 @@ export default class Viewport {
     }
 
     // Set this position either to the object or to its bounds
-    pos.x = MathUtils.clamp(
-      pos.x,
-      this.boundary.left + this.view.hw,
-      this.boundary.right - this.view.hw,
-    );
-    pos.y = MathUtils.clamp(
-      pos.y,
-      this.boundary.top + this.view.hh,
-      this.boundary.bottom - this.view.hh,
-    );
+    // pos.x = MathUtils.clamp(
+    //   pos.x,
+    //   this.boundary.left + this.view.hw,
+    //   this.boundary.right - this.view.hw,
+    // );
+    // pos.y = MathUtils.clamp(
+    //   pos.y,
+    //   this.boundary.top + this.view.hh,
+    //   this.boundary.bottom - this.view.hh,
+    // );
 
     // Assure there are no lines in the tilemap
     pos.x = Math.floor(pos.x);

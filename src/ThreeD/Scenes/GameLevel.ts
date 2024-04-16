@@ -22,6 +22,7 @@ export default class GameLevel extends Scene {
         position: new Vec2(100, 1000),
       }),
     );
+    this.viewport.follow(this.player.node);
   }
 
   drawSlice(height: number, x: number) {
@@ -40,7 +41,6 @@ export default class GameLevel extends Scene {
   }
 
   render() {
-    super.render();
     if (this.player) {
       // const position = this.player.node.relativePosition;
       for (let i = 0; i < 1200; i++) {
@@ -54,10 +54,13 @@ export default class GameLevel extends Scene {
           collision.angle,
           this.player.angle,
         );
-        this.ctx.fillStyle = collision.vertical ? "#c9a130" : "#ffcb3b";
+        // this.ctx.fillStyle = collision.vertical ? "#c9a130" : "#ffcb3b";
+        this.ctx.fillStyle = `${collision.vertical ? "#c9a130" : "#ffcb3b"}${mapNumberToHexString(collision.distance)}`;
         this.drawSlice(((32 * 5) / distance) * 277, i);
       }
     }
+    super.render();
+
     // this.ctx.strokeStyle = "#ffffff";
     // for (let i = 0; i < 1200; i++) {
     //   const collision = RayCaster.simpleCast(
@@ -79,6 +82,17 @@ export default class GameLevel extends Scene {
     // }
   }
 }
+
+const mapNumberToHexString = (number: number) => {
+  if (number > 900) {
+    return "00"; // Hex string representation of 0
+  } else if (number >= 800) {
+    const mappedValue = Math.round(255 - (number - 800) * (255 / 100));
+    return mappedValue.toString(16); // Convert to hex and pad with 0 if needed
+  } else {
+    return "ff"; // or handle numbers less than or equal to 800 as needed
+  }
+};
 
 const fixFishEye = (distance: number, angle: number, playerAngle: number) => {
   const diff = angle - playerAngle;

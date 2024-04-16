@@ -10,7 +10,7 @@ import { Action } from "./globals";
   // Set up options for our game
   let options = {
     canvasSize: { x: 1200, y: 800 }, // The size of the game
-    clearColor: { r: 34, g: 28, b: 41 }, // The color the game clears to
+    clearColor: { r: 0, g: 0, b: 0 }, // The color the game clears to
     inputs: [
       { name: Action.Left, keys: ["a"] },
       { name: Action.Right, keys: ["d"] },
