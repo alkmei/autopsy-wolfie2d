@@ -55,7 +55,7 @@ export default class GameLevel extends Scene {
           this.player.angle,
         );
         // this.ctx.fillStyle = collision.vertical ? "#c9a130" : "#ffcb3b";
-        this.ctx.fillStyle = `${collision.vertical ? "#c9a130" : "#ffcb3b"}${mapNumberToHexString(collision.distance)}`;
+        this.ctx.fillStyle = `${collision.vertical ? "#c9a130" : "#ffcb3b"}${calcFogAlpha(distance)}`;
         this.drawSlice(((32 * 5) / distance) * 277, i);
       }
     }
@@ -83,15 +83,27 @@ export default class GameLevel extends Scene {
   }
 }
 
-const mapNumberToHexString = (number: number) => {
-  if (number > 900) {
-    return "00"; // Hex string representation of 0
-  } else if (number >= 800) {
-    const mappedValue = Math.round(255 - (number - 800) * (255 / 100));
-    return mappedValue.toString(16); // Convert to hex and pad with 0 if needed
-  } else {
-    return "ff"; // or handle numbers less than or equal to 800 as needed
-  }
+const calcFogAlpha = (distance: number) => {
+  // Define fog parameters
+  const maxDistance = 900; // Maximum distance at which fog is fully opaque
+  const minDistance = 10; // Minimum distance at which fog starts to appear
+  const maxAlpha = 255; // Maximum alpha value (fully opaque)
+  const minAlpha = 0; // Minimum alpha value (fully transparent)
+
+  // Clamp distance within the defined range
+  const clampedDistance = Math.max(
+    minDistance,
+    Math.min(maxDistance, distance),
+  );
+
+  // Calculate alpha based on distance
+  const alpha =
+    maxAlpha -
+    ((clampedDistance - minDistance) / (maxDistance - minDistance)) *
+      (maxAlpha - minAlpha);
+
+  // Convert alpha to hexadecimal representation
+  return ("00" + Math.round(alpha).toString(16)).slice(-2);
 };
 
 const fixFishEye = (distance: number, angle: number, playerAngle: number) => {
