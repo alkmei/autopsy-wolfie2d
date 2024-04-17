@@ -34,6 +34,9 @@ export default class RayCaster {
       ),
       angle: angle,
       vertical: false,
+      tile: gameMap.getTileAtWorldPosition(
+        new Vec2(currentX, up ? currentY - TILE_SIZE : currentY),
+      ),
     };
   }
 
@@ -66,6 +69,9 @@ export default class RayCaster {
       ),
       angle: angle,
       vertical: true,
+      tile: gameMap.getTileAtWorldPosition(
+        new Vec2(Math.floor(right ? currentX : currentX - TILE_SIZE), currentY),
+      ),
     };
   }
 

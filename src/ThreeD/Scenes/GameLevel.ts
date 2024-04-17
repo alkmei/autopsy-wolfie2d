@@ -4,19 +4,55 @@ import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
 import CanvasRenderer from "@/Wolfie2D/Rendering/CanvasRenderer";
 import RayCaster from "@/ThreeD/RayCaster";
+import Input from "@/Wolfie2D/Input/Input";
+import { Action } from "@/globals";
+import MathUtils from "@/Wolfie2D/Utils/MathUtils";
+import { EaseFunctionType } from "@/Wolfie2D/Utils/EaseFunctions";
+import Sprite from "@/Wolfie2D/Nodes/Sprites/Sprite";
 
 export default class GameLevel extends Scene {
   player: Player;
   ctx: CanvasRenderingContext2D;
+  threeD: boolean;
+
+  scythe: Sprite;
 
   loadScene() {
     this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
+    this.load.image("scythe", "assets/spritesheets/Scythe/scythe.png");
     this.addLayer("main");
+    this.addUILayer("wep");
     this.ctx = (<CanvasRenderer>this.renderingManager).context;
+    this.threeD = true;
   }
 
   startScene() {
     this.add.tilemap("tilemap");
+    this.scythe = this.add.sprite("scythe", "wep");
+    this.scythe.position = new Vec2(500, 700);
+    this.scythe.scale = new Vec2(0.8, 0.8);
+    this.scythe.rotation = toRadian(30);
+    this.scythe.tweens.add("attack", {
+      startDelay: 0,
+      duration: 500,
+      effects: [
+        {
+          property: "rotation",
+          start: toRadian(30),
+          end: -toRadian(180),
+          ease: EaseFunctionType.IN_OUT_QUINT,
+        },
+        {
+          property: "positionX",
+          start: 500,
+          end: 800,
+          ease: EaseFunctionType.IN_OUT_QUINT,
+        },
+      ],
+      reverseOnComplete: true,
+    });
+
+    this.tilemaps[0].visible = false;
     this.player = new Player(
       this.add.graphic(GraphicType.POINT, "main", {
         position: new Vec2(100, 1000),
@@ -33,76 +69,48 @@ export default class GameLevel extends Scene {
 
   updateScene(deltaT: number) {
     this.player.update(deltaT);
-    // console.log(
-    //   this.tilemaps[0].getTileAtWorldPosition(
-    //     this.player.node.position.clone().add(new Vec2(0, 20)),
-    //   ),
-    // );
+    this.tilemaps[0].visible = !this.threeD;
+    if (Input.isJustPressed(Action.Attack)) this.threeD = !this.threeD;
+    if (Input.isJustPressed(Action.Jump)) this.scythe.tweens.play("attack");
   }
 
   render() {
-    if (this.player) {
-      // const position = this.player.node.relativePosition;
-      for (let i = 0; i < 1200; i++) {
-        const collision = RayCaster.cast(
-          this.tilemaps[0],
-          this.player.node.position.clone(),
-          this.player.angle - toRadian(60 / 2) + toRadian(60 / 1200) * i,
-        );
-        const distance = fixFishEye(
-          collision.distance,
-          collision.angle,
-          this.player.angle,
-        );
-        // this.ctx.fillStyle = collision.vertical ? "#c9a130" : "#ffcb3b";
-        this.ctx.fillStyle = `${collision.vertical ? "#c9a130" : "#ffcb3b"}${calcFogAlpha(distance)}`;
-        this.drawSlice(((32 * 5) / distance) * 277, i);
-      }
-    }
-    super.render();
+    if (this.threeD)
+      if (this.player) {
+        // const position = this.player.node.relativePosition;
+        for (let i = 0; i < 1200; i++) {
+          const collision = RayCaster.cast(
+            this.tilemaps[0],
+            this.player.node.position.clone(),
+            this.player.angle - toRadian(60 / 2) + toRadian(60 / 1200) * i,
+          );
+          const distance = fixFishEye(
+            collision.distance,
+            collision.angle,
+            this.player.angle,
+          );
 
-    // this.ctx.strokeStyle = "#ffffff";
-    // for (let i = 0; i < 1200; i++) {
-    //   const collision = RayCaster.simpleCast(
-    //     this.tilemaps[0],
-    //     this.player.node.position.clone(),
-    //     this.player.angle - toRadian(90 / 2) + toRadian(90 / 1200) * i,
-    //   );
-    //   collision.x += this.player.node.relativePosition.x;
-    //   collision.y += this.player.node.relativePosition.y;
-    //   if (i % 1199 == 0) {
-    //     // console.log(collision);
-    //   }
-    //
-    //   this.ctx.beginPath();
-    //   this.ctx.moveTo(position.x, position.y);
-    //   this.ctx.lineTo(collision.x, collision.y);
-    //   this.ctx.stroke();
-    //   this.ctx.closePath();
-    // }
+          this.ctx.fillStyle = `${collision.vertical ? "#707070" : "#808080"}`;
+          this.drawSlice(((32 * 5) / distance) * 277, i);
+        }
+      }
+    super.render();
   }
 }
 
 const calcFogAlpha = (distance: number) => {
-  // Define fog parameters
-  const maxDistance = 900; // Maximum distance at which fog is fully opaque
-  const minDistance = 10; // Minimum distance at which fog starts to appear
-  const maxAlpha = 255; // Maximum alpha value (fully opaque)
-  const minAlpha = 0; // Minimum alpha value (fully transparent)
+  const maxDistance = 900;
+  const minDistance = 10;
+  const maxAlpha = 255;
+  const minAlpha = 0;
 
-  // Clamp distance within the defined range
-  const clampedDistance = Math.max(
-    minDistance,
-    Math.min(maxDistance, distance),
-  );
+  const clampedDistance = MathUtils.clamp(distance, minDistance, maxDistance);
 
-  // Calculate alpha based on distance
   const alpha =
     maxAlpha -
     ((clampedDistance - minDistance) / (maxDistance - minDistance)) *
       (maxAlpha - minAlpha);
 
-  // Convert alpha to hexadecimal representation
   return ("00" + Math.round(alpha).toString(16)).slice(-2);
 };
 
