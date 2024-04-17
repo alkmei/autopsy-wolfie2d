@@ -3,8 +3,20 @@ import Tilemap from "@/Wolfie2D/Nodes/Tilemap";
 
 const TILE_SIZE = 32;
 
+export type Collision = {
+  distance: number;
+  angle: number;
+  vertical: boolean;
+  tile: number;
+  displacement: number;
+};
+
 export default class RayCaster {
-  static castHorizontal(gameMap: Tilemap, position: Vec2, angle: number) {
+  static castHorizontal(
+    gameMap: Tilemap,
+    position: Vec2,
+    angle: number,
+  ): Collision {
     const up = Math.abs(Math.floor(angle / Math.PI) % 2);
 
     const firstY = up
@@ -37,10 +49,15 @@ export default class RayCaster {
       tile: gameMap.getTileAtWorldPosition(
         new Vec2(currentX, up ? currentY - TILE_SIZE : currentY),
       ),
+      displacement: currentX % TILE_SIZE,
     };
   }
 
-  static castVertical(gameMap: Tilemap, position: Vec2, angle: number) {
+  static castVertical(
+    gameMap: Tilemap,
+    position: Vec2,
+    angle: number,
+  ): Collision {
     const right = Math.abs(Math.floor((angle - Math.PI / 2) / Math.PI) % 2);
 
     const firstX = right
@@ -72,6 +89,7 @@ export default class RayCaster {
       tile: gameMap.getTileAtWorldPosition(
         new Vec2(Math.floor(right ? currentX : currentX - TILE_SIZE), currentY),
       ),
+      displacement: currentY % TILE_SIZE,
     };
   }
 

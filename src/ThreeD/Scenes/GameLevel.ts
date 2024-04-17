@@ -3,7 +3,7 @@ import Player from "@/ThreeD/Player/Player";
 import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
 import CanvasRenderer from "@/Wolfie2D/Rendering/CanvasRenderer";
-import RayCaster from "@/ThreeD/RayCaster";
+import RayCaster, { Collision } from "@/ThreeD/RayCaster";
 import Input from "@/Wolfie2D/Input/Input";
 import { Action } from "@/globals";
 import MathUtils from "@/Wolfie2D/Utils/MathUtils";
@@ -28,6 +28,7 @@ export default class GameLevel extends Scene {
 
   startScene() {
     this.add.tilemap("tilemap");
+
     this.scythe = this.add.sprite("scythe", "wep");
     this.scythe.position = new Vec2(500, 700);
     this.scythe.scale = new Vec2(0.8, 0.8);
@@ -67,6 +68,13 @@ export default class GameLevel extends Scene {
     this.ctx.fillRect(x, y, 1, height);
   }
 
+  drawTexSlice(height: number, x: number, tile: number, displacement: number) {
+    const image = this.resourceManager.getImage("debug.png");
+    const halfHeight = 800 / 2;
+    const y = halfHeight - height / 2;
+    this.ctx.drawImage(image, displacement, 0, 1, 32, x, y, 1, height);
+  }
+
   updateScene(deltaT: number) {
     this.player.update(deltaT);
     this.tilemaps[0].visible = !this.threeD;
@@ -91,7 +99,9 @@ export default class GameLevel extends Scene {
           );
 
           this.ctx.fillStyle = `${collision.vertical ? "#707070" : "#808080"}`;
-          this.drawSlice(((32 * 5) / distance) * 277, i);
+          const height = ((32 * 5) / distance) * 277;
+          // this.drawSlice(height, i);
+          this.drawTexSlice(height, i, 1, Math.floor(collision.displacement));
         }
       }
     super.render();
