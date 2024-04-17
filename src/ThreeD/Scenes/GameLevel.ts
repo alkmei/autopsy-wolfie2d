@@ -99,7 +99,7 @@ export default class GameLevel extends Scene {
           );
 
           this.ctx.fillStyle = `${collision.vertical ? "#707070" : "#808080"}`;
-          const height = ((32 * 5) / distance) * 277;
+          const height = ((32 * 4) / distance) * 277;
           // this.drawSlice(height, i);
           this.drawTexSlice(height, i, 1, Math.floor(collision.displacement));
         }
