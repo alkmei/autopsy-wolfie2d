@@ -20,7 +20,7 @@ export default class AttackDown extends PlayerActionState {
     const timer = new Timer(
       250,
       () => {
-        let hitbox = new Hitbox(
+        new Hitbox(
           this.player.node,
           sprite,
           DamageType.TO_ENEMY,
