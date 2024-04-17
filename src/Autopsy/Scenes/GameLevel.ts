@@ -74,6 +74,7 @@ export default class GameLevel extends Scene {
       "ScytheDown",
       "assets/spritesheets/Reaper/ReaperVFX/ScytheDown.json",
     );
+    this.load.audio("dash", "assets/sounds/dash.wav");
 
     // red soul enemy
     this.load.spritesheet(
@@ -263,8 +264,7 @@ export default class GameLevel extends Scene {
       }
 
       case Events.ENTER_LEVEL_END: {
-        if (this.enemies.length === 0)
-          this.emitter.fireEvent(Events.LEVEL_END);
+        if (this.enemies.length === 0) this.emitter.fireEvent(Events.LEVEL_END);
 
         break;
       }

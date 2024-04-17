@@ -32,6 +32,6 @@ export const PhysicsGroups = {
 };
 
 export const SpriteSizes = {
-  SOUL: new Vec2(18, 24),
+  SOUL: new Vec2(9, 12),
   PLAYER: new Vec2(18, 24),
 };
