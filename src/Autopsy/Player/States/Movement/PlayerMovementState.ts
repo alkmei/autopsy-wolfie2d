@@ -20,6 +20,9 @@ export default abstract class PlayerMovementState extends PlayerState {
       PlayerAnimations.Dash,
       PlayerAnimations.ScytheUpper,
       PlayerAnimations.ScytheDown,
+      PlayerAnimations.TakeDamage,
+      PlayerAnimations.Dying,
+      PlayerAnimations.Dead,
     ].some(x => this.owner.animation.isPlaying(x));
   }
 }

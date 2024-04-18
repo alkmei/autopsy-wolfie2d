@@ -9,7 +9,7 @@ export default class Dashing extends PlayerActionState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "Dashing";
 
-    this.owner.animation.playIfNotAlready(PlayerAnimations.Dash);
+    this.owner.animation.play(PlayerAnimations.Dash);
     this.emitter.fireEvent(GameEventType.PLAY_SOUND, {
       key: "dash",
       loop: false,

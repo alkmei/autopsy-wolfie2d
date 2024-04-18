@@ -21,7 +21,7 @@ export default class Active extends HitboxState {
     let posY = player.position.y + this.parent.offset.y;
     if (this.parent.invertX) {
       posX = posX - this.parent.offset.x * 2;
-      posY = posY - this.parent.offset.y * 2;
+      // posY = posY - this.parent.offset.y * 2;
       this.owner.invertX = true;
     }
 

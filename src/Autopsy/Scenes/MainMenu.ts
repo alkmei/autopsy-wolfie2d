@@ -27,6 +27,7 @@ export default class MainMenu extends Scene {
   currentScreen: Layers;
   loadScene() {
     this.load.image("logo", "/assets/images/autopsy_logo.png");
+    this.load.image("levelSelect", "/assets/images/level_selection.png");
     this.screens = {
       [Layers.Main]: this.addUILayer(Layers.Main),
       [Layers.Levels]: this.addUILayer(Layers.Levels),
@@ -86,7 +87,7 @@ export default class MainMenu extends Scene {
         UIElementType.LABEL,
         Layers.Help,
         {
-          position: new Vec2(this.viewport.getCenter().x, 100 + index * 40),
+          position: new Vec2(600, 200 + 40 * index),
           text: value,
         },
       );
@@ -112,51 +113,56 @@ export default class MainMenu extends Scene {
     authorLine.font = "Mister Pixel";
   }
 
-  private initLevelsLayer() {
+  private initLevelsLayer() {         
+    const levelSelectImg = this.add.sprite("levelSelect", Layers.Levels);
+    levelSelectImg.position = new Vec2(600, 400);
+    levelSelectImg.scale = new Vec2(0.8, 0.8);
+
     const fontSize = 40;
     const buttonSize = new Vec2(70, 70);
     const paddingSize = new Vec2(15, 15);
 
     const levelOne = this.newButton(
-      new Vec2(240, 590),
+      new Vec2(255, 540),
       "1",
       fontSize,
       Layers.Levels,
     );
     const levelTwo = this.newButton(
-      new Vec2(380, 290),
+      new Vec2(360, 320),
       "2",
       fontSize,
       Layers.Levels,
     );
     const levelThree = this.newButton(
-      new Vec2(560, 480),
+      new Vec2(565, 495),
       "3",
       fontSize,
       Layers.Levels,
     );
     const levelFour = this.newButton(
-      new Vec2(780, 550),
+      new Vec2(773, 550),
       "4",
       fontSize,
       Layers.Levels,
     );
     const levelFive = this.newButton(
-      new Vec2(950, 350),
+      new Vec2(914, 342),
       "5",
       fontSize,
       Layers.Levels,
     );
     const levelSix = this.newButton(
-      new Vec2(820, 120),
+      new Vec2(798, 118),
       "6",
       fontSize,
       Layers.Levels,
     );
-
+    
     levelOne.font = "Mister Pixel";
     levelOne.setPadding(paddingSize);
     levelOne.size = buttonSize;
+    levelOne.borderColor = Color.TRANSPARENT;
     levelOne.onClick = () => {
       this.sceneManager.changeToScene(Level1);
     };
@@ -164,6 +170,7 @@ export default class MainMenu extends Scene {
     levelTwo.font = "Mister Pixel";
     levelTwo.setPadding(paddingSize);
     levelTwo.size = buttonSize;
+    levelTwo.borderColor = Color.TRANSPARENT;
     levelTwo.onClick = () => {
       this.sceneManager.changeToScene(Level2);
     };
@@ -171,6 +178,7 @@ export default class MainMenu extends Scene {
     levelThree.font = "Mister Pixel";
     levelThree.setPadding(paddingSize);
     levelThree.size = buttonSize;
+    levelThree.borderColor = Color.TRANSPARENT;
     levelThree.onClick = () => {
       this.sceneManager.changeToScene(Level3);
     };
@@ -178,6 +186,7 @@ export default class MainMenu extends Scene {
     levelFour.font = "Mister Pixel";
     levelFour.setPadding(paddingSize);
     levelFour.size = buttonSize;
+    levelFour.borderColor = Color.TRANSPARENT;
     levelFour.onClick = () => {
       this.sceneManager.changeToScene(Level4);
     };
@@ -185,6 +194,7 @@ export default class MainMenu extends Scene {
     levelFive.font = "Mister Pixel";
     levelFive.setPadding(paddingSize);
     levelFive.size = buttonSize;
+    levelFive.borderColor = Color.TRANSPARENT;
     levelFive.onClick = () => {
       this.sceneManager.changeToScene(Level5);
     };
@@ -192,6 +202,7 @@ export default class MainMenu extends Scene {
     levelSix.font = "Mister Pixel";
     levelSix.setPadding(paddingSize);
     levelSix.size = buttonSize;
+    levelSix.borderColor = Color.TRANSPARENT;
     levelSix.onClick = () => {
       this.sceneManager.changeToScene(Level6);
     };

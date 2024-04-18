@@ -13,6 +13,7 @@ import Attack from "./States/Actions/Attack";
 import AttackDown from "./States/Actions/AttackDown";
 import AttackUpper from "./States/Actions/AttackUpper";
 import { PhysicsGroups, SpriteSizes } from "../../globals";
+import Dead from "./States/Actions/Dead";
 
 export enum MovementState {
   Grounded = "grounded",
@@ -27,16 +28,21 @@ export enum ActionState {
   AttackDown = "attackDown",
   Idle = "idle",
   Jump = "jump",
+  Dead = "dead",
 }
 
 export enum PlayerAnimations {
   Idle = "Idle",
   Walk = "Walk",
-  ScytheSlash = "Scythe Slash",
-  Jump = "Jump",
+  Up = "Up",
+  Down = "Down",
   Dash = "Dash",
   ScytheUpper = "Scythe Upper",
   ScytheDown = "Scythe Down",
+  ScytheSlash = "Scythe Slash",
+  TakeDamage = "Take Damage",
+  Dying = "Dying",
+  Dead = "Dead",
 }
 
 export default class Player implements Updateable {
@@ -110,6 +116,10 @@ export default class Player implements Updateable {
       .addState(
         ActionState.AttackDown,
         new AttackDown(this.actionStateMachine, this.node, this),
+      )
+      .addState(
+        ActionState.Dead,
+        new Dead(this.actionStateMachine, this.node, this),
       )
       .initialize(ActionState.Idle);
   }
