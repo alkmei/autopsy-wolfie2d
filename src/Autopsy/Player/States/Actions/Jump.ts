@@ -1,7 +1,7 @@
 import PlayerActionState from "./PlayerActionState";
 import Input from "../../../../Wolfie2D/Input/Input";
-import { Action } from "../../../../globals";
-import { ActionState, MovementState } from "../../Player";
+import { Action } from "@/globals";
+import { ActionState, MovementState } from "../../PlayerEnum";
 import Idle from "./Idle";
 
 export default class Jump extends Idle {

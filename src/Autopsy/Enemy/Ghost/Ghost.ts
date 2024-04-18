@@ -1,11 +1,9 @@
 import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GhostController from "./GhostController";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import { PhysicsGroups, SpriteSizes } from "../../../globals";
+import { PhysicsGroups, SpriteSizes } from "@/globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Hitbox from "../../Hitbox/Hitbox";
-import { DamageType } from "../../Hitbox/DamageType";
-import { Layers } from "../../Scenes/GameLevel";
 
 export enum GhostType {
   RED = "red",

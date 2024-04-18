@@ -1,7 +1,7 @@
 import PlayerActionState from "./PlayerActionState";
 import Input from "../../../../Wolfie2D/Input/Input";
-import { ActionState } from "../../Player";
-import { Action } from "../../../../globals";
+import { ActionState } from "../../PlayerEnum";
+import { Action } from "@/globals";
 import GameEvent from "../../../../Wolfie2D/Events/GameEvent";
 
 export default class Idle extends PlayerActionState {

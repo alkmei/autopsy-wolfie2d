@@ -1,7 +1,7 @@
 import Timer from "../../../../Wolfie2D/Timing/Timer";
-import { ActionState, PlayerAnimations } from "../../Player";
+import { ActionState, PlayerAnimations } from "../../PlayerEnum";
 import PlayerActionState from "./PlayerActionState";
-import { GameEventType } from "../../../../Wolfie2D/Events/GameEventType";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 export default class Dashing extends PlayerActionState {
   private dashTimer: Timer;

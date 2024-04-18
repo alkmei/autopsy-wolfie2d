@@ -1,5 +1,5 @@
 import PlayerState from "../PlayerState";
-import { PlayerAnimations } from "../../Player";
+import { PlayerAnimations } from "../../PlayerEnum";
 
 export default abstract class PlayerMovementState extends PlayerState {
   update(deltaT: number): void {

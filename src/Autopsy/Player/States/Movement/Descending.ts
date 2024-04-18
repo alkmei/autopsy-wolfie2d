@@ -1,5 +1,5 @@
 import InAir from "./InAir";
-import { MovementState, PlayerAnimations } from "../../Player";
+import { MovementState, PlayerAnimations } from "../../PlayerEnum";
 
 export default class Descending extends InAir {
   onEnter(options: Record<string, any>) {

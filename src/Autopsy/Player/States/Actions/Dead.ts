@@ -1,6 +1,6 @@
 import PlayerActionState from "./PlayerActionState";
 import Input from "../../../../Wolfie2D/Input/Input";
-import { ActionState, PlayerAnimations } from "../../Player";
+import { ActionState, PlayerAnimations } from "../../PlayerEnum";
 import { Action } from "../../../../globals";
 import GameEvent from "../../../../Wolfie2D/Events/GameEvent";
 
@@ -19,6 +19,5 @@ export default class Dead extends PlayerActionState {
     return {};
   }
 
-  update(deltaT: number): void {
-  }
+  update(deltaT: number): void {}
 }
