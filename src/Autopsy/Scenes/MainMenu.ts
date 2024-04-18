@@ -87,7 +87,7 @@ export default class MainMenu extends Scene {
         UIElementType.LABEL,
         Layers.Help,
         {
-          position: new Vec2(this.viewport.getCenter().x, 100 + index * 40),
+          position: new Vec2(600, 200 + 40 * index),
           text: value,
         },
       );
@@ -113,9 +113,9 @@ export default class MainMenu extends Scene {
     authorLine.font = "Mister Pixel";
   }
 
-  private initLevelsLayer() {
+  private initLevelsLayer() {         
     const levelSelectImg = this.add.sprite("levelSelect", Layers.Levels);
-    levelSelectImg.position = this.viewport.getCenter().clone();
+    levelSelectImg.position = new Vec2(600, 400);
     levelSelectImg.scale = new Vec2(0.8, 0.8);
 
     const fontSize = 40;
@@ -158,7 +158,7 @@ export default class MainMenu extends Scene {
       fontSize,
       Layers.Levels,
     );
-
+    
     levelOne.font = "Mister Pixel";
     levelOne.setPadding(paddingSize);
     levelOne.size = buttonSize;
