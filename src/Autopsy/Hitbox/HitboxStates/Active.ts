@@ -5,7 +5,7 @@ import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import GameLevel from "../../Scenes/GameLevel";
 import { DamageType } from "../DamageType";
 import { Events } from "../../../globals";
-import GhostController, {GState} from "../../Enemy/Ghost/GhostController";
+import GhostController, { GState } from "../../Enemy/Ghost/GhostController";
 
 export default class Active extends HitboxState {
   onEnter(options: Record<string, any>) {

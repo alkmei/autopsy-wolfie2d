@@ -5,7 +5,8 @@ import GameLevel from "../../../Scenes/GameLevel";
 export default class Knockback extends GhostState {
   onEnter(options: Record<string, any>) {
     this.playerPos = (<GameLevel>this.owner.getScene()).player.node.position;
-    this.parent.direction.x = this.owner.position.x-this.playerPos.x > 0 ? 1 : -1;
+    this.parent.direction.x =
+      this.owner.position.x - this.playerPos.x > 0 ? 1 : -1;
     this.parent.direction.y = 0;
     this.stateName = GState.Knockback;
     this.knockbackTimer.start();
@@ -20,15 +21,15 @@ export default class Knockback extends GhostState {
 
     this.owner.move(this.parent.velocity);
 
-    if(this.knockbackTimer.isStopped()){
-        if (this.withinXBlock(6)) this.canFollow = true;
-        else this.canFollow = false;
+    if (this.knockbackTimer.isStopped()) {
+      if (this.withinXBlock(6)) this.canFollow = true;
+      else this.canFollow = false;
 
-        if (this.canFollow) {
-            this.finished(GState.Following);
-        } else {
-            this.finished(GState.Drifting);
-        }
+      if (this.canFollow) {
+        this.finished(GState.Following);
+      } else {
+        this.finished(GState.Drifting);
+      }
     }
   }
 

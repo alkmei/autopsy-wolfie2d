@@ -113,7 +113,7 @@ export default class MainMenu extends Scene {
     authorLine.font = "Mister Pixel";
   }
 
-  private initLevelsLayer() {         
+  private initLevelsLayer() {
     const levelSelectImg = this.add.sprite("levelSelect", Layers.Levels);
     levelSelectImg.position = new Vec2(600, 400);
     levelSelectImg.scale = new Vec2(0.8, 0.8);
@@ -158,7 +158,7 @@ export default class MainMenu extends Scene {
       fontSize,
       Layers.Levels,
     );
-    
+
     levelOne.font = "Mister Pixel";
     levelOne.setPadding(paddingSize);
     levelOne.size = buttonSize;

@@ -1,8 +1,4 @@
-# Exclude node modules
 node_modules
-
-# Exclude the compiled project
 dist
-
-# Exclude .vscode
 .vscode
+.eslintcache

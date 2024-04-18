@@ -14,9 +14,11 @@ import AttackDown from "./States/Actions/AttackDown";
 import AttackUpper from "./States/Actions/AttackUpper";
 import { PhysicsGroups, SpriteSizes } from "@/globals";
 import Dead from "./States/Actions/Dead";
-import { ActionState, MovementState, PlayerAnimations } from "@/Autopsy/Player/PlayerEnum";
-
-
+import {
+  ActionState,
+  MovementState,
+  PlayerAnimations,
+} from "@/Autopsy/Player/PlayerEnum";
 
 export default class Player implements Updateable {
   node: AnimatedSprite;

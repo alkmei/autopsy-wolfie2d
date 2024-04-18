@@ -18,7 +18,6 @@ export default class Grounded extends PlayerMovementState {
     super.update(deltaT);
     const dir = this.getInputDirection();
 
-
     if (!this.isActionAnimationPlaying()) {
       if (dir.x != 0) {
         this.owner.animation.playIfNotAlready(PlayerAnimations.Walk, true);

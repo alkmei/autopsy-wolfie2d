@@ -1,21 +1,21 @@
 {
-    "name": "ScytheUpper",
-    "spriteSheetImage": "ScytheUpper.png",
-    "spriteWidth": 80,
-    "spriteHeight": 64,
-    "columns": 1,
-    "rows": 1,
-    "animations": [
+  "name": "ScytheUpper",
+  "spriteSheetImage": "ScytheUpper.png",
+  "spriteWidth": 80,
+  "spriteHeight": 64,
+  "columns": 1,
+  "rows": 1,
+  "animations": [
+    {
+      "name": "animation",
+      "frames": [
         {
-            "name": "animation",
-            "frames": [
-                {
-                    "index": 0,
-                    "duration": 15.0,
-                    "x": 0,
-                    "y": 0
-                }
-            ]
+          "index": 0,
+          "duration": 15.0,
+          "x": 0,
+          "y": 0
         }
-    ]
+      ]
+    }
+  ]
 }
