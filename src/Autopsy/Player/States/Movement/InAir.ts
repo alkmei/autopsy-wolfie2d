@@ -32,7 +32,7 @@ export default class InAir extends PlayerMovementState {
     }
 
     // TODO: Remove in actual game release :)
-    if (this.owner.position.y > 2000)
+    if (this.owner.position.y > 1500)
       this.owner.position = new Vec2(this.player.lastGroundedPosition.x, this.player.lastGroundedPosition.y - 150);
 
     if (this.owner.onGround) {

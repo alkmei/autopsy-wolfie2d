@@ -1,5 +1,5 @@
 import Scene from "../../Wolfie2D/Scene/Scene";
-import Player from "../Player/Player";
+import Player, { ActionState, PlayerAnimations } from "../Player/Player";
 import { GraphicType } from "../../Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Camera from "../Camera";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
@@ -26,6 +26,7 @@ export enum Layers {
   Hidden = "hidden",
   Debug = "debg",
   Pause = "pause",
+  DeathMenu = "death",
 }
 
 export default class GameLevel extends Scene {
@@ -85,6 +86,7 @@ export default class GameLevel extends Scene {
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
     this.addUILayer(Layers.Pause).setHidden(true);
+    this.addUILayer(Layers.DeathMenu).setHidden(true);
     this.addLayer(Layers.Debug, 2);
     this.addLayer(Layers.Hidden, 1).setHidden(true);
   }
@@ -131,6 +133,7 @@ export default class GameLevel extends Scene {
     this.viewport.setSmoothingFactor(0);
 
     this.initPauseLayer();
+    this.initDeathLayer();
     this.initUI();
 
     // subscribe to events
@@ -195,13 +198,16 @@ export default class GameLevel extends Scene {
       }
 
       case Events.PLAYER_DAMAGE: {
-        this.player.health -= 1;
-        this.healthBar.size.x = 600 * (this.player.health / 10);
-        this.healthBar.position.x = 0;
-        if (this.player.health <= 0)
-          this.emitter.fireEvent(Events.PLAYER_DEATH);
+        if (this.player.health > 0) {
+          this.player.node.animation.play(PlayerAnimations.TakeDamage);
+          this.player.health -= 1;
+          this.healthBar.size.x = 600 * (this.player.health / 10);
+          this.healthBar.position.x = 0;
+          if (this.player.health <= 0)
+            this.emitter.fireEvent(Events.PLAYER_DEATH);
 
-        console.log(`Player: ${this.player.health}`);
+          console.log(`Player: ${this.player.health}`);
+        }
         break;
       }
 
@@ -230,8 +236,9 @@ export default class GameLevel extends Scene {
       }
 
       case Events.PLAYER_DEATH: {
-        // death anim -> some screen/main menu for now
-        this.sceneManager.changeToScene(MainMenu);
+        Input.disableInput();
+        this.player.actionStateMachine.changeState(ActionState.Dead);
+        this.uiLayers.get(Layers.DeathMenu).setHidden(false);
 
         break;
       }
@@ -318,6 +325,24 @@ export default class GameLevel extends Scene {
       "MENU",
       52,
       Layers.Pause,
+    );
+    menuButton.onClick = () => {
+      Input.enableInput();
+    };
+    menuButton.onClickEventId = Events.MAIN_MENU;
+    menuButton.size.x = buttonWidth;
+    menuButton.size.y = buttonHeight;
+  }
+
+  initDeathLayer() {
+    const buttonWidth: number = 500;
+    const buttonHeight: number = 80;
+
+    const menuButton = this.newButton(
+      new Vec2(300, 200),
+      "RETURN TO MENU",
+      52,
+      Layers.DeathMenu,
     );
     menuButton.onClick = () => {
       Input.enableInput();
