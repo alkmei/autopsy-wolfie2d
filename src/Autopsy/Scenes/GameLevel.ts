@@ -1,17 +1,18 @@
 import Scene from "../../Wolfie2D/Scene/Scene";
-import Player, { ActionState, PlayerAnimations } from "../Player/Player";
-import { GraphicType } from "../../Wolfie2D/Nodes/Graphics/GraphicTypes";
+import { ActionState, PlayerAnimations } from "../Player/PlayerEnum";
+import Player from "../Player/Player";
+import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Camera from "../Camera";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
-import { UIElementType } from "../../Wolfie2D/Nodes/UIElements/UIElementTypes";
+import { UIElementType } from "@/Wolfie2D/Nodes/UIElements/UIElementTypes";
 import Color from "../../Wolfie2D/Utils/Color";
-import { Events, PhysicsGroups } from "../../globals";
+import { Events, PhysicsGroups } from "@/globals";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
 import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import Button from "../../Wolfie2D/Nodes/UIElements/Button";
 import MainMenu from "./MainMenu";
 import Input from "../../Wolfie2D/Input/Input";
-import { Action } from "../../globals";
+import { Action } from "@/globals";
 import PlayerState from "../Player/States/PlayerState";
 import Ghost, { GhostType } from "../Enemy/Ghost/Ghost";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
@@ -187,7 +188,7 @@ export default class GameLevel extends Scene {
       }
 
       case Events.ENEMY_DAMAGE: {
-        let enemy = event.data.get("enemy");
+        const enemy = event.data.get("enemy");
         enemy.health -= 1;
         console.log(`Enemy: ${enemy.health}`);
 
@@ -223,7 +224,7 @@ export default class GameLevel extends Scene {
 
       // TODO: Death animations
       case Events.ENEMY_DEATH: {
-        let enemy = event.data.get("enemy");
+        const enemy = event.data.get("enemy");
 
         // Heal player if red soul
         if (enemy.type === GhostType.RED)
@@ -251,7 +252,7 @@ export default class GameLevel extends Scene {
 
           0 is does not collide, 1 is collide
         */
-        let sceneOptions = {
+        const sceneOptions = {
           physics: {
             groupNames: [
               PhysicsGroups.PLAYER_PHYS,
@@ -354,7 +355,7 @@ export default class GameLevel extends Scene {
 
   protected handleHealthChange(currentHealth: number, maxHealth: number): void {
     console.log(currentHealth);
-    let unit = this.healthBarBg.size.x / maxHealth;
+    const unit = this.healthBarBg.size.x / maxHealth;
 
     this.healthBar.size.set(
       this.healthBarBg.size.x - unit * (maxHealth - currentHealth),

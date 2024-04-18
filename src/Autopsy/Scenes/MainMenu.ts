@@ -6,12 +6,12 @@ import Color from "../../Wolfie2D/Utils/Color";
 import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
 import UILayer from "../../Wolfie2D/Scene/Layers/UILayer";
 import { PhysicsGroups } from "../../globals";
-import Level1 from "./Level1";
-import Level2 from "./Level2";
-import Level3 from "./Level3";
-import Level4 from "./Level4";
-import Level5 from "./Level5";
-import Level6 from "./Level6";
+import Level1 from "./Levels/Level1";
+import Level2 from "./Levels/Level2";
+import Level3 from "./Levels/Level3";
+import Level4 from "./Levels/Level4";
+import Level5 from "./Levels/Level5";
+import Level6 from "./Levels/Level6";
 
 enum Layers {
   Main = "main",
@@ -249,7 +249,7 @@ export default class MainMenu extends Scene {
     playButton.size.x = buttonWidth;
     playButton.size.y = 80;
     playButton.onClick = () => {
-      let sceneOptions = {
+      const sceneOptions = {
         physics: {
           groupNames: [
             PhysicsGroups.PLAYER_PHYS,

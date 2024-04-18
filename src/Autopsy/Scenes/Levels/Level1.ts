@@ -1,8 +1,8 @@
-import GameLevel from "./GameLevel";
-import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
-import Ghost from "../Enemy/Ghost/Ghost";
-import { Layers } from "./GameLevel";
-import { GhostType } from "../Enemy/Ghost/Ghost";
+import GameLevel from "../GameLevel";
+import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
+import Ghost from "../../Enemy/Ghost/Ghost";
+import { Layers } from "../GameLevel";
+import { GhostType } from "../../Enemy/Ghost/Ghost";
 import Level2 from "./Level2";
 
 const GhostPositions: Array<Vec2> = [

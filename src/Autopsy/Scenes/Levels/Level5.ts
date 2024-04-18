@@ -1,7 +1,7 @@
-import GameLevel from "./GameLevel";
-import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
+import GameLevel from "../GameLevel";
+import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 
-export default class Level6 extends GameLevel {
+export default class Level5 extends GameLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");

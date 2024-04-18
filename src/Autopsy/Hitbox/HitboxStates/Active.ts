@@ -18,7 +18,7 @@ export default class Active extends HitboxState {
     const player = (<GameLevel>this.owner.getScene()).player.node;
 
     let posX = player.position.x + this.parent.offset.x;
-    let posY = player.position.y + this.parent.offset.y;
+    const posY = player.position.y + this.parent.offset.y;
     if (this.parent.invertX) {
       posX = posX - this.parent.offset.x * 2;
       // posY = posY - this.parent.offset.y * 2;

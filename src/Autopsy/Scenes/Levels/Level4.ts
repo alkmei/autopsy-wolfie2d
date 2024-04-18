@@ -1,5 +1,5 @@
-import GameLevel from "./GameLevel";
-import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
+import GameLevel from "../GameLevel";
+import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 
 export default class Level4 extends GameLevel {
   loadScene() {

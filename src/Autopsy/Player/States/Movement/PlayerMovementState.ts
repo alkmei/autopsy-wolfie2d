@@ -3,7 +3,7 @@ import { PlayerAnimations } from "../../PlayerEnum";
 
 export default abstract class PlayerMovementState extends PlayerState {
   update(deltaT: number): void {
-    let dir = this.getInputDirection();
+    const dir = this.getInputDirection();
     if (dir.x == -1) {
       this.owner.invertX = true;
     } else if (dir.x == 1) {

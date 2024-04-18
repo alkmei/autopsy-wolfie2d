@@ -20,7 +20,7 @@ export default class AttackUpper extends PlayerActionState {
     const timer = new Timer(
       120,
       () => {
-        let hitbox = new Hitbox(
+        const hitbox = new Hitbox(
           this.player.node,
           sprite,
           DamageType.TO_ENEMY,
