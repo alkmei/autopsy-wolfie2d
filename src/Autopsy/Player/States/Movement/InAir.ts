@@ -9,8 +9,6 @@ import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 export default class InAir extends PlayerMovementState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "InAir";
-    if (!this.isActionAnimationPlaying())
-      this.owner.animation.playIfNotAlready(PlayerAnimations.Jump);
   }
 
   update(deltaT: number) {

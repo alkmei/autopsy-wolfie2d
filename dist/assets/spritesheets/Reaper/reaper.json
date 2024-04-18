@@ -2,9 +2,9 @@
     "name": "reaper",
     "spriteSheetImage": "ReaperHooded.png",
     "spriteWidth": 136,
-    "spriteHeight": 152,
-    "columns": 7,
-    "rows": 6,
+    "spriteHeight": 120,
+    "columns": 8,
+    "rows": 8,
     "animations": [
         {
             "name": "Idle",
@@ -18,19 +18,19 @@
                 {
                     "index": 1,
                     "duration": 10.0,
-                    "x": 152,
+                    "x": 136,
                     "y": 0
                 },
                 {
                     "index": 2,
                     "duration": 10.0,
-                    "x": 304,
+                    "x": 272,
                     "y": 0
                 },
                 {
                     "index": 3,
                     "duration": 10.0,
-                    "x": 456,
+                    "x": 408,
                     "y": 0
                 }
             ]
@@ -41,43 +41,43 @@
                 {
                     "index": 4,
                     "duration": 3.5,
-                    "x": 608,
+                    "x": 544,
                     "y": 0
                 },
                 {
                     "index": 5,
                     "duration": 3.5,
-                    "x": 760,
+                    "x": 680,
                     "y": 0
                 },
                 {
                     "index": 6,
                     "duration": 3.5,
-                    "x": 912,
+                    "x": 816,
                     "y": 0
                 },
                 {
                     "index": 7,
                     "duration": 3.5,
-                    "x": 0,
-                    "y": 136
+                    "x": 952,
+                    "y": 0
                 },
                 {
                     "index": 8,
                     "duration": 3.5,
-                    "x": 152,
+                    "x": 0,
                     "y": 136
                 },
                 {
                     "index": 9,
                     "duration": 3.5,
-                    "x": 304,
+                    "x": 136,
                     "y": 136
                 },
                 {
                     "index": 10,
                     "duration": 3.5,
-                    "x": 456,
+                    "x": 272,
                     "y": 136
                 }
             ]
@@ -88,79 +88,79 @@
                 {
                     "index": 11,
                     "duration": 2.0,
-                    "x": 608,
+                    "x": 408,
                     "y": 136
                 },
                 {
                     "index": 12,
                     "duration": 2.0,
-                    "x": 760,
+                    "x": 544,
                     "y": 136
                 },
                 {
                     "index": 13,
                     "duration": 2.0,
-                    "x": 912,
+                    "x": 680,
                     "y": 136
                 },
                 {
                     "index": 14,
                     "duration": 2.0,
-                    "x": 0,
-                    "y": 272
+                    "x": 816,
+                    "y": 136
                 },
                 {
                     "index": 15,
                     "duration": 2.0,
-                    "x": 152,
-                    "y": 272
+                    "x": 952,
+                    "y": 136
                 },
                 {
                     "index": 16,
                     "duration": 3.5,
-                    "x": 304,
+                    "x": 0,
                     "y": 272
                 },
                 {
                     "index": 17,
                     "duration": 3.5,
-                    "x": 456,
+                    "x": 136,
                     "y": 272
                 },
                 {
                     "index": 18,
                     "duration": 10.0,
-                    "x": 608,
+                    "x": 272,
                     "y": 272
                 },
                 {
                     "index": 19,
                     "duration": 10.0,
-                    "x": 760,
+                    "x": 408,
                     "y": 272
                 }
             ]
         },
         {
-            "name": "Jump",
+            "name": "Take Damage",
             "frames": [
                 {
                     "index": 20,
                     "duration": 5.0,
-                    "x": 912,
+                    "x": 544,
                     "y": 272
                 },
                 {
                     "index": 21,
                     "duration": 5.0,
-                    "x": 0,
-                    "y": 408
+                    "x": 680,
+                    "y": 272
                 },
                 {
                     "index": 22,
                     "duration": 30.0,
-                    "x": 152,
-                    "y": 408
+                    "x": 816,
+                    "y": 272
                 }
             ]
         },
@@ -170,19 +170,37 @@
                 {
                     "index": 23,
                     "duration": 4.0,
-                    "x": 304,
-                    "y": 408
+                    "x": 952,
+                    "y": 272
                 },
                 {
                     "index": 24,
                     "duration": 4.0,
-                    "x": 456,
+                    "x": 0,
                     "y": 408
                 },
                 {
                     "index": 25,
+                    "duration": 4.0,
+                    "x": 136,
+                    "y": 408
+                },
+                {
+                    "index": 26,
+                    "duration": 6.0,
+                    "x": 272,
+                    "y": 408
+                },
+                {
+                    "index": 27,
+                    "duration": 6.0,
+                    "x": 408,
+                    "y": 408
+                },
+                {
+                    "index": 28,
                     "duration": 15.0,
-                    "x": 608,
+                    "x": 544,
                     "y": 408
                 }
             ]
@@ -191,51 +209,51 @@
             "name": "Scythe Upper",
             "frames": [
                 {
-                    "index": 26,
+                    "index": 29,
                     "duration": 4.0,
-                    "x": 760,
+                    "x": 680,
                     "y": 408
                 },
                 {
-                    "index": 27,
+                    "index": 30,
                     "duration": 4.0,
-                    "x": 912,
+                    "x": 816,
                     "y": 408
                 },
                 {
-                    "index": 28,
+                    "index": 31,
+                    "duration": 4.0,
+                    "x": 952,
+                    "y": 408
+                },
+                {
+                    "index": 32,
                     "duration": 10.0,
                     "x": 0,
                     "y": 544
                 },
                 {
-                    "index": 29,
-                    "duration": 3.5,
-                    "x": 152,
-                    "y": 544
-                },
-                {
-                    "index": 30,
-                    "duration": 3.5,
-                    "x": 304,
-                    "y": 544
-                },
-                {
-                    "index": 31,
-                    "duration": 10.0,
-                    "x": 456,
-                    "y": 544
-                },
-                {
-                    "index": 32,
-                    "duration": 10.0,
-                    "x": 608,
-                    "y": 544
-                },
-                {
                     "index": 33,
-                    "duration": 10.0,
-                    "x": 760,
+                    "duration": 2.0,
+                    "x": 136,
+                    "y": 544
+                },
+                {
+                    "index": 34,
+                    "duration": 2.0,
+                    "x": 272,
+                    "y": 544
+                },
+                {
+                    "index": 35,
+                    "duration": 3.5,
+                    "x": 408,
+                    "y": 544
+                },
+                {
+                    "index": 36,
+                    "duration": 3.5,
+                    "x": 544,
                     "y": 544
                 }
             ]
@@ -244,46 +262,161 @@
             "name": "Scythe Down",
             "frames": [
                 {
-                    "index": 34,
+                    "index": 37,
                     "duration": 4.0,
-                    "x": 912,
+                    "x": 680,
                     "y": 544
                 },
                 {
-                    "index": 35,
-                    "duration": 6.0,
+                    "index": 38,
+                    "duration": 4.0,
+                    "x": 816,
+                    "y": 544
+                },
+                {
+                    "index": 39,
+                    "duration": 10.0,
+                    "x": 952,
+                    "y": 544
+                },
+                {
+                    "index": 40,
+                    "duration": 4.0,
                     "x": 0,
                     "y": 680
                 },
                 {
-                    "index": 36,
-                    "duration": 6.0,
-                    "x": 152,
+                    "index": 41,
+                    "duration": 4.0,
+                    "x": 680,
+                    "y": 544
+                }
+            ]
+        },
+        {
+            "name": "Shotgun Neutral",
+            "frames": [
+                {
+                    "index": 42,
+                    "duration": 4.0,
+                    "x": 136,
                     "y": 680
                 },
                 {
-                    "index": 37,
-                    "duration": 10.0,
-                    "x": 304,
+                    "index": 43,
+                    "duration": 4.0,
+                    "x": 272,
                     "y": 680
                 },
                 {
-                    "index": 38,
-                    "duration": 10.0,
-                    "x": 456,
-                    "y": 680
-                },
-                {
-                    "index": 39,
+                    "index": 44,
                     "duration": 5.0,
-                    "x": 608,
+                    "x": 408,
                     "y": 680
                 },
                 {
-                    "index": 40,
-                    "duration": 3.5,
-                    "x": 760,
+                    "index": 45,
+                    "duration": 5.0,
+                    "x": 544,
                     "y": 680
+                },
+                {
+                    "index": 46,
+                    "duration": 4.0,
+                    "x": 136,
+                    "y": 680
+                }
+            ]
+        },
+        {
+            "name": "Shotgun Up",
+            "frames": [
+                {
+                    "index": 47,
+                    "duration": 4.0,
+                    "x": 680,
+                    "y": 680
+                },
+                {
+                    "index": 48,
+                    "duration": 8.0,
+                    "x": 816,
+                    "y": 680
+                },
+                {
+                    "index": 49,
+                    "duration": 5.0,
+                    "x": 952,
+                    "y": 680
+                }
+            ]
+        },
+        {
+            "name": "Shotgun Down",
+            "frames": [
+                {
+                    "index": 50,
+                    "duration": 4.0,
+                    "x": 0,
+                    "y": 816
+                },
+                {
+                    "index": 51,
+                    "duration": 8.0,
+                    "x": 136,
+                    "y": 816
+                },
+                {
+                    "index": 52,
+                    "duration": 5.0,
+                    "x": 272,
+                    "y": 816
+                }
+            ]
+        },
+        {
+            "name": "Up",
+            "frames": [
+                {
+                    "index": 53,
+                    "duration": 5.0,
+                    "x": 408,
+                    "y": 816
+                },
+                {
+                    "index": 54,
+                    "duration": 5.0,
+                    "x": 544,
+                    "y": 816
+                },
+                {
+                    "index": 55,
+                    "duration": 5.0,
+                    "x": 680,
+                    "y": 816
+                }
+            ]
+        },
+        {
+            "name": "Down",
+            "frames": [
+                {
+                    "index": 56,
+                    "duration": 5.0,
+                    "x": 816,
+                    "y": 816
+                },
+                {
+                    "index": 57,
+                    "duration": 5.0,
+                    "x": 952,
+                    "y": 816
+                },
+                {
+                    "index": 58,
+                    "duration": 5.0,
+                    "x": 0,
+                    "y": 952
                 }
             ]
         }

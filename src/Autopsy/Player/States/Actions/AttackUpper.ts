@@ -11,7 +11,7 @@ export default class AttackUpper extends PlayerActionState {
     this.stateName = "AttackUpper";
     this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheUpper);
 
-    const offset = new Vec2(40, 0);
+    const offset = new Vec2(10, -50);
 
     const sprite = this.player.node
       .getScene()
@@ -25,7 +25,7 @@ export default class AttackUpper extends PlayerActionState {
           sprite,
           DamageType.TO_ENEMY,
           new Vec2(0, 0),
-          new Vec2(24, 48),
+          new Vec2(30, 60),
           this.player.node.invertX,
           offset,
         );

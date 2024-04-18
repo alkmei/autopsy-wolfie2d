@@ -11,21 +11,21 @@ export default class AttackDown extends PlayerActionState {
     this.stateName = "AttackDown";
     this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheDown, false);
 
-    const offset = new Vec2(40, 0);
+    const offset = new Vec2(10, 50);
 
     const sprite = this.player.node
       .getScene()
       .add.animatedSprite("ScytheDown", Layers.Main);
 
     const timer = new Timer(
-      250,
+      120,
       () => {
         new Hitbox(
           this.player.node,
           sprite,
           DamageType.TO_ENEMY,
           new Vec2(0, 0),
-          new Vec2(24, 48),
+          new Vec2(30, 60),
           this.player.node.invertX,
           offset,
         );
