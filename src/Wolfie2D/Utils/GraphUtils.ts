@@ -51,7 +51,7 @@ export default class GraphUtils {
 
       for (i = 0; i <= g.numVertices; i++) {
         if (!inTree[i] && dist > distance[i]) {
-          dist = distance;
+          dist = distance[i];
           v = i;
         }
       }
