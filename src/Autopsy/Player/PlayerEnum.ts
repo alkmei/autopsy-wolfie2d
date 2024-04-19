@@ -27,3 +27,10 @@ export enum PlayerAnimations {
   Dying = "Dying",
   Dead = "Dead",
 }
+
+export enum PlayerSounds {
+  Dash = "playerDash",
+  Hurt = "playerHurt",
+  Heal = "playerHeal",
+  Slash = "playerSlash",
+}

@@ -1,15 +1,21 @@
 import PlayerActionState from "./PlayerActionState";
 import Hitbox from "@/Autopsy/Hitbox/Hitbox";
 import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
-import { ActionState, PlayerAnimations } from "../../PlayerEnum";
+import { ActionState, PlayerAnimations, PlayerSounds } from "../../PlayerEnum";
 import { Layers } from "@/Autopsy/Scenes/GameLevel";
 import Timer from "@/Wolfie2D/Timing/Timer";
 import { DamageType } from "@/Autopsy/Hitbox/DamageType";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 export default class Attack extends PlayerActionState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "Attack";
     this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheSlash);
+    this.emitter.fireEvent(GameEventType.PLAY_SFX, {
+      key: PlayerSounds.Slash + "1",
+      loop: false,
+      keepReference: false,
+    });
 
     const offset = new Vec2(60, 0);
 

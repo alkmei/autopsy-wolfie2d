@@ -1,5 +1,5 @@
 import Timer from "../../../../Wolfie2D/Timing/Timer";
-import { ActionState, PlayerAnimations } from "../../PlayerEnum";
+import { ActionState, PlayerAnimations, PlayerSounds } from "../../PlayerEnum";
 import PlayerActionState from "./PlayerActionState";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
@@ -10,8 +10,8 @@ export default class Dashing extends PlayerActionState {
     this.stateName = "Dashing";
 
     this.owner.animation.play(PlayerAnimations.Dash);
-    this.emitter.fireEvent(GameEventType.PLAY_SOUND, {
-      key: "dash",
+    this.emitter.fireEvent(GameEventType.PLAY_SFX, {
+      key: PlayerSounds.Dash,
       loop: false,
       holdReference: false,
     });

@@ -18,9 +18,11 @@ import {
   ActionState,
   MovementState,
   PlayerAnimations,
+  PlayerSounds,
 } from "@/Autopsy/Player/PlayerEnum";
 import Emitter from "@/Wolfie2D/Events/Emitter";
 import MathUtils from "@/Wolfie2D/Utils/MathUtils";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 export default class Player implements Updateable {
   node: AnimatedSprite;
@@ -59,7 +61,20 @@ export default class Player implements Updateable {
 
   changeHealth(dHealth: number) {
     if (this.health <= 0) return;
-    if (dHealth < 0) this.node.animation.play(PlayerAnimations.TakeDamage);
+    if (dHealth < 0) {
+      this.node.animation.play(PlayerAnimations.TakeDamage);
+      this.emitter.fireEvent(GameEventType.PLAY_SFX, {
+        key: PlayerSounds.Hurt,
+        loop: false,
+        holdReference: false,
+      });
+    } else if (dHealth > 0 && this.health != this.maxHealth) {
+      this.emitter.fireEvent(GameEventType.PLAY_SFX, {
+        key: PlayerSounds.Heal,
+        loop: false,
+        holdReference: false,
+      });
+    }
 
     const changedHP = this.health + dHealth;
     this.health = MathUtils.clamp(changedHP, 0, this.maxHealth);

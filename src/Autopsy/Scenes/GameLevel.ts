@@ -1,5 +1,9 @@
 import Scene from "../../Wolfie2D/Scene/Scene";
-import { ActionState, PlayerAnimations } from "../Player/PlayerEnum";
+import {
+  ActionState,
+  PlayerAnimations,
+  PlayerSounds,
+} from "../Player/PlayerEnum";
 import Player from "../Player/Player";
 import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Camera from "../Camera";
@@ -76,7 +80,13 @@ export default class GameLevel extends Scene {
       "ScytheDown",
       "assets/spritesheets/Reaper/ReaperVFX/ScytheDown.json",
     );
-    this.load.audio("dash", "assets/sounds/dash.wav");
+
+    this.load.audio(PlayerSounds.Dash, "assets/sounds/dash.wav");
+    this.load.audio(PlayerSounds.Hurt, "assets/sounds/hurt.wav");
+    this.load.audio(PlayerSounds.Heal, "assets/sounds/heal.wav");
+    this.load.audio(PlayerSounds.Slash + "1", "assets/sounds/slash1.wav");
+    this.load.audio(PlayerSounds.Slash + "2", "assets/sounds/slash2.wav");
+    this.load.audio(PlayerSounds.Slash + "3", "assets/sounds/slash3.wav");
 
     // red soul enemy
     this.load.spritesheet(
