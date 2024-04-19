@@ -138,7 +138,6 @@ export default class GameLevel extends Scene {
     this.initUI();
 
     // subscribe to events
-    this.receiver.subscribe(Events.MAIN_MENU);
     this.receiver.subscribe(Events.ENEMY_DAMAGE);
     this.receiver.subscribe(Events.PLAYER_DAMAGE);
     this.receiver.subscribe(Events.ENEMY_DEATH);
@@ -181,12 +180,6 @@ export default class GameLevel extends Scene {
 
   handleEvent(event: GameEvent) {
     switch (event.type) {
-      case Events.MAIN_MENU: {
-        this.sceneManager.changeToScene(MainMenu);
-
-        break;
-      }
-
       case Events.ENEMY_DAMAGE: {
         const enemy = event.data.get("enemy");
         enemy.health -= 1;
@@ -199,26 +192,21 @@ export default class GameLevel extends Scene {
       }
 
       case Events.PLAYER_DAMAGE: {
-        if (this.player.health > 0) {
-          this.player.node.animation.play(PlayerAnimations.TakeDamage);
-          this.player.health -= 1;
-          this.healthBar.size.x = 600 * (this.player.health / 10);
-          this.healthBar.position.x = 0;
-          if (this.player.health <= 0)
-            this.emitter.fireEvent(Events.PLAYER_DEATH);
+        this.player.changeHealth(-1);
+        this.healthBar.size.x = 600 * (this.player.health / 10);
+        this.healthBar.position.x = 0;
 
-          console.log(`Player: ${this.player.health}`);
-        }
+        console.log(`Player: ${this.player.health}`);
+
         break;
       }
 
       case Events.PLAYER_HEAL: {
-        if (this.player.health + 1 <= this.player.maxHealth) {
-          this.player.health += 1;
-          this.healthBar.size.x = 600 * (this.player.health / 10);
-          this.healthBar.position.x = 0;
-          console.log(`Player: ${this.player.health}`);
-        }
+        this.player.changeHealth(1);
+        this.healthBar.size.x = 600 * (this.player.health / 10);
+        this.healthBar.position.x = 0;
+        console.log(`Player: ${this.player.health}`);
+
         break;
       }
 
@@ -238,7 +226,7 @@ export default class GameLevel extends Scene {
 
       case Events.PLAYER_DEATH: {
         Input.disableInput();
-        this.player.actionStateMachine.changeState(ActionState.Dead);
+        // this.player.actionStateMachine.changeState(ActionState.Dead);
         this.uiLayers.get(Layers.DeathMenu).setHidden(false);
 
         break;
@@ -329,8 +317,8 @@ export default class GameLevel extends Scene {
     );
     menuButton.onClick = () => {
       Input.enableInput();
+      this.sceneManager.changeToScene(MainMenu);
     };
-    menuButton.onClickEventId = Events.MAIN_MENU;
     menuButton.size.x = buttonWidth;
     menuButton.size.y = buttonHeight;
   }
@@ -347,8 +335,8 @@ export default class GameLevel extends Scene {
     );
     menuButton.onClick = () => {
       Input.enableInput();
+      this.sceneManager.changeToScene(MainMenu);
     };
-    menuButton.onClickEventId = Events.MAIN_MENU;
     menuButton.size.x = buttonWidth;
     menuButton.size.y = buttonHeight;
   }

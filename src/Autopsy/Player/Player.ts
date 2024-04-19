@@ -12,16 +12,20 @@ import Jump from "./States/Actions/Jump";
 import Attack from "./States/Actions/Attack";
 import AttackDown from "./States/Actions/AttackDown";
 import AttackUpper from "./States/Actions/AttackUpper";
-import { PhysicsGroups, SpriteSizes } from "@/globals";
+import { Events, PhysicsGroups, SpriteSizes } from "@/globals";
 import Dead from "./States/Actions/Dead";
 import {
   ActionState,
   MovementState,
   PlayerAnimations,
 } from "@/Autopsy/Player/PlayerEnum";
+import Emitter from "@/Wolfie2D/Events/Emitter";
+import MathUtils from "@/Wolfie2D/Utils/MathUtils";
 
 export default class Player implements Updateable {
   node: AnimatedSprite;
+
+  // Player related variables
   maxHealth: number;
   health: number;
   velocity: Vec2 = new Vec2();
@@ -30,12 +34,15 @@ export default class Player implements Updateable {
   private jumpHeight = 20;
   gravity: number;
   jumpVelocity: number;
+  canDash: boolean;
+  lastGroundedPosition: Vec2;
 
+  // State Machines
   movementStateMachine: StateMachine;
   actionStateMachine: StateMachine;
 
-  canDash: boolean;
-  lastGroundedPosition: Vec2;
+  // General
+  private emitter: Emitter;
 
   constructor(sprite: AnimatedSprite) {
     this.node = sprite;
@@ -45,8 +52,32 @@ export default class Player implements Updateable {
     this.node.animation.play(PlayerAnimations.Idle, true);
     this.maxHealth = 10;
     this.health = 10;
+    this.emitter = new Emitter();
     this.updateGravity();
     this.initializeAI();
+  }
+
+  changeHealth(dHealth: number) {
+    if (this.health <= 0) return;
+    if (dHealth < 0) this.node.animation.play(PlayerAnimations.TakeDamage);
+
+    const changedHP = this.health + dHealth;
+    this.health = MathUtils.clamp(changedHP, 0, this.maxHealth);
+    if (changedHP <= 0) {
+      this.actionStateMachine.changeState(ActionState.Dead);
+      this.emitter.fireEvent(Events.PLAYER_DEATH);
+    }
+  }
+
+  updateGravity() {
+    this.gravity = (2 * this.jumpHeight) / Math.pow(this.timeToApex, 2) / 10;
+    this.jumpVelocity = -this.gravity * this.timeToApex;
+  }
+
+  update(deltaT: number): void {
+    this.movementStateMachine.update(deltaT);
+    this.actionStateMachine.update(deltaT);
+    this.node.move(this.velocity);
   }
 
   initializeAI() {
@@ -97,16 +128,5 @@ export default class Player implements Updateable {
         new Dead(this.actionStateMachine, this.node, this),
       )
       .initialize(ActionState.Idle);
-  }
-
-  updateGravity() {
-    this.gravity = (2 * this.jumpHeight) / Math.pow(this.timeToApex, 2) / 10;
-    this.jumpVelocity = -this.gravity * this.timeToApex;
-  }
-
-  update(deltaT: number): void {
-    this.movementStateMachine.update(deltaT);
-    this.actionStateMachine.update(deltaT);
-    this.node.move(this.velocity);
   }
 }

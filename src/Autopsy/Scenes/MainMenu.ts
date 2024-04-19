@@ -313,7 +313,7 @@ export default class MainMenu extends Scene {
     });
     button.backgroundColor = Color.TRANSPARENT;
     button.borderColor = Color.WHITE;
-    button.borderWidth = 2;
+    button.borderWidth = 1;
     button.borderRadius = 0;
     button.setPadding(new Vec2(50, 10));
     button.font = "MEGAPIX";
