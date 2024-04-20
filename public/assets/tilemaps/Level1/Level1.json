@@ -62,7 +62,7 @@
         {
          "draworder":"topdown",
          "id":4,
-         "name":"Enemies",
+         "name":"Ghosts",
          "objects":[
                 {
                  "height":0,

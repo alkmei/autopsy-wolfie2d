@@ -5,12 +5,6 @@ import { Layers } from "../GameLevel";
 import { GhostType } from "../../Enemy/Ghost/Ghost";
 import Level2 from "./Level2";
 
-const GhostPositions: Array<Vec2> = [
-  new Vec2(3840, 416),
-  new Vec2(4160, 512),
-  new Vec2(3904, 448),
-];
-
 export default class Level1 extends GameLevel {
   loadScene() {
     super.loadScene();
@@ -22,7 +16,6 @@ export default class Level1 extends GameLevel {
     this.player.node.position = new Vec2(100, 1000);
     this.camera.node.position = this.player.node.position.clone();
     this.add.tilemap("tilemap", new Vec2(1, 1));
-    console.log(this.resourceManager.getTilemap("tilemap").layers[1].objects);
 
     this.viewport.setBounds(0, 0, 6400, 1280);
 
@@ -34,10 +27,13 @@ export default class Level1 extends GameLevel {
   }
 
   initializeGhosts() {
-    for (let i = 0; i < GhostPositions.length; i++) {
+    const ghostPositions = this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Ghosts").objects;
+    for (let i = 0; i < ghostPositions.length; i++) {
       const ghost = new Ghost(
         this.add.animatedSprite("RedSoul", Layers.Main),
-        GhostPositions[i],
+        new Vec2(ghostPositions[i].x, ghostPositions[i].y),
         GhostType.RED,
       );
 
