@@ -111,6 +111,24 @@ export default class MainMenu extends Scene {
     authorLine.setHAlign(HAlign.RIGHT);
     authorLine.textColor = this.textColor;
     authorLine.font = "Mister Pixel";
+
+    [
+      "Cheats",
+      "",
+      "Invincibility: I",
+      "Change Level: 1-6",
+    ].forEach((value, index) => {
+      const helpLine = <Label>this.add.uiElement(
+        UIElementType.LABEL,
+        Layers.Help,
+        {
+          position: new Vec2(600, 500 + 40 * index),
+          text: value,
+        },
+      );
+      helpLine.textColor = this.textColor;
+      helpLine.font = "Mister Pixel";
+    });
   }
 
   private initLevelsLayer() {

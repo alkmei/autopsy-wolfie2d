@@ -10,7 +10,7 @@ import Camera from "../Camera";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import { UIElementType } from "@/Wolfie2D/Nodes/UIElements/UIElementTypes";
 import Color from "../../Wolfie2D/Utils/Color";
-import { Events, PhysicsGroups, levelPhysics } from "@/globals";
+import { Events, Levels, PhysicsGroups, levelPhysics } from "@/globals";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
 import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import Button from "../../Wolfie2D/Nodes/UIElements/Button";
@@ -38,6 +38,8 @@ export enum Layers {
 export default class GameLevel extends Scene {
   player: Player;
   camera: Camera;
+
+  playerInvincible: boolean = false;
 
   enemies: Array<Enemy>;
 
@@ -164,6 +166,28 @@ export default class GameLevel extends Scene {
       Input.disableInput();
       this.uiLayers.get(Layers.Pause).setHidden(false);
     }
+    if (Input.isJustPressed(Action.Invincible)) {
+      this.playerInvincible = !this.playerInvincible;
+      if (this.playerInvincible) console.log("Player is now invincible.");
+    }
+
+    if (Input.isJustPressed(Action.Invincible))
+      this.playerInvincible = !this.playerInvincible;
+
+    if (Input.isJustPressed(Action.Invincible))
+      this.playerInvincible = !this.playerInvincible;
+    if (Input.isJustPressed(Action.Level1))
+      this.sceneManager.changeToScene(Levels.Level1, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level2))
+      this.sceneManager.changeToScene(Levels.Level2, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level3))
+      this.sceneManager.changeToScene(Levels.Level3, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level4))
+      this.sceneManager.changeToScene(Levels.Level4, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level5))
+      this.sceneManager.changeToScene(Levels.Level5, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level6))
+      this.sceneManager.changeToScene(Levels.Level6, {}, levelPhysics);
 
     this.camera.update(deltaT);
     this.player.update(deltaT);
@@ -203,11 +227,13 @@ export default class GameLevel extends Scene {
       }
 
       case Events.PLAYER_DAMAGE: {
-        this.player.changeHealth(-1);
-        this.healthBar.size.x = 600 * (this.player.health / 10);
-        this.healthBar.position.x = 0;
+        if (!this.playerInvincible) {
+          this.player.changeHealth(-1);
+          this.healthBar.size.x = 600 * (this.player.health / 10);
+          this.healthBar.position.x = 0;
 
-        console.log(`Player: ${this.player.health}`);
+          console.log(`Player: ${this.player.health}`);
+        } else console.log("Player is invincible!");
 
         break;
       }
