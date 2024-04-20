@@ -5,7 +5,7 @@ import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Color from "../../Wolfie2D/Utils/Color";
 import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
 import UILayer from "../../Wolfie2D/Scene/Layers/UILayer";
-import { PhysicsGroups } from "../../globals";
+import { PhysicsGroups, levelPhysics } from "../../globals";
 import Level1 from "./Levels/Level1";
 import Level2 from "./Levels/Level2";
 import Level3 from "./Levels/Level3";
@@ -164,7 +164,7 @@ export default class MainMenu extends Scene {
     levelOne.size = buttonSize;
     levelOne.borderColor = Color.TRANSPARENT;
     levelOne.onClick = () => {
-      this.sceneManager.changeToScene(Level1);
+      this.sceneManager.changeToScene(Level1, {}, levelPhysics);
     };
 
     levelTwo.font = "Mister Pixel";
@@ -172,7 +172,7 @@ export default class MainMenu extends Scene {
     levelTwo.size = buttonSize;
     levelTwo.borderColor = Color.TRANSPARENT;
     levelTwo.onClick = () => {
-      this.sceneManager.changeToScene(Level2);
+      this.sceneManager.changeToScene(Level2, {}, levelPhysics);
     };
 
     levelThree.font = "Mister Pixel";
@@ -180,7 +180,7 @@ export default class MainMenu extends Scene {
     levelThree.size = buttonSize;
     levelThree.borderColor = Color.TRANSPARENT;
     levelThree.onClick = () => {
-      this.sceneManager.changeToScene(Level3);
+      this.sceneManager.changeToScene(Level3, {}, levelPhysics);
     };
 
     levelFour.font = "Mister Pixel";
@@ -188,7 +188,7 @@ export default class MainMenu extends Scene {
     levelFour.size = buttonSize;
     levelFour.borderColor = Color.TRANSPARENT;
     levelFour.onClick = () => {
-      this.sceneManager.changeToScene(Level4);
+      this.sceneManager.changeToScene(Level4, {}, levelPhysics);
     };
 
     levelFive.font = "Mister Pixel";
@@ -196,7 +196,7 @@ export default class MainMenu extends Scene {
     levelFive.size = buttonSize;
     levelFive.borderColor = Color.TRANSPARENT;
     levelFive.onClick = () => {
-      this.sceneManager.changeToScene(Level5);
+      this.sceneManager.changeToScene(Level5, {}, levelPhysics);
     };
 
     levelSix.font = "Mister Pixel";
@@ -204,7 +204,7 @@ export default class MainMenu extends Scene {
     levelSix.size = buttonSize;
     levelSix.borderColor = Color.TRANSPARENT;
     levelSix.onClick = () => {
-      this.sceneManager.changeToScene(Level6);
+      this.sceneManager.changeToScene(Level6, {}, levelPhysics);
     };
   }
 
@@ -249,21 +249,7 @@ export default class MainMenu extends Scene {
     playButton.size.x = buttonWidth;
     playButton.size.y = 80;
     playButton.onClick = () => {
-      const sceneOptions = {
-        physics: {
-          groupNames: [
-            PhysicsGroups.PLAYER_PHYS,
-            PhysicsGroups.ENEMY_PHYS,
-            PhysicsGroups.HITBOX_PHYS,
-          ],
-          collisions: [
-            [0, 1, 1],
-            [0, 1, 1],
-            [0, 0, 0],
-          ],
-        },
-      };
-      this.sceneManager.changeToScene(Level1, {}, sceneOptions);
+      this.sceneManager.changeToScene(Level1, {}, levelPhysics);
     };
 
     const levelsButton = this.newButton(

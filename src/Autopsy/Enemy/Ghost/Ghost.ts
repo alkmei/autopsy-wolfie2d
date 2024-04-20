@@ -3,7 +3,7 @@ import GhostController from "./GhostController";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import { PhysicsGroups, SpriteSizes } from "@/globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
-import Hitbox from "../../Hitbox/Hitbox";
+import Enemy from "../Enemy";
 
 export enum GhostType {
   RED = "red",
@@ -14,13 +14,13 @@ export enum GhostAnimations {
   Idle = "Idle",
 }
 
-export default class Ghost {
-  hitbox: Hitbox;
+export default class Ghost extends Enemy {
   node: AnimatedSprite;
   health: number;
   type: string; // red(HP) or blue(MP)
 
   constructor(sprite: AnimatedSprite, pos: Vec2, type: string) {
+    super();
     this.node = sprite;
     this.node.scale = new Vec2(0.5, 0.5);
     this.node.addPhysics(
