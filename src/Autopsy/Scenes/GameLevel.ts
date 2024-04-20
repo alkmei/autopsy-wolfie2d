@@ -10,7 +10,7 @@ import Camera from "../Camera";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import { UIElementType } from "@/Wolfie2D/Nodes/UIElements/UIElementTypes";
 import Color from "../../Wolfie2D/Utils/Color";
-import { Events, PhysicsGroups } from "@/globals";
+import { Events, PhysicsGroups, levelPhysics } from "@/globals";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
 import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import Button from "../../Wolfie2D/Nodes/UIElements/Button";
@@ -23,6 +23,7 @@ import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
 import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
 import Rect from "../../Wolfie2D/Nodes/Graphics/Rect";
+import Enemy from "../Enemy/Enemy";
 
 export enum Layers {
   Main = "main",
@@ -38,8 +39,7 @@ export default class GameLevel extends Scene {
   player: Player;
   camera: Camera;
 
-  // TODO: Make Enemy.ts and ghost inherit from that
-  enemies: Array<Ghost>;
+  enemies: Array<Enemy>;
 
   playerStateLabel: Label;
   playerActionStateLabel: Label;
@@ -61,8 +61,7 @@ export default class GameLevel extends Scene {
   ) {
     super(viewport, sceneManager, renderingManager, options);
 
-    // TODO: change to type enemy when implemented
-    this.enemies = new Array<Ghost>();
+    this.enemies = new Array<Enemy>();
   }
 
   loadScene() {
@@ -243,28 +242,7 @@ export default class GameLevel extends Scene {
       }
 
       case Events.LEVEL_END: {
-        /*
-          Rows in the collisions array represent each physics group by index, 
-          first index of the first row is the first phys group itself,
-          second index in the second row is the second phys group itself, etc.
-
-          0 is does not collide, 1 is collide
-        */
-        const sceneOptions = {
-          physics: {
-            groupNames: [
-              PhysicsGroups.PLAYER_PHYS,
-              PhysicsGroups.ENEMY_PHYS,
-              PhysicsGroups.HITBOX_PHYS,
-            ],
-            collisions: [
-              [0, 1, 1],
-              [0, 1, 1],
-              [0, 0, 0],
-            ],
-          },
-        };
-        this.sceneManager.changeToScene(this.nextLevel, {}, sceneOptions);
+        this.sceneManager.changeToScene(this.nextLevel, {}, levelPhysics)
 
         break;
       }

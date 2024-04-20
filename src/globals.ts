@@ -35,3 +35,25 @@ export const SpriteSizes = {
   SOUL: new Vec2(9, 12),
   PLAYER: new Vec2(18, 24),
 };
+
+/*
+Rows in the collisions array represent each physics group by index, 
+first index of the first row is the first phys group itself,
+second index in the second row is the second phys group itself, etc.
+
+0 is does not collide, 1 is collide
+*/
+export const levelPhysics = {
+  physics: {
+    groupNames: [
+      PhysicsGroups.PLAYER_PHYS,
+      PhysicsGroups.ENEMY_PHYS,
+      PhysicsGroups.HITBOX_PHYS,
+    ],
+    collisions: [
+      [0, 1, 1],
+      [0, 1, 1],
+      [0, 0, 0],
+    ],
+  },
+};
