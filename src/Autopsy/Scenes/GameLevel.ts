@@ -86,6 +86,8 @@ export default class GameLevel extends Scene {
     this.load.audio(PlayerSounds.Slash + "1", "assets/sounds/slash1.wav");
     this.load.audio(PlayerSounds.Slash + "2", "assets/sounds/slash2.wav");
     this.load.audio(PlayerSounds.Slash + "3", "assets/sounds/slash3.wav");
+    this.load.audio(PlayerSounds.Death, "assets/sounds/death.wav");
+    this.load.audio(PlayerSounds.Jump, "assets/sounds/jump.wav");
 
     // red soul enemy
     this.load.spritesheet(
@@ -242,7 +244,7 @@ export default class GameLevel extends Scene {
       }
 
       case Events.LEVEL_END: {
-        this.sceneManager.changeToScene(this.nextLevel, {}, levelPhysics)
+        this.sceneManager.changeToScene(this.nextLevel, {}, levelPhysics);
 
         break;
       }

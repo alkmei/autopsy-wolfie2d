@@ -33,4 +33,6 @@ export enum PlayerSounds {
   Hurt = "playerHurt",
   Heal = "playerHeal",
   Slash = "playerSlash",
+  Death = "playerDeath",
+  Jump = "playerJump",
 }
