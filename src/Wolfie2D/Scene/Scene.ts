@@ -44,7 +44,7 @@ export default class Scene implements Updateable {
   protected running: boolean;
 
   /** The manager of this scene. */
-  protected sceneManager: SceneManager;
+  sceneManager: SceneManager;
 
   /** The receiver for this scene. */
   protected receiver: Receiver;
