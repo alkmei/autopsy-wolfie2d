@@ -14,7 +14,7 @@ const GhostPositions: Array<Vec2> = [
 export default class Level1 extends GameLevel {
   loadScene() {
     super.loadScene();
-    this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
+    this.load.tilemap("tilemap", "assets/tilemaps/Level1/Level1.json");
   }
 
   startScene() {
@@ -22,6 +22,8 @@ export default class Level1 extends GameLevel {
     this.player.node.position = new Vec2(100, 1000);
     this.camera.node.position = this.player.node.position.clone();
     this.add.tilemap("tilemap", new Vec2(1, 1));
+    console.log(this.resourceManager.getTilemap("tilemap").layers[1].objects);
+
     this.viewport.setBounds(0, 0, 6400, 1280);
 
     this.nextLevel = Level2;
