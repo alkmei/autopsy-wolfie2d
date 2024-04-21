@@ -141,40 +141,46 @@ export default class MainMenu extends Scene {
     const paddingSize = new Vec2(15, 15);
 
     const levelOne = this.newButton(
-      new Vec2(255, 540),
+      new Vec2(255, 645),
       "1",
       fontSize,
       Layers.Levels,
+      true,
     );
     const levelTwo = this.newButton(
       new Vec2(360, 320),
       "2",
       fontSize,
       Layers.Levels,
+      true,
     );
     const levelThree = this.newButton(
       new Vec2(565, 495),
       "3",
       fontSize,
       Layers.Levels,
+      true,
     );
     const levelFour = this.newButton(
       new Vec2(773, 550),
       "4",
       fontSize,
       Layers.Levels,
+      true,
     );
     const levelFive = this.newButton(
       new Vec2(914, 342),
       "5",
       fontSize,
       Layers.Levels,
+      true,
     );
     const levelSix = this.newButton(
       new Vec2(798, 118),
       "6",
       fontSize,
       Layers.Levels,
+      true,
     );
 
     levelOne.font = "Mister Pixel";
@@ -184,7 +190,7 @@ export default class MainMenu extends Scene {
     levelOne.onClick = () => {
       this.sceneManager.changeToScene(Level1, {}, levelPhysics);
     };
-
+ 
     levelTwo.font = "Mister Pixel";
     levelTwo.setPadding(paddingSize);
     levelTwo.size = buttonSize;
@@ -310,6 +316,7 @@ export default class MainMenu extends Scene {
     text: string,
     fontSize: number,
     layer: Layers,
+    levelButton: Boolean = false,
   ): Button {
     const button = <Button>this.add.uiElement(UIElementType.BUTTON, layer, {
       position: position,
@@ -326,12 +333,21 @@ export default class MainMenu extends Scene {
 
     const transWhite = new Color(255, 255, 255, 0.1);
     const invisibleWhite = new Color(255, 255, 255, 0);
-    button.onEnter = () => {
-      button.backgroundColor = transWhite;
-    };
-    button.onLeave = () => {
-      button.backgroundColor = invisibleWhite;
-    };
+    if (!levelButton) {
+      button.onEnter = () => {
+        button.backgroundColor = transWhite;
+      };
+      button.onLeave = () => {
+        button.backgroundColor = invisibleWhite;
+      };
+    } else {
+      button.onEnter = () => {
+        button.textColor = new Color(246, 242, 252);
+      };
+      button.onLeave = () => {
+        button.textColor = this.textColor;
+      };
+    }
 
     return button;
   }
