@@ -82,14 +82,23 @@ export default class GameLevel extends Scene {
       "assets/spritesheets/Reaper/ReaperVFX/ScytheDown.json",
     );
 
-    this.load.audio(PlayerSounds.Dash, "assets/sounds/dash.wav");
-    this.load.audio(PlayerSounds.Hurt, "assets/sounds/hurt.wav");
-    this.load.audio(PlayerSounds.Heal, "assets/sounds/heal.wav");
-    this.load.audio(PlayerSounds.Slash + "1", "assets/sounds/slash1.wav");
-    this.load.audio(PlayerSounds.Slash + "2", "assets/sounds/slash2.wav");
-    this.load.audio(PlayerSounds.Slash + "3", "assets/sounds/slash3.wav");
-    this.load.audio(PlayerSounds.Death, "assets/sounds/death.wav");
-    this.load.audio(PlayerSounds.Jump, "assets/sounds/jump.wav");
+    this.load.audio(PlayerSounds.Dash, "assets/sounds/Player/dash.wav");
+    this.load.audio(PlayerSounds.Hurt, "assets/sounds/Player/hurt.wav");
+    this.load.audio(PlayerSounds.Heal, "assets/sounds/Player/heal.wav");
+    this.load.audio(
+      PlayerSounds.Slash + "1",
+      "assets/sounds/Player/slash1.wav",
+    );
+    this.load.audio(
+      PlayerSounds.Slash + "2",
+      "assets/sounds/Player/slash2.wav",
+    );
+    this.load.audio(
+      PlayerSounds.Slash + "3",
+      "assets/sounds/Player/slash3.wav",
+    );
+    this.load.audio(PlayerSounds.Death, "assets/sounds/Player/death.wav");
+    this.load.audio(PlayerSounds.Jump, "assets/sounds/Player/jump.wav");
 
     // red soul enemy
     this.load.spritesheet(
@@ -166,28 +175,8 @@ export default class GameLevel extends Scene {
       Input.disableInput();
       this.uiLayers.get(Layers.Pause).setHidden(false);
     }
-    if (Input.isJustPressed(Action.Invincible)) {
-      this.playerInvincible = !this.playerInvincible;
-      if (this.playerInvincible) console.log("Player is now invincible.");
-    }
 
-    if (Input.isJustPressed(Action.Invincible))
-      this.playerInvincible = !this.playerInvincible;
-
-    if (Input.isJustPressed(Action.Invincible))
-      this.playerInvincible = !this.playerInvincible;
-    if (Input.isJustPressed(Action.Level1))
-      this.sceneManager.changeToScene(Levels.Level1, {}, levelPhysics);
-    if (Input.isJustPressed(Action.Level2))
-      this.sceneManager.changeToScene(Levels.Level2, {}, levelPhysics);
-    if (Input.isJustPressed(Action.Level3))
-      this.sceneManager.changeToScene(Levels.Level3, {}, levelPhysics);
-    if (Input.isJustPressed(Action.Level4))
-      this.sceneManager.changeToScene(Levels.Level4, {}, levelPhysics);
-    if (Input.isJustPressed(Action.Level5))
-      this.sceneManager.changeToScene(Levels.Level5, {}, levelPhysics);
-    if (Input.isJustPressed(Action.Level6))
-      this.sceneManager.changeToScene(Levels.Level6, {}, levelPhysics);
+    this.handleCheats();
 
     this.camera.update(deltaT);
     this.player.update(deltaT);
@@ -411,5 +400,28 @@ export default class GameLevel extends Scene {
     );
 
     return button;
+  }
+
+  private handleCheats() {
+    if (Input.isJustPressed(Action.Invincible)) {
+      this.playerInvincible = !this.playerInvincible;
+      if (this.playerInvincible) console.log("Player is now invincible.");
+    }
+    if (Input.isJustPressed(Action.Invincible))
+      this.playerInvincible = !this.playerInvincible;
+    if (Input.isJustPressed(Action.Invincible))
+      this.playerInvincible = !this.playerInvincible;
+    if (Input.isJustPressed(Action.Level1))
+      this.sceneManager.changeToScene(Levels.Level1, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level2))
+      this.sceneManager.changeToScene(Levels.Level2, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level3))
+      this.sceneManager.changeToScene(Levels.Level3, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level4))
+      this.sceneManager.changeToScene(Levels.Level4, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level5))
+      this.sceneManager.changeToScene(Levels.Level5, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level6))
+      this.sceneManager.changeToScene(Levels.Level6, {}, levelPhysics);
   }
 }
