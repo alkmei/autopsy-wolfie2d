@@ -14,6 +14,7 @@ export enum GhostType {
 export enum GhostAnimations {
   Idle = "Idle",
   Dying = "Dying",
+  Dead = "Dead",
 }
 
 export default class Ghost extends Enemy {

@@ -7,6 +7,7 @@ import { GhostAnimations } from "../Ghost";
 export default class Dying extends GhostState {
   onEnter(options: Record<string, any>) {
     this.owner.animation.play(GhostAnimations.Dying);
+    this.owner.animation.queue(GhostAnimations.Dead, true);
   }
 
   update(deltaT: number) {
