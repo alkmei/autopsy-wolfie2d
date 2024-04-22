@@ -1,12 +1,12 @@
 import GameLevel from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import Level5 from "./Level3";
+import Level5 from "./Level5";
 import WaveLevel from "../WaveLevel/WaveLevel";
 import Wave from "../WaveLevel/Wave";
 import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
 import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 
-export default class Level3 extends WaveLevel {
+export default class Level4 extends WaveLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/WaveTest(Level4)/Level4.json");
