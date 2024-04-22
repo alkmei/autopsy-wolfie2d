@@ -4,6 +4,8 @@ import Ghost from "../../Enemy/Ghost/Ghost";
 import { Layers } from "../GameLevel";
 import { GhostType } from "../../Enemy/Ghost/Ghost";
 import Level2 from "./Level2";
+import GameEvent from "@/Wolfie2D/Events/GameEvent";
+import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
 
 export default class Level1 extends GameLevel {
   loadScene() {
@@ -13,6 +15,11 @@ export default class Level1 extends GameLevel {
     this.load.spritesheet(
       "RedSoul",
       "assets/spritesheets/RedSoul/RedSoul.json",
+    );
+
+    this.load.spritesheet(
+      "Monolith",
+      "assets/spritesheets/Monolith/Monolith.json",
     );
   }
 
@@ -29,6 +36,12 @@ export default class Level1 extends GameLevel {
     this.addLevelEnd(new Vec2(4576, 128), new Vec2(32, 135));
 
     this.initializeGhosts();
+
+    const monolith = new Monolith(
+      this.add.animatedSprite("Monolith", Layers.Main),
+      new Vec2(100, 1058),
+      "hi",
+    );
   }
 
   initializeGhosts() {
