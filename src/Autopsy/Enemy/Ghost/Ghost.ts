@@ -4,6 +4,7 @@ import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import { PhysicsGroups, SpriteSizes } from "@/globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
+import { GState } from "./GhostController";
 
 export enum GhostType {
   RED = "red",
@@ -12,6 +13,7 @@ export enum GhostType {
 
 export enum GhostAnimations {
   Idle = "Idle",
+  Dying = "Dying",
 }
 
 export default class Ghost extends Enemy {
@@ -33,5 +35,14 @@ export default class Ghost extends Enemy {
     this.node.animation.play(GhostAnimations.Idle, true);
     this.health = 1;
     this.type = type;
+    this.hasTakeDamageAnim = false;
+  }
+
+  die() {
+    (<GhostController>this.node._ai).changeState(GState.Dying);
+  }
+
+  knockback() {
+    (<GhostController>this.node._ai).changeState(GState.Knockback);
   }
 }

@@ -16,7 +16,6 @@ export default class Active extends HitboxState {
   update(deltaT: number) {
     super.update(deltaT);
     const player = (<GameLevel>this.owner.getScene()).player.node;
-
     let posX = player.position.x + this.parent.offset.x;
     const posY = player.position.y + this.parent.offset.y;
     if (this.parent.invertX) {
@@ -34,8 +33,9 @@ export default class Active extends HitboxState {
         enemies.forEach(enemy => {
           if (this.owner.collisionShape.overlaps(enemy.node.collisionShape)) {
             this.emitter.fireEvent(Events.ENEMY_DAMAGE, { enemy: enemy });
-            (<GhostController>enemy.node._ai).changeState(GState.Knockback);
             this.hasHit = false;
+            if (enemy.isKnockbackable)
+              enemy.knockback();
           }
         });
       }

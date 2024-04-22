@@ -1,16 +1,68 @@
 {
     "name": "SpiderBoss",
     "spriteSheetImage": "SpiderBoss.png",
-    "spriteWidth": 192,
-    "spriteHeight": 112,
-    "columns": 1,
-    "rows": 1,
+    "spriteWidth": 256,
+    "spriteHeight": 288,
+    "columns": 3,
+    "rows": 3,
     "animations": [
         {
-            "name": "Idle",
+            "name": "Idle Cocooned",
             "frames": [
                 {
-                    "index": 0,
+                    "index": 1,
+                    "duration": 15.0,
+                    "x": 256,
+                    "y": 0
+                },
+                {
+                    "index": 2,
+                    "duration": 15.0,
+                    "x": 512,
+                    "y": 0
+                },
+                {
+                    "index": 3,
+                    "duration": 15.0,
+                    "x": 0,
+                    "y": 288
+                },
+                {
+                    "index": 4,
+                    "duration": 15.0,
+                    "x": 256,
+                    "y": 288
+                },
+                {
+                    "index": 5,
+                    "duration": 15.0,
+                    "x": 512,
+                    "y": 288
+                },
+                {
+                    "index": 6,
+                    "duration": 15.0,
+                    "x": 0,
+                    "y": 576
+                }
+            ]
+        },
+        {
+            "name": "Transition",
+            "frames": [
+                {
+                    "index": 7,
+                    "duration": 15.0,
+                    "x": 256,
+                    "y": 576
+                }
+            ]
+        },
+        {
+            "name": "Enraged",
+            "frames": [
+                {
+                    "index": 8,
                     "duration": 10.0,
                     "x": 0,
                     "y": 0

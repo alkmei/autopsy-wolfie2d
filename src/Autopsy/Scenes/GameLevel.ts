@@ -100,6 +100,12 @@ export default class GameLevel extends Scene {
     this.load.audio(PlayerSounds.Death, "assets/sounds/Player/death.wav");
     this.load.audio(PlayerSounds.Jump, "assets/sounds/Player/jump.wav");
 
+    // red soul enemy
+    this.load.spritesheet(
+      "RedSoul",
+      "assets/spritesheets/RedSoul/RedSoul.json",
+    );
+
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
     this.addUILayer(Layers.Pause).setHidden(true);
@@ -200,12 +206,17 @@ export default class GameLevel extends Scene {
     switch (event.type) {
       case Events.ENEMY_DAMAGE: {
         const enemy = event.data.get("enemy");
-        enemy.health -= 1;
-        console.log(`Enemy: ${enemy.health}`);
+        if (!enemy.isInvincible) {
+          enemy.health -= 1;
+          console.log(`Enemy: ${enemy.health}`);
 
-        if (enemy.health <= 0)
-          this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });
+          // damage animation
+          if (enemy.hasTakeDamageAnim)
+            enemy.animation.play("Take Damage");
 
+          if (enemy.health <= 0)
+            this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });
+        }
         break;
       }
 
@@ -230,7 +241,6 @@ export default class GameLevel extends Scene {
         break;
       }
 
-      // TODO: Death animations
       case Events.ENEMY_DEATH: {
         const enemy = event.data.get("enemy");
 
@@ -238,7 +248,7 @@ export default class GameLevel extends Scene {
         if (enemy.type === GhostType.RED)
           this.emitter.fireEvent(Events.PLAYER_HEAL);
 
-        enemy.node.destroy();
+        enemy.die();
         this.enemies = this.enemies.filter(e => e !== enemy);
 
         break;

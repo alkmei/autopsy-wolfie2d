@@ -6,7 +6,9 @@ import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
 
 export enum SpiderBossAnimations {
-  Idle = "Idle",
+  Cocooned = "Idle Cocooned",
+  Exposed = "Exposed Idle",
+  TakeDamage = "Take Damage",
 }
 
 export default class SpiderBoss extends Enemy {
@@ -17,13 +19,18 @@ export default class SpiderBoss extends Enemy {
     super();
     this.node = sprite;
     this.node.addPhysics(
-      new AABB(new Vec2(0, 0), SpriteSizes.SOUL),
+      new AABB(new Vec2(0, 0), new Vec2(90, 55)),
       new Vec2(0, 0),
     );
-    this.node.addAI(SpiderBossController);
+    this.node.addAI(SpiderBossController, {
+        boss: this,
+      });
     this.node.setGroup(PhysicsGroups.ENEMY_PHYS);
     this.node.position = pos;
-    this.node.animation.play(SpiderBossAnimations.Idle, true);
+    this.node.animation.play(SpiderBossAnimations.Cocooned, true);
     this.health = 50;
+    
+    this.hasTakeDamageAnim = true;
+    this.isKnockbackable = false;
   }
 }

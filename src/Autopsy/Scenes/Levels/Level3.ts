@@ -42,5 +42,6 @@ export default class Level3 extends GameLevel {
       this.add.animatedSprite("SpiderBoss", Layers.Main),
       new Vec2(bossPosition[0].x, bossPosition[0].y),
     );
+    this.enemies.push(spiderBoss);
   }
 }

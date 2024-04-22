@@ -3,6 +3,7 @@ import GameNode from "../../../Wolfie2D/Nodes/GameNode";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import SpiderBossState from "./SpiderBossStates/SpiderBossState";
 import Cocooned from "./SpiderBossStates/Cocooned";
+import SpiderBoss from "./SpiderBoss";
 
 export enum SpiderBossStates {
     Cocooned = "Cocooned",
@@ -10,18 +11,17 @@ export enum SpiderBossStates {
 
 export default class SpiderBossController extends StateMachineAI {
   owner: GameNode;
+  boss: SpiderBoss;
   gravity = 0;
 
   initializeAI(owner: GameNode, config: Record<string, any>) {
     this.owner = owner;
+    this.boss = config.boss;
     this.initializeStates();
   }
 
   initializeStates() {
-    // this.addState(GState.Drifting, new Drifting(this, this.owner));
-    // this.addState(GState.Following, new Following(this, this.owner));
-    // this.addState(GState.Knockback, new Knockback(this, this.owner));
-    this.addState(SpiderBossStates.Cocooned, new Cocooned(this, this.owner));
+    this.addState(SpiderBossStates.Cocooned, new Cocooned(this, this.owner, this.boss));
 
     this.initialize(SpiderBossStates.Cocooned);
   }
