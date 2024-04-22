@@ -100,12 +100,6 @@ export default class GameLevel extends Scene {
     this.load.audio(PlayerSounds.Death, "assets/sounds/Player/death.wav");
     this.load.audio(PlayerSounds.Jump, "assets/sounds/Player/jump.wav");
 
-    // red soul enemy
-    this.load.spritesheet(
-      "RedSoul",
-      "assets/spritesheets/RedSoul/RedSoul.json",
-    );
-
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
     this.addUILayer(Layers.Pause).setHidden(true);

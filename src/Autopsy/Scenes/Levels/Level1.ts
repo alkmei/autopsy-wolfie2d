@@ -9,6 +9,11 @@ export default class Level1 extends GameLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Level1/Level1.json");
+    // red soul enemy
+    this.load.spritesheet(
+      "RedSoul",
+      "assets/spritesheets/RedSoul/RedSoul.json",
+    );
   }
 
   startScene() {
