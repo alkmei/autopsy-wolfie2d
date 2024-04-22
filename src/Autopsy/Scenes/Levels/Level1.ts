@@ -36,12 +36,20 @@ export default class Level1 extends GameLevel {
     this.addLevelEnd(new Vec2(4576, 128), new Vec2(32, 135));
 
     this.initializeGhosts();
+    this.initializeMonoliths();
+  }
 
-    const monolith = new Monolith(
-      this.add.animatedSprite("Monolith", Layers.Main),
-      new Vec2(100, 1058),
-      "hi",
-    );
+  initializeMonoliths() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Monoliths")
+      .objects.forEach(m => {
+        new Monolith(
+          this.add.animatedSprite("Monolith", Layers.Main),
+          new Vec2(m.x, m.y),
+          m.name,
+        );
+      });
   }
 
   initializeGhosts() {
