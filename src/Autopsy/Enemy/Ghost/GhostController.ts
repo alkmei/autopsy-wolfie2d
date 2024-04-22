@@ -1,4 +1,4 @@
-import StateMachineAI from "../../../Wolfie2D/AI/StateMachineAI";
+import StateMachineAI from "@/Wolfie2D/AI/StateMachineAI";
 import GameNode from "../../../Wolfie2D/Nodes/GameNode";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import GhostState from "./GhostStates/GhostState";
