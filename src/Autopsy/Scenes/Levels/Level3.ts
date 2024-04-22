@@ -2,6 +2,7 @@ import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level4 from "./Level4";
 import SpiderBoss from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
+import Spider from "@/Autopsy/Enemy/Spider/Spider";
 
 export default class Level3 extends GameLevel {
   triggeredBoss: Boolean;
@@ -10,6 +11,10 @@ export default class Level3 extends GameLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Level3/Level3.json");
+    this.load.spritesheet(
+      "Spider",
+      "assets/spritesheets/Spider/Spider.json",
+    );
     this.load.spritesheet(
       "SpiderBoss",
       "assets/spritesheets/SpiderBoss/SpiderBoss.json",
@@ -25,6 +30,11 @@ export default class Level3 extends GameLevel {
 
     this.triggeredBoss = false;
     this.nextLevel = Level4;
+
+    const spider = new Spider(
+      this.add.animatedSprite("Spider", Layers.Main),
+      new Vec2(300, 250),
+    )
   }
 
   update(deltaT: number): void {
