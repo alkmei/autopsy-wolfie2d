@@ -59,6 +59,10 @@ export const Levels = {
   Level6: Level6,
 }
 
+export const EnemyType = {
+  GHOST_RED: "ghost_red",
+}
+
 /*
 Rows in the collisions array represent each physics group by index, 
 first index of the first row is the first phys group itself,
