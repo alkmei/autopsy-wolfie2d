@@ -1,0 +1,21 @@
+{
+    "name": "SpiderBoss",
+    "spriteSheetImage": "SpiderBoss.png",
+    "spriteWidth": 192,
+    "spriteHeight": 112,
+    "columns": 1,
+    "rows": 1,
+    "animations": [
+        {
+            "name": "Idle",
+            "frames": [
+                {
+                    "index": 0,
+                    "duration": 10.0,
+                    "x": 0,
+                    "y": 0
+                }
+            ]
+        }
+    ]
+}
