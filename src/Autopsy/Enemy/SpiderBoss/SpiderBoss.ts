@@ -31,9 +31,10 @@ export default class SpiderBoss extends Enemy {
     this.node.position = pos;
     this.node.animation.play(SpiderBossAnimations.Cocooned, true);
     this.health = 10;
+  }
 
-    this.hasTakeDamageAnim = true;
-    this.isKnockbackable = false;
+  takeDamage() {
+    this.node.animation.play(SpiderBossAnimations.TakeDamage);
   }
 
   die() {

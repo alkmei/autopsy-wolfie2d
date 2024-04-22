@@ -211,8 +211,7 @@ export default class GameLevel extends Scene {
           console.log(`Enemy: ${enemy.health}`);
 
           // damage animation
-          if (enemy.hasTakeDamageAnim)
-            enemy.node.animation.play("Take Damage");
+          enemy.takeDamage();
 
           if (enemy.health <= 0)
             this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });

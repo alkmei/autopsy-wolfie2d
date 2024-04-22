@@ -34,8 +34,7 @@ export default class Active extends HitboxState {
           if (this.owner.collisionShape.overlaps(enemy.node.collisionShape)) {
             this.emitter.fireEvent(Events.ENEMY_DAMAGE, { enemy: enemy });
             this.hasHit = false;
-            if (enemy.isKnockbackable)
-              enemy.knockback();
+            enemy.knockback();
           }
         });
       }

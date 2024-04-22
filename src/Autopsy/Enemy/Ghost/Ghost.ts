@@ -36,7 +36,6 @@ export default class Ghost extends Enemy {
     this.node.animation.play(GhostAnimations.Idle, true);
     this.health = 1;
     this.type = type;
-    this.hasTakeDamageAnim = false;
   }
 
   die() {
