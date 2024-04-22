@@ -2,6 +2,7 @@ import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level3 from "./Level3";
 import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 export default class Level2 extends GameLevel {
   loadScene() {
@@ -11,6 +12,7 @@ export default class Level2 extends GameLevel {
       "Monolith",
       "assets/spritesheets/Monolith/Monolith.json",
     );
+    this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
 
   startScene() {
@@ -20,8 +22,19 @@ export default class Level2 extends GameLevel {
     this.add.tilemap("tilemap", new Vec2(1, 1));
     this.viewport.setBounds(0, 0, 6400, 1280);
 
+    this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
+      key: "bluddington",
+      loop: true,
+      holdReference: true,
+    });
+
     this.nextLevel = Level3;
     this.initializeMonoliths();
+  }
+
+  unloadScene() {
+    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
+    super.unloadScene();
   }
 
   initializeMonoliths() {

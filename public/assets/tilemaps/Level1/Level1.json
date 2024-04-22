@@ -180,7 +180,7 @@
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":3382.66666666667,
+                 "x":3292.16666666667,
                  "y":578
                 }, 
                 {
@@ -206,6 +206,30 @@
                  "width":0,
                  "x":4782,
                  "y":162
+                }, 
+                {
+                 "height":0,
+                 "id":15,
+                 "name":"Holding [W] while attacking lets you attack up!",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":3375.5,
+                 "y":578
+                }, 
+                {
+                 "height":0,
+                 "id":16,
+                 "name":"Holding [S] while attacking in mid-air lets you attack down!",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":3474.5,
+                 "y":578
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -265,7 +289,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":15,
+ "nextobjectid":17,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

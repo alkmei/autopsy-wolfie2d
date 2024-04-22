@@ -6,6 +6,8 @@ import { GhostType } from "../../Enemy/Ghost/Ghost";
 import Level2 from "./Level2";
 import GameEvent from "@/Wolfie2D/Events/GameEvent";
 import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import AudioManager from "@/Wolfie2D/Sound/AudioManager";
 
 export default class Level1 extends GameLevel {
   loadScene() {
@@ -23,6 +25,12 @@ export default class Level1 extends GameLevel {
     );
 
     this.load.image("bg", "assets/tilemaps/Level1/limbo_bg.jpg");
+    this.load.audio("fire1", "assets/music/fire1.wav");
+  }
+
+  unloadScene() {
+    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "fire1" });
+    super.unloadScene();
   }
 
   startScene() {
@@ -39,6 +47,11 @@ export default class Level1 extends GameLevel {
     this.nextLevel = Level2;
 
     this.addLevelEnd(new Vec2(4576, 128), new Vec2(32, 135));
+    this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
+      key: "fire1",
+      loop: true,
+      holdReference: true,
+    });
 
     this.initializeGhosts();
     this.initializeMonoliths();
