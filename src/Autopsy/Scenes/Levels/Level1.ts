@@ -21,6 +21,8 @@ export default class Level1 extends GameLevel {
       "Monolith",
       "assets/spritesheets/Monolith/Monolith.json",
     );
+
+    this.load.image("bg", "assets/tilemaps/Level1/limbo_bg.jpg");
   }
 
   startScene() {
@@ -28,8 +30,11 @@ export default class Level1 extends GameLevel {
     this.player.node.position = new Vec2(100, 1000);
     this.camera.node.position = this.player.node.position.clone();
     this.add.tilemap("tilemap", new Vec2(1, 1));
+    const background = this.add.sprite("bg", Layers.Parallax);
 
     this.viewport.setBounds(0, 0, 6400, 1280);
+    background.position = new Vec2(300, 200);
+    background.scale = new Vec2(8, 8);
 
     this.nextLevel = Level2;
 

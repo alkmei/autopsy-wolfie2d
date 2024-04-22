@@ -29,6 +29,7 @@ export enum Layers {
   Main = "main",
   UI = "ui",
   Background = "bg",
+  Parallax = "parallax",
   Hidden = "hidden",
   Debug = "debg",
   Pause = "pause",
@@ -111,6 +112,7 @@ export default class GameLevel extends Scene {
     this.addUILayer(Layers.Pause).setHidden(true);
     this.addUILayer(Layers.DeathMenu).setHidden(true);
     this.addLayer(Layers.Debug, 2);
+    this.addParallaxLayer(Layers.Parallax, new Vec2(0.005, 0.01), -1);
     this.addLayer(Layers.Hidden, 1).setHidden(true);
   }
 
