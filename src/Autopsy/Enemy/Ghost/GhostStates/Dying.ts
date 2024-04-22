@@ -1,7 +1,4 @@
 import GhostState from "./GhostState";
-import { GState } from "../GhostController";
-import GameLevel from "../../../Scenes/GameLevel";
-import AnimatedSprite from "@/Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import { GhostAnimations } from "../Ghost";
 
 export default class Dying extends GhostState {

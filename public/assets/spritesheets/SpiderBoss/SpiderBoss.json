@@ -1,49 +1,49 @@
 {
     "name": "SpiderBoss",
     "spriteSheetImage": "SpiderBoss.png",
-    "spriteWidth": 256,
+    "spriteWidth": 272,
     "spriteHeight": 288,
-    "columns": 3,
-    "rows": 3,
+    "columns": 6,
+    "rows": 6,
     "animations": [
         {
             "name": "Idle Cocooned",
             "frames": [
                 {
+                    "index": 0,
+                    "duration": 15.0,
+                    "x": 0,
+                    "y": 0
+                },
+                {
                     "index": 1,
                     "duration": 15.0,
-                    "x": 256,
+                    "x": 272,
                     "y": 0
                 },
                 {
                     "index": 2,
                     "duration": 15.0,
-                    "x": 512,
+                    "x": 544,
                     "y": 0
                 },
                 {
                     "index": 3,
                     "duration": 15.0,
-                    "x": 0,
-                    "y": 288
+                    "x": 816,
+                    "y": 0
                 },
                 {
                     "index": 4,
                     "duration": 15.0,
-                    "x": 256,
-                    "y": 288
+                    "x": 1088,
+                    "y": 0
                 },
                 {
                     "index": 5,
                     "duration": 15.0,
-                    "x": 512,
-                    "y": 288
-                },
-                {
-                    "index": 6,
-                    "duration": 15.0,
-                    "x": 0,
-                    "y": 576
+                    "x": 1360,
+                    "y": 0
                 }
             ]
         },
@@ -51,21 +51,198 @@
             "name": "Transition",
             "frames": [
                 {
+                    "index": 6,
+                    "duration": 7.5,
+                    "x": 0,
+                    "y": 0
+                },
+                {
                     "index": 7,
-                    "duration": 15.0,
-                    "x": 256,
+                    "duration": 7.5,
+                    "x": 0,
+                    "y": 288
+                },
+                {
+                    "index": 8,
+                    "duration": 7.5,
+                    "x": 272,
+                    "y": 288
+                },
+                {
+                    "index": 9,
+                    "duration": 7.5,
+                    "x": 544,
+                    "y": 288
+                },
+                {
+                    "index": 10,
+                    "duration": 7.5,
+                    "x": 816,
+                    "y": 288
+                },
+                {
+                    "index": 11,
+                    "duration": 7.5,
+                    "x": 1088,
+                    "y": 288
+                },
+                {
+                    "index": 12,
+                    "duration": 4.5,
+                    "x": 1360,
+                    "y": 288
+                },
+                {
+                    "index": 13,
+                    "duration": 4.0,
+                    "x": 0,
                     "y": 576
+                },
+                {
+                    "index": 14,
+                    "duration": 4.0,
+                    "x": 272,
+                    "y": 576
+                },
+                {
+                    "index": 15,
+                    "duration": 4.0,
+                    "x": 544,
+                    "y": 576
+                },
+                {
+                    "index": 16,
+                    "duration": 4.0,
+                    "x": 816,
+                    "y": 576
+                },
+                {
+                    "index": 17,
+                    "duration": 7.5,
+                    "x": 1088,
+                    "y": 576
+                },
+                {
+                    "index": 18,
+                    "duration": 7.5,
+                    "x": 1360,
+                    "y": 576
+                },
+                {
+                    "index": 19,
+                    "duration": 7.5,
+                    "x": 0,
+                    "y": 864
                 }
             ]
         },
         {
-            "name": "Enraged",
+            "name": "Exposed Idle",
             "frames": [
                 {
-                    "index": 8,
+                    "index": 20,
+                    "duration": 15.0,
+                    "x": 272,
+                    "y": 864
+                },
+                {
+                    "index": 21,
+                    "duration": 15.0,
+                    "x": 544,
+                    "y": 864
+                },
+                {
+                    "index": 22,
+                    "duration": 15.0,
+                    "x": 816,
+                    "y": 864
+                },
+                {
+                    "index": 23,
+                    "duration": 15.0,
+                    "x": 1088,
+                    "y": 864
+                },
+                {
+                    "index": 24,
+                    "duration": 15.0,
+                    "x": 1360,
+                    "y": 864
+                }
+            ]
+        },
+        {
+            "name": "Take Damage",
+            "frames": [
+                {
+                    "index": 25,
+                    "duration": 6.0,
+                    "x": 0,
+                    "y": 1152
+                },
+                {
+                    "index": 26,
+                    "duration": 6.0,
+                    "x": 272,
+                    "y": 1152
+                },
+                {
+                    "index": 27,
+                    "duration": 6.0,
+                    "x": 544,
+                    "y": 1152
+                }
+            ]
+        },
+        {
+            "name": "Dying",
+            "frames": [
+                {
+                    "index": 28,
+                    "duration": 10.0,
+                    "x": 816,
+                    "y": 1152
+                },
+                {
+                    "index": 29,
+                    "duration": 10.0,
+                    "x": 1088,
+                    "y": 1152
+                },
+                {
+                    "index": 30,
+                    "duration": 10.0,
+                    "x": 1360,
+                    "y": 1152
+                },
+                {
+                    "index": 31,
                     "duration": 10.0,
                     "x": 0,
-                    "y": 0
+                    "y": 1440
+                },
+                {
+                    "index": 32,
+                    "duration": 10.0,
+                    "x": 272,
+                    "y": 1440
+                },
+                {
+                    "index": 33,
+                    "duration": 10.0,
+                    "x": 544,
+                    "y": 1440
+                }
+            ]
+        },
+        {
+            "name": "Dead",
+            "frames": [
+                {
+                    "index": 34,
+                    "duration": 15.0,
+                    "x": 816,
+                    "y": 1440
                 }
             ]
         }

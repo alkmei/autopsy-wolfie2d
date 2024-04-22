@@ -3,9 +3,8 @@ import SpiderBossState from "./SpiderBossState";
 
 export default class Cocooned extends SpiderBossState {
   onEnter(options: Record<string, any>) {
-    this.stateName = "Cocooned";
-    this.owner.animation.play(SpiderBossAnimations.Cocooned, true);
-    // this.boss.isInvincible = true;
+    this.stateName = "Enraged";
+    this.owner.animation.playIfNotAlready(SpiderBossAnimations.Exposed, true);
   }
 
   update(deltaT: number) {
