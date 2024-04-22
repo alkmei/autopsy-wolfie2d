@@ -39,6 +39,13 @@ export default abstract class SpiderState extends State {
     );
   }
 
+  angleToPlayer() {
+    this.playerPos = (<GameLevel>this.owner.getScene()).player.node.position;
+    const dx = this.playerPos.x - this.owner.position.x;
+    const dy = this.playerPos.y - this.owner.position.y;
+    return -Math.atan2(dy, dx) + 0.5 * Math.PI;
+  }
+
   update(deltaT: number): void {
     if (
       this.contactCooldown.isStopped() &&
