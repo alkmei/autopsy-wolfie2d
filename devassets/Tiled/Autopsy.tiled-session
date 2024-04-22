@@ -46,11 +46,11 @@
             "scaleInDock": 1
         },
         "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json": {
-            "scale": 1,
-            "selectedLayer": 4,
+            "scale": 1.5,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 1071,
-                "y": 204.5
+                "x": 1359.3333333333333,
+                "y": 210.66666666666663
             }
         },
         "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json#Brick": {

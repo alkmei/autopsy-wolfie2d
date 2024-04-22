@@ -5,6 +5,7 @@ import SpiderBoss from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
 
 export default class Level3 extends GameLevel {
   triggeredBoss: Boolean;
+  boss: SpiderBoss;
 
   loadScene() {
     super.loadScene();
@@ -42,5 +43,8 @@ export default class Level3 extends GameLevel {
       this.add.animatedSprite("SpiderBoss", Layers.Main),
       new Vec2(bossPosition[0].x, bossPosition[0].y),
     );
+
+    this.boss = spiderBoss;
+    this.enemies.push(spiderBoss);
   }
 }
