@@ -23,7 +23,7 @@ export default class Camera implements Updateable {
       this.node.position.y = MathUtils.lerp(
         this.node.position.y,
         offsetFollow.y,
-        2 * deltaT,
+        3 * deltaT,
       );
 
     this.node.position.x = offsetFollow.x;

@@ -126,7 +126,7 @@ export default class GameLevel extends Scene {
       this.add.graphic(GraphicType.POINT, Layers.Hidden, {
         position: this.player.node.position.clone(),
       }),
-      new Vec2(0, -80),
+      new Vec2(0, 0),
     );
 
     this.camera.follow(this.player.node);
