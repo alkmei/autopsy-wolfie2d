@@ -25,7 +25,7 @@
             39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39, 39],
          "height":20,
          "id":1,
-         "name":"Tile Layer 1",
+         "name":"CollidableTiles",
          "opacity":1,
          "properties":[
                 {
@@ -73,7 +73,7 @@
         {
          "draworder":"topdown",
          "id":3,
-         "name":"Spiders",
+         "name":"Spawn1",
          "objects":[
                 {
                  "height":0,
@@ -104,9 +104,67 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":6,
+         "name":"Spawn2",
+         "objects":[
+                {
+                 "height":0,
+                 "id":15,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":766,
+                 "y":320
+                }, 
+                {
+                 "height":0,
+                 "id":16,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1887,
+                 "y":320
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":7,
+         "name":"BossSpawn",
+         "objects":[
+                {
+                 "height":0,
+                 "id":17,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1337,
+                 "y":208
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":4,
- "nextobjectid":13,
+ "nextlayerid":8,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

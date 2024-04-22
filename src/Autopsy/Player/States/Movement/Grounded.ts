@@ -39,7 +39,9 @@ export default class Grounded extends PlayerMovementState {
       Input.isJustPressed(Action.Attack) &&
       this.player.actionStateMachine.getState() instanceof Idle
     ) {
-      this.player.actionStateMachine.changeState(ActionState.Attack);
+      if (Input.isPressed(Action.Up))
+        this.player.actionStateMachine.changeState(ActionState.AttackUpper);
+      else this.player.actionStateMachine.changeState(ActionState.Attack);
     }
 
     if (!this.owner.onGround) this.finished(MovementState.Descending);

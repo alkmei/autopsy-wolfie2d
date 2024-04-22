@@ -26,7 +26,7 @@ export default class Level1 extends GameLevel {
 
     this.nextLevel = Level2;
 
-    this.addLevelEnd(new Vec2(4576, 160), new Vec2(32, 128));
+    this.addLevelEnd(new Vec2(4576, 128), new Vec2(32, 135));
 
     this.initializeGhosts();
   }

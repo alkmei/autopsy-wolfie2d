@@ -1,15 +1,22 @@
 import PlayerActionState from "./PlayerActionState";
 import Hitbox from "../../../Hitbox/Hitbox";
 import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
-import { ActionState, PlayerAnimations } from "../../PlayerEnum";
+import { ActionState, PlayerAnimations, PlayerSounds } from "../../PlayerEnum";
 import { Layers } from "../../../Scenes/GameLevel";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 import { DamageType } from "../../../Hitbox/DamageType";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 export default class AttackUpper extends PlayerActionState {
   onEnter(options: Record<string, any>): void {
     this.stateName = "AttackUpper";
     this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheUpper);
+    this.emitter.fireEvent(GameEventType.PLAY_SFX, {
+      key: PlayerSounds.Slash + Math.ceil(Math.random() * 3),
+      loop: false,
+      keepReference: false,
+    });
+
 
     const offset = new Vec2(10, -50);
 
