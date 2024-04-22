@@ -3,6 +3,7 @@ import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level4 from "./Level4";
 import SpiderBoss from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
 import Spider from "@/Autopsy/Enemy/Spider/Spider";
+import Ghost, { GhostType } from "@/Autopsy/Enemy/Ghost/Ghost";
 
 export default class Level3 extends GameLevel {
   triggeredBoss: Boolean;
@@ -11,10 +12,12 @@ export default class Level3 extends GameLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Level3/Level3.json");
+
     this.load.spritesheet(
-      "Spider",
-      "assets/spritesheets/Spider/Spider.json",
+      "RedSoul",
+      "assets/spritesheets/RedSoul/RedSoul.json",
     );
+    this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");
     this.load.spritesheet(
       "SpiderBoss",
       "assets/spritesheets/SpiderBoss/SpiderBoss.json",
@@ -30,11 +33,6 @@ export default class Level3 extends GameLevel {
 
     this.triggeredBoss = false;
     this.nextLevel = Level4;
-
-    const spider = new Spider(
-      this.add.animatedSprite("Spider", Layers.Main),
-      new Vec2(300, 250),
-    )
   }
 
   update(deltaT: number): void {
@@ -42,6 +40,7 @@ export default class Level3 extends GameLevel {
     if (!this.triggeredBoss && this.player.node.position.x > 672) {
       this.triggeredBoss = true;
       this.spawnBoss();
+      this.firstWave();
     }
   }
 
@@ -56,5 +55,33 @@ export default class Level3 extends GameLevel {
 
     this.boss = spiderBoss;
     this.enemies.push(spiderBoss);
+  }
+
+  firstWave() {
+    const spiderSpawn = this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "SpiderSpawn").objects;
+    const ghostSpawn = this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "GhostSpawn").objects;
+
+    // spawn spiders at the top
+    for (let i = 0; i < spiderSpawn.length; i++) {
+      const spider = new Spider(
+        this.add.animatedSprite("Spider", Layers.Main),
+        new Vec2(spiderSpawn[i].x, spiderSpawn[i].y),
+      );
+      this.enemies.push(spider);
+    }
+
+    // spawn 1 ghost
+    for (let i = 0; i < 1; i++) {
+      const ghost = new Ghost(
+        this.add.animatedSprite("RedSoul", Layers.Main),
+        new Vec2(ghostSpawn[i].x, ghostSpawn[i].y),
+        GhostType.RED,
+      );
+      this.enemies.push(ghost);
+    }
   }
 }

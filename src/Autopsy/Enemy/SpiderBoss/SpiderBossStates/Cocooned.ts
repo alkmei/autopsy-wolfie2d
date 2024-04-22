@@ -5,7 +5,7 @@ export default class Cocooned extends SpiderBossState {
   onEnter(options: Record<string, any>) {
     this.stateName = "Cocooned";
     this.owner.animation.play(SpiderBossAnimations.Cocooned, true);
-    // this.boss.isInvincible = true;
+    this.boss.isInvincible = true;
   }
 
   update(deltaT: number) {

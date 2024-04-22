@@ -15,13 +15,14 @@ export default abstract class SpiderState extends State {
   knockbackTimer: Timer;
   playerPos: Vec2;
   canFollow: boolean;
+  isDying: boolean;
   stateName: string; // For debug purposes
 
   constructor(parent: StateMachine, owner: AnimatedSprite) {
     super(parent);
     this.owner = owner;
     this.contactCooldown = new Timer(1000);
-    this.knockbackTimer = new Timer(500);
+    this.knockbackTimer = new Timer(400);
   }
 
   handleInput(event: GameEvent): void {}
