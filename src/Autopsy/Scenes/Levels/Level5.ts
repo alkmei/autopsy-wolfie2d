@@ -1,11 +1,16 @@
-import GameLevel from "../GameLevel";
+import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level6 from "./Level6";
+import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
 
 export default class Level5 extends GameLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
+    this.load.spritesheet(
+      "Zombie",
+      "assets/spritesheets/Zombie/Zombie.json",
+    );
   }
 
   startScene() {
@@ -16,5 +21,24 @@ export default class Level5 extends GameLevel {
     this.viewport.setBounds(0, 0, 6400, 1280);
 
     this.nextLevel = Level6;
+
+    this.addLevelEnd(new Vec2(4576, 128), new Vec2(32, 135));
+    this.initializeZombies();
+  }
+
+  initializeZombies() {
+    //const zombiePositions = this.resourceManager
+      //.getTilemap("tilemap")
+      //.layers.find(x => x.name == "Zombies").objects;
+    const zombiePositions = [new Vec2(1236,1044), new Vec2(2240, 692), new Vec2(3840, 604)];
+    for (let i = 0; i < 3; i++) {
+      const zombie = new Zombie(
+        this.add.animatedSprite("Zombie", Layers.Main),
+        new Vec2(zombiePositions[i].x, zombiePositions[i].y),
+        "World"
+      );
+
+      this.enemies.push(zombie);
+    }
   }
 }
