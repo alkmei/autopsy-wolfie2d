@@ -12,8 +12,6 @@ export default class Dying extends SpiderState {
   update(deltaT: number) {
     this.isDying = true;
     super.update(deltaT);
-    if (!this.owner.animation.isPlaying(SpiderAnimations.Dying))
-      this.owner.destroy();
   }
 
   onExit(): Record<string, any> {

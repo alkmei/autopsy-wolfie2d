@@ -7,6 +7,7 @@ import AnimatedSprite from "../../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GameLevel from "../../../Scenes/GameLevel";
 import { Events } from "../../../../globals";
 import SpiderController from "../SpiderController";
+import { SpiderAnimations } from "../Spider";
 
 export default abstract class SpiderState extends State {
   owner: AnimatedSprite;
@@ -57,5 +58,8 @@ export default abstract class SpiderState extends State {
       this.emitter.fireEvent(Events.PLAYER_DAMAGE);
       this.contactCooldown.start();
     }
+    
+    if (this.owner.animation.isPlaying(SpiderAnimations.Dead))
+      this.owner.destroy();
   }
 }

@@ -6,6 +6,7 @@ import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
 import { SState } from "./SpiderController";
 import Dying from "./SpiderStates/Dying";
+import SpiderState from "./SpiderStates/SpiderState";
 
 export enum SpiderAnimations {
   Idle = "Idle",
@@ -37,7 +38,6 @@ export default class Spider extends Enemy {
   }
 
   knockback() {
-    if (!((<SpiderController>this.node._ai).getState() instanceof Dying))
-        (<SpiderController>this.node._ai).changeState(SState.Knockback);
+    (<SpiderController>this.node._ai).changeState(SState.Knockback);
   }
 }
