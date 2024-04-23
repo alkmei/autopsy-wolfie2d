@@ -4,8 +4,7 @@ import HitboxState from "./HitboxState";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import GameLevel from "../../Scenes/GameLevel";
 import { DamageType } from "../DamageType";
-import { Events } from "../../../globals";
-import GhostController, {GState} from "../../Enemy/Ghost/GhostController";
+import { Events } from "@/globals";
 
 export default class Active extends HitboxState {
   onEnter(options: Record<string, any>) {
@@ -16,12 +15,11 @@ export default class Active extends HitboxState {
   update(deltaT: number) {
     super.update(deltaT);
     const player = (<GameLevel>this.owner.getScene()).player.node;
-
     let posX = player.position.x + this.parent.offset.x;
-    let posY = player.position.y + this.parent.offset.y;
+    const posY = player.position.y + this.parent.offset.y;
     if (this.parent.invertX) {
       posX = posX - this.parent.offset.x * 2;
-      posY = posY - this.parent.offset.y * 2;
+      // posY = posY - this.parent.offset.y * 2;
       this.owner.invertX = true;
     }
 
@@ -34,8 +32,8 @@ export default class Active extends HitboxState {
         enemies.forEach(enemy => {
           if (this.owner.collisionShape.overlaps(enemy.node.collisionShape)) {
             this.emitter.fireEvent(Events.ENEMY_DAMAGE, { enemy: enemy });
-            (<GhostController>enemy.node._ai).changeState(GState.Knockback);
             this.hasHit = false;
+            enemy.knockback();
           }
         });
       }

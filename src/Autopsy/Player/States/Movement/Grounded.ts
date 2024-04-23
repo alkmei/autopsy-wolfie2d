@@ -1,6 +1,6 @@
 import Input from "../../../../Wolfie2D/Input/Input";
-import { Action } from "../../../../globals";
-import { ActionState, MovementState, PlayerAnimations } from "../../Player";
+import { Action } from "@/globals";
+import { ActionState, MovementState, PlayerAnimations } from "../../PlayerEnum";
 import PlayerMovementState from "./PlayerMovementState";
 import Idle from "../Actions/Idle";
 import Dashing from "../Actions/Dashing";
@@ -17,7 +17,6 @@ export default class Grounded extends PlayerMovementState {
   update(deltaT: number) {
     super.update(deltaT);
     const dir = this.getInputDirection();
-
 
     if (!this.isActionAnimationPlaying()) {
       if (dir.x != 0) {
@@ -40,7 +39,9 @@ export default class Grounded extends PlayerMovementState {
       Input.isJustPressed(Action.Attack) &&
       this.player.actionStateMachine.getState() instanceof Idle
     ) {
-      this.player.actionStateMachine.changeState(ActionState.Attack);
+      if (Input.isPressed(Action.Up))
+        this.player.actionStateMachine.changeState(ActionState.AttackUpper);
+      else this.player.actionStateMachine.changeState(ActionState.Attack);
     }
 
     if (!this.owner.onGround) this.finished(MovementState.Descending);

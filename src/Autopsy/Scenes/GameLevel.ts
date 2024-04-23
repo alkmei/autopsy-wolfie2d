@@ -1,39 +1,48 @@
 import Scene from "../../Wolfie2D/Scene/Scene";
+import {
+  ActionState,
+  PlayerAnimations,
+  PlayerSounds,
+} from "../Player/PlayerEnum";
 import Player from "../Player/Player";
-import { GraphicType } from "../../Wolfie2D/Nodes/Graphics/GraphicTypes";
+import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Camera from "../Camera";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
-import { UIElementType } from "../../Wolfie2D/Nodes/UIElements/UIElementTypes";
+import { UIElementType } from "@/Wolfie2D/Nodes/UIElements/UIElementTypes";
 import Color from "../../Wolfie2D/Utils/Color";
-import { Events, PhysicsGroups } from "../../globals";
+import { Events, Levels, PhysicsGroups, levelPhysics } from "@/globals";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
 import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import Button from "../../Wolfie2D/Nodes/UIElements/Button";
 import MainMenu from "./MainMenu";
 import Input from "../../Wolfie2D/Input/Input";
-import { Action } from "../../globals";
+import { Action } from "@/globals";
 import PlayerState from "../Player/States/PlayerState";
 import Ghost, { GhostType } from "../Enemy/Ghost/Ghost";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
 import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
 import Rect from "../../Wolfie2D/Nodes/Graphics/Rect";
+import Enemy from "../Enemy/Enemy";
 
 export enum Layers {
   Main = "main",
   UI = "ui",
   Background = "bg",
+  Parallax = "parallax",
   Hidden = "hidden",
   Debug = "debg",
   Pause = "pause",
+  DeathMenu = "death",
 }
 
 export default class GameLevel extends Scene {
   player: Player;
   camera: Camera;
 
-  // TODO: Make Enemy.ts and ghost inherit from that
-  enemies: Array<Ghost>;
+  playerInvincible: boolean = false;
+
+  enemies: Array<Enemy>;
 
   playerStateLabel: Label;
   playerActionStateLabel: Label;
@@ -55,8 +64,7 @@ export default class GameLevel extends Scene {
   ) {
     super(viewport, sceneManager, renderingManager, options);
 
-    // TODO: change to type enemy when implemented
-    this.enemies = new Array<Ghost>();
+    this.enemies = new Array<Enemy>();
   }
 
   loadScene() {
@@ -75,6 +83,24 @@ export default class GameLevel extends Scene {
       "assets/spritesheets/Reaper/ReaperVFX/ScytheDown.json",
     );
 
+    this.load.audio(PlayerSounds.Dash, "assets/sounds/Player/dash.wav");
+    this.load.audio(PlayerSounds.Hurt, "assets/sounds/Player/hurt.wav");
+    this.load.audio(PlayerSounds.Heal, "assets/sounds/Player/heal.wav");
+    this.load.audio(
+      PlayerSounds.Slash + "1",
+      "assets/sounds/Player/slash1.wav",
+    );
+    this.load.audio(
+      PlayerSounds.Slash + "2",
+      "assets/sounds/Player/slash2.wav",
+    );
+    this.load.audio(
+      PlayerSounds.Slash + "3",
+      "assets/sounds/Player/slash3.wav",
+    );
+    this.load.audio(PlayerSounds.Death, "assets/sounds/Player/death.wav");
+    this.load.audio(PlayerSounds.Jump, "assets/sounds/Player/jump.wav");
+
     // red soul enemy
     this.load.spritesheet(
       "RedSoul",
@@ -84,7 +110,9 @@ export default class GameLevel extends Scene {
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
     this.addUILayer(Layers.Pause).setHidden(true);
+    this.addUILayer(Layers.DeathMenu).setHidden(true);
     this.addLayer(Layers.Debug, 2);
+    this.addParallaxLayer(Layers.Parallax, new Vec2(0.005, 0.01), -1);
     this.addLayer(Layers.Hidden, 1).setHidden(true);
   }
 
@@ -98,7 +126,7 @@ export default class GameLevel extends Scene {
       this.add.graphic(GraphicType.POINT, Layers.Hidden, {
         position: this.player.node.position.clone(),
       }),
-      new Vec2(0, -80),
+      new Vec2(0, 0),
     );
 
     this.camera.follow(this.player.node);
@@ -130,10 +158,10 @@ export default class GameLevel extends Scene {
     this.viewport.setSmoothingFactor(0);
 
     this.initPauseLayer();
+    this.initDeathLayer();
     this.initUI();
 
     // subscribe to events
-    this.receiver.subscribe(Events.MAIN_MENU);
     this.receiver.subscribe(Events.ENEMY_DAMAGE);
     this.receiver.subscribe(Events.PLAYER_DAMAGE);
     this.receiver.subscribe(Events.ENEMY_DEATH);
@@ -149,6 +177,8 @@ export default class GameLevel extends Scene {
       Input.disableInput();
       this.uiLayers.get(Layers.Pause).setHidden(false);
     }
+
+    this.handleCheats();
 
     this.camera.update(deltaT);
     this.player.update(deltaT);
@@ -176,95 +206,71 @@ export default class GameLevel extends Scene {
 
   handleEvent(event: GameEvent) {
     switch (event.type) {
-      case Events.MAIN_MENU: {
-        this.sceneManager.changeToScene(MainMenu);
-
-        break;
-      }
-
       case Events.ENEMY_DAMAGE: {
-        let enemy = event.data.get("enemy");
-        enemy.health -= 1;
-        console.log(`Enemy: ${enemy.health}`);
+        const enemy = event.data.get("enemy");
+        if (!enemy.isInvincible) {
+          enemy.health -= 1;
+          console.log(`Enemy: ${enemy.health}`);
 
-        if (enemy.health <= 0)
-          this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });
+          // damage animation
+          enemy.takeDamage();
 
-        break;
-      }
-
-      case Events.PLAYER_DAMAGE: {
-        this.player.health -= 1;
-        this.healthBar.size.x = 600 * (this.player.health / 10);
-        this.healthBar.position.x = 0;
-        if (this.player.health <= 0)
-          this.emitter.fireEvent(Events.PLAYER_DEATH);
-
-        console.log(`Player: ${this.player.health}`);
-        break;
-      }
-
-      case Events.PLAYER_HEAL: {
-        if (this.player.health + 1 <= this.player.maxHealth) {
-          this.player.health += 1;
-          this.healthBar.size.x = 600 * (this.player.health / 10);
-          this.healthBar.position.x = 0;
-          console.log(`Player: ${this.player.health}`);
+          if (enemy.health <= 0)
+            this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });
         }
         break;
       }
 
-      // TODO: Death animations
+      case Events.PLAYER_DAMAGE: {
+        if (!this.playerInvincible) {
+          this.player.changeHealth(-1);
+          this.healthBar.size.x = 600 * (this.player.health / 10);
+          this.healthBar.position.x = 0;
+
+          console.log(`Player: ${this.player.health}`);
+        } else console.log("Player is invincible!");
+
+        break;
+      }
+
+      case Events.PLAYER_HEAL: {
+        this.player.changeHealth(1);
+        this.healthBar.size.x = 600 * (this.player.health / 10);
+        this.healthBar.position.x = 0;
+        console.log(`Player: ${this.player.health}`);
+
+        break;
+      }
+
       case Events.ENEMY_DEATH: {
-        let enemy = event.data.get("enemy");
+        const enemy = event.data.get("enemy");
 
         // Heal player if red soul
         if (enemy.type === GhostType.RED)
           this.emitter.fireEvent(Events.PLAYER_HEAL);
 
-        enemy.node.destroy();
+        enemy.die();
         this.enemies = this.enemies.filter(e => e !== enemy);
 
         break;
       }
 
       case Events.PLAYER_DEATH: {
-        // death anim -> some screen/main menu for now
-        this.sceneManager.changeToScene(MainMenu);
+        Input.disableInput();
+        // this.player.actionStateMachine.changeState(ActionState.Dead);
+        this.uiLayers.get(Layers.DeathMenu).setHidden(false);
 
         break;
       }
 
       case Events.LEVEL_END: {
-        /*
-          Rows in the collisions array represent each physics group by index, 
-          first index of the first row is the first phys group itself,
-          second index in the second row is the second phys group itself, etc.
-
-          0 is does not collide, 1 is collide
-        */
-        let sceneOptions = {
-          physics: {
-            groupNames: [
-              PhysicsGroups.PLAYER_PHYS,
-              PhysicsGroups.ENEMY_PHYS,
-              PhysicsGroups.HITBOX_PHYS,
-            ],
-            collisions: [
-              [0, 1, 1],
-              [0, 1, 1],
-              [0, 0, 0],
-            ],
-          },
-        };
-        this.sceneManager.changeToScene(this.nextLevel, {}, sceneOptions);
+        this.sceneManager.changeToScene(this.nextLevel, {}, levelPhysics);
 
         break;
       }
 
       case Events.ENTER_LEVEL_END: {
-        if (this.enemies.length === 0)
-          this.emitter.fireEvent(Events.LEVEL_END);
+        if (this.enemies.length === 0) this.emitter.fireEvent(Events.LEVEL_END);
 
         break;
       }
@@ -321,15 +327,33 @@ export default class GameLevel extends Scene {
     );
     menuButton.onClick = () => {
       Input.enableInput();
+      this.sceneManager.changeToScene(MainMenu);
     };
-    menuButton.onClickEventId = Events.MAIN_MENU;
+    menuButton.size.x = buttonWidth;
+    menuButton.size.y = buttonHeight;
+  }
+
+  initDeathLayer() {
+    const buttonWidth: number = 500;
+    const buttonHeight: number = 80;
+
+    const menuButton = this.newButton(
+      new Vec2(300, 200),
+      "RETURN TO MENU",
+      52,
+      Layers.DeathMenu,
+    );
+    menuButton.onClick = () => {
+      Input.enableInput();
+      this.sceneManager.changeToScene(MainMenu);
+    };
     menuButton.size.x = buttonWidth;
     menuButton.size.y = buttonHeight;
   }
 
   protected handleHealthChange(currentHealth: number, maxHealth: number): void {
     console.log(currentHealth);
-    let unit = this.healthBarBg.size.x / maxHealth;
+    const unit = this.healthBarBg.size.x / maxHealth;
 
     this.healthBar.size.set(
       this.healthBarBg.size.x - unit * (maxHealth - currentHealth),
@@ -381,5 +405,28 @@ export default class GameLevel extends Scene {
     );
 
     return button;
+  }
+
+  private handleCheats() {
+    if (Input.isJustPressed(Action.Invincible)) {
+      this.playerInvincible = !this.playerInvincible;
+      if (this.playerInvincible) console.log("Player is now invincible.");
+    }
+    if (Input.isJustPressed(Action.Invincible))
+      this.playerInvincible = !this.playerInvincible;
+    if (Input.isJustPressed(Action.Invincible))
+      this.playerInvincible = !this.playerInvincible;
+    if (Input.isJustPressed(Action.Level1))
+      this.sceneManager.changeToScene(Levels.Level1, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level2))
+      this.sceneManager.changeToScene(Levels.Level2, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level3))
+      this.sceneManager.changeToScene(Levels.Level3, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level4))
+      this.sceneManager.changeToScene(Levels.Level4, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level5))
+      this.sceneManager.changeToScene(Levels.Level5, {}, levelPhysics);
+    if (Input.isJustPressed(Action.Level6))
+      this.sceneManager.changeToScene(Levels.Level6, {}, levelPhysics);
   }
 }

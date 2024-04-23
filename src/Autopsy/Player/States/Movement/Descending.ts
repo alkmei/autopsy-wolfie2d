@@ -1,11 +1,13 @@
 import InAir from "./InAir";
-import { MovementState } from "../../Player";
+import { MovementState, PlayerAnimations } from "../../PlayerEnum";
 
 export default class Descending extends InAir {
   onEnter(options: Record<string, any>) {
     super.onEnter(options);
     this.stateName = "Descending";
     this.player.velocity.y = 0;
+    if (!this.isActionAnimationPlaying())
+      this.owner.animation.playIfNotAlready(PlayerAnimations.Down);
   }
 
   update(deltaT: number) {

@@ -8,9 +8,10 @@ import AnimatedSprite from "../../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GameLevel from "../../../Scenes/GameLevel";
 import GameNode from "../../../../Wolfie2D/Nodes/GameNode";
 import { Events } from "../../../../globals";
+import Dying from "@/Autopsy/Enemy/Ghost/GhostStates/Dying";
 
 export default abstract class GhostState extends State {
-  owner: GameNode;
+  owner: AnimatedSprite;
   parent: GhostController;
   followingCDTimer: Timer;
   stuckTimer: Timer;
@@ -18,15 +19,17 @@ export default abstract class GhostState extends State {
   knockbackTimer: Timer;
   playerPos: Vec2;
   canFollow: boolean;
+  isDying: boolean;
   stateName: string; // For debug purposes
 
-  constructor(parent: StateMachine, owner: GameNode) {
+  constructor(parent: StateMachine, owner: AnimatedSprite) {
     super(parent);
     this.owner = owner;
     this.followingCDTimer = new Timer(10000);
     this.stuckTimer = new Timer(5000); // check if a ghost is stuck for too long
     this.contactCooldown = new Timer(1000);
     this.knockbackTimer = new Timer(500);
+    this.isDying = false;
   }
 
   handleInput(event: GameEvent): void {}
@@ -53,6 +56,7 @@ export default abstract class GhostState extends State {
 
     if (
       this.contactCooldown.isStopped() &&
+      !this.isDying &&
       this.owner.collisionShape.overlaps(
         (<GameLevel>this.owner.getScene()).player.node.collisionShape,
       )

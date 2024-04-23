@@ -1,8 +1,9 @@
 import PlayerActionState from "./PlayerActionState";
 import Input from "../../../../Wolfie2D/Input/Input";
-import { Action } from "../../../../globals";
-import { ActionState, MovementState } from "../../Player";
+import { Action } from "@/globals";
+import { ActionState, MovementState, PlayerSounds } from "../../PlayerEnum";
 import Idle from "./Idle";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 export default class Jump extends Idle {
   fromDash: boolean;
@@ -12,6 +13,11 @@ export default class Jump extends Idle {
     this.stateName = "Jump";
     this.player.velocity.y = this.player.jumpVelocity;
     this.player.movementStateMachine.changeState(MovementState.Ascending);
+    this.emitter.fireEvent(GameEventType.PLAY_SFX, {
+      key: PlayerSounds.Jump,
+      loop: false,
+      keepReference: false,
+    });
   }
 
   onExit(): Record<string, any> {

@@ -1,3 +1,9 @@
+import Level1 from "./Autopsy/Scenes/Levels/Level1";
+import Level2 from "./Autopsy/Scenes/Levels/Level2";
+import Level3 from "./Autopsy/Scenes/Levels/Level3";
+import Level4 from "./Autopsy/Scenes/Levels/Level4";
+import Level5 from "./Autopsy/Scenes/Levels/Level5";
+import Level6 from "./Autopsy/Scenes/Levels/Level6";
 import Vec2 from "./Wolfie2D/DataTypes/Vec2";
 
 export enum Action {
@@ -9,6 +15,14 @@ export enum Action {
   Pause = "pause",
   Up = "up",
   Down = "down",
+
+  Invincible = "invincible",
+  Level1 = "level1",
+  Level2 = "level2",
+  Level3 = "level3",
+  Level4 = "level4",
+  Level5 = "level5",
+  Level6 = "level6",
 }
 
 export const Events = {
@@ -32,6 +46,42 @@ export const PhysicsGroups = {
 };
 
 export const SpriteSizes = {
-  SOUL: new Vec2(18, 24),
+  SOUL: new Vec2(9, 12),
   PLAYER: new Vec2(18, 24),
+  ZOMBIE: new Vec2(12,16),
+};
+
+export const Levels = {
+  Level1: Level1,
+  Level2: Level2,
+  Level3: Level3,
+  Level4: Level4,
+  Level5: Level5,
+  Level6: Level6,
+}
+
+export const EnemyType = {
+  GHOST_RED: "ghost_red",
+}
+
+/*
+Rows in the collisions array represent each physics group by index, 
+first index of the first row is the first phys group itself,
+second index in the second row is the second phys group itself, etc.
+
+0 is does not collide, 1 is collide
+*/
+export const levelPhysics = {
+  physics: {
+    groupNames: [
+      PhysicsGroups.PLAYER_PHYS,
+      PhysicsGroups.ENEMY_PHYS,
+      PhysicsGroups.HITBOX_PHYS,
+    ],
+    collisions: [
+      [0, 0, 1],
+      [0, 0, 1],
+      [0, 1, 0],
+    ],
+  },
 };

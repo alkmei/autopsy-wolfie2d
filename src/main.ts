@@ -8,7 +8,7 @@ import { Action } from "./globals";
   runTests();
 
   // Set up options for our game
-  let options = {
+  const options = {
     canvasSize: { x: 1200, y: 800 }, // The size of the game
     clearColor: { r: 34, g: 28, b: 41 }, // The color the game clears to
     inputs: [
@@ -20,6 +20,14 @@ import { Action } from "./globals";
       { name: Action.Attack, keys: ["j"] },
       { name: Action.Dash, keys: ["shift"] },
       { name: Action.Pause, keys: ["escape"] },
+      
+      { name: Action.Invincible, keys: ["i"]},
+      { name: Action.Level1, keys: ["1"]},
+      { name: Action.Level2, keys: ["2"]},
+      { name: Action.Level3, keys: ["3"]},
+      { name: Action.Level4, keys: ["4"]},
+      { name: Action.Level5, keys: ["5"]},
+      { name: Action.Level6, keys: ["6"]},
     ],
     useWebGL: false, // Tell the game we want to use webgl
     showDebug: false, // Whether to show debug messages. You can change this to true if you want

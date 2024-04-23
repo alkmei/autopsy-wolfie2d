@@ -5,13 +5,13 @@ import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Color from "../../Wolfie2D/Utils/Color";
 import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
 import UILayer from "../../Wolfie2D/Scene/Layers/UILayer";
-import { PhysicsGroups } from "../../globals";
-import Level1 from "./Level1";
-import Level2 from "./Level2";
-import Level3 from "./Level3";
-import Level4 from "./Level4";
-import Level5 from "./Level5";
-import Level6 from "./Level6";
+import { PhysicsGroups, levelPhysics } from "../../globals";
+import Level1 from "./Levels/Level1";
+import Level2 from "./Levels/Level2";
+import Level3 from "./Levels/Level3";
+import Level4 from "./Levels/Level4";
+import Level5 from "./Levels/Level5";
+import Level6 from "./Levels/Level6";
 
 enum Layers {
   Main = "main",
@@ -27,6 +27,7 @@ export default class MainMenu extends Scene {
   currentScreen: Layers;
   loadScene() {
     this.load.image("logo", "/assets/images/autopsy_logo.png");
+    this.load.image("levelSelect", "/assets/images/level_selection.png");
     this.screens = {
       [Layers.Main]: this.addUILayer(Layers.Main),
       [Layers.Levels]: this.addUILayer(Layers.Levels),
@@ -86,7 +87,7 @@ export default class MainMenu extends Scene {
         UIElementType.LABEL,
         Layers.Help,
         {
-          position: new Vec2(this.viewport.getCenter().x, 100 + index * 40),
+          position: new Vec2(600, 200 + 40 * index),
           text: value,
         },
       );
@@ -110,90 +111,121 @@ export default class MainMenu extends Scene {
     authorLine.setHAlign(HAlign.RIGHT);
     authorLine.textColor = this.textColor;
     authorLine.font = "Mister Pixel";
+
+    ["Cheats", "", "Invincibility: I", "Change Level: 1-6"].forEach(
+      (value, index) => {
+        const helpLine = <Label>this.add.uiElement(
+          UIElementType.LABEL,
+          Layers.Help,
+          {
+            position: new Vec2(600, 500 + 40 * index),
+            text: value,
+          },
+        );
+        helpLine.textColor = this.textColor;
+        helpLine.font = "Mister Pixel";
+      },
+    );
   }
 
   private initLevelsLayer() {
+    const levelSelectImg = this.add.sprite("levelSelect", Layers.Levels);
+    levelSelectImg.position = new Vec2(600, 400);
+    levelSelectImg.scale = new Vec2(0.8, 0.8);
+
     const fontSize = 40;
     const buttonSize = new Vec2(70, 70);
     const paddingSize = new Vec2(15, 15);
 
     const levelOne = this.newButton(
-      new Vec2(240, 590),
+      new Vec2(255, 645),
       "1",
       fontSize,
       Layers.Levels,
+      true,
     );
     const levelTwo = this.newButton(
-      new Vec2(380, 290),
+      new Vec2(360, 320),
       "2",
       fontSize,
       Layers.Levels,
+      true,
     );
     const levelThree = this.newButton(
-      new Vec2(560, 480),
+      new Vec2(565, 495),
       "3",
       fontSize,
       Layers.Levels,
+      true,
     );
     const levelFour = this.newButton(
-      new Vec2(780, 550),
+      new Vec2(773, 550),
       "4",
       fontSize,
       Layers.Levels,
+      true,
     );
     const levelFive = this.newButton(
-      new Vec2(950, 350),
+      new Vec2(914, 342),
       "5",
       fontSize,
       Layers.Levels,
+      true,
     );
     const levelSix = this.newButton(
-      new Vec2(820, 120),
+      new Vec2(798, 118),
       "6",
       fontSize,
       Layers.Levels,
+      true,
     );
 
     levelOne.font = "Mister Pixel";
     levelOne.setPadding(paddingSize);
     levelOne.size = buttonSize;
+    levelOne.borderColor = Color.TRANSPARENT;
     levelOne.onClick = () => {
-      this.sceneManager.changeToScene(Level1);
+      this.sceneManager.changeToScene(Level1, {}, levelPhysics);
     };
 
     levelTwo.font = "Mister Pixel";
     levelTwo.setPadding(paddingSize);
     levelTwo.size = buttonSize;
+    levelTwo.borderColor = Color.TRANSPARENT;
     levelTwo.onClick = () => {
-      this.sceneManager.changeToScene(Level2);
+      this.sceneManager.changeToScene(Level2, {}, levelPhysics);
     };
 
     levelThree.font = "Mister Pixel";
     levelThree.setPadding(paddingSize);
     levelThree.size = buttonSize;
+    levelThree.borderColor = Color.TRANSPARENT;
     levelThree.onClick = () => {
-      this.sceneManager.changeToScene(Level3);
+      this.sceneManager.changeToScene(Level3, {}, levelPhysics);
     };
 
     levelFour.font = "Mister Pixel";
     levelFour.setPadding(paddingSize);
     levelFour.size = buttonSize;
+    levelFour.borderColor = Color.TRANSPARENT;
     levelFour.onClick = () => {
-      this.sceneManager.changeToScene(Level4);
+      this.sceneManager.changeToScene(Level4, {}, levelPhysics);
     };
 
     levelFive.font = "Mister Pixel";
     levelFive.setPadding(paddingSize);
     levelFive.size = buttonSize;
+    levelFive.borderColor = Color.TRANSPARENT;
     levelFive.onClick = () => {
-      this.sceneManager.changeToScene(Level5);
+      this.sceneManager.changeToScene(Level5, {}, levelPhysics);
     };
 
     levelSix.font = "Mister Pixel";
     levelSix.setPadding(paddingSize);
     levelSix.size = buttonSize;
+    levelSix.borderColor = Color.TRANSPARENT;
     levelSix.onClick = () => {
-      this.sceneManager.changeToScene(Level6);
+      this.sceneManager.changeToScene(Level6, {}, levelPhysics);
     };
   }
 
@@ -238,21 +270,7 @@ export default class MainMenu extends Scene {
     playButton.size.x = buttonWidth;
     playButton.size.y = 80;
     playButton.onClick = () => {
-      let sceneOptions = {
-        physics: {
-          groupNames: [
-            PhysicsGroups.PLAYER_PHYS,
-            PhysicsGroups.ENEMY_PHYS,
-            PhysicsGroups.HITBOX_PHYS,
-          ],
-          collisions: [
-            [0, 1, 1],
-            [0, 1, 1],
-            [0, 0, 0],
-          ],
-        },
-      };
-      this.sceneManager.changeToScene(Level1, {}, sceneOptions);
+      this.sceneManager.changeToScene(Level1, {}, levelPhysics);
     };
 
     const levelsButton = this.newButton(
@@ -295,6 +313,7 @@ export default class MainMenu extends Scene {
     text: string,
     fontSize: number,
     layer: Layers,
+    levelButton: Boolean = false,
   ): Button {
     const button = <Button>this.add.uiElement(UIElementType.BUTTON, layer, {
       position: position,
@@ -302,7 +321,7 @@ export default class MainMenu extends Scene {
     });
     button.backgroundColor = Color.TRANSPARENT;
     button.borderColor = Color.WHITE;
-    button.borderWidth = 2;
+    button.borderWidth = 1;
     button.borderRadius = 0;
     button.setPadding(new Vec2(50, 10));
     button.font = "MEGAPIX";
@@ -311,12 +330,21 @@ export default class MainMenu extends Scene {
 
     const transWhite = new Color(255, 255, 255, 0.1);
     const invisibleWhite = new Color(255, 255, 255, 0);
-    button.onEnter = () => {
-      button.backgroundColor = transWhite;
-    };
-    button.onLeave = () => {
-      button.backgroundColor = invisibleWhite;
-    };
+    if (!levelButton) {
+      button.onEnter = () => {
+        button.backgroundColor = transWhite;
+      };
+      button.onLeave = () => {
+        button.backgroundColor = invisibleWhite;
+      };
+    } else {
+      button.onEnter = () => {
+        button.textColor = new Color(246, 242, 252);
+      };
+      button.onLeave = () => {
+        button.textColor = this.textColor;
+      };
+    }
 
     return button;
   }

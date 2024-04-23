@@ -89,7 +89,7 @@ def read_json_file(file_path):
 
 def main():
     if len(sys.argv) != 2:
-        print("Usage: python script.py <json_file> <scale>")
+        print("Usage: python script.py <json_file>")
     else:
         file_path = sys.argv[1]
         file_name = pathlib.Path(file_path).stem
