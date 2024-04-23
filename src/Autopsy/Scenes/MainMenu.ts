@@ -112,7 +112,7 @@ export default class MainMenu extends Scene {
     authorLine.textColor = this.textColor;
     authorLine.font = "Mister Pixel";
 
-    ["Cheats", "", "Invincibility: I", "Change Level: CTRL+1-6"].forEach(
+    ["Cheats", "", "Invincibility: I", "Change Level: 1-6"].forEach(
       (value, index) => {
         const helpLine = <Label>this.add.uiElement(
           UIElementType.LABEL,
