@@ -25,11 +25,11 @@ export default class Level1 extends GameLevel {
     );
 
     this.load.image("bg", "assets/tilemaps/Level1/limbo_bg.jpg");
-    this.load.audio("fire1", "assets/music/bluddington.mp3");
+    this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
 
   unloadScene() {
-    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "fire1" });
+    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
     super.unloadScene();
   }
 
@@ -49,7 +49,7 @@ export default class Level1 extends GameLevel {
 
     this.addLevelEnd(new Vec2(4576, 128), new Vec2(32, 135));
     this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
-      key: "fire1",
+      key: "bluddington",
       loop: true,
       holdReference: true,
     });

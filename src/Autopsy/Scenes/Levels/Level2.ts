@@ -14,7 +14,7 @@ export default class Level2 extends GameLevel {
       "assets/spritesheets/Monolith/Monolith.json",
     );
     this.load.spritesheet("Ghost", "assets/spritesheets/RedSoul/RedSoul.json");
-    this.load.audio("bluddington", "assets/music/fire1.wav");
+    this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
 
   startScene() {

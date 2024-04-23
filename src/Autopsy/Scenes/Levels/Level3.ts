@@ -4,6 +4,7 @@ import Level4 from "./Level4";
 import SpiderBoss from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
 import Spider from "@/Autopsy/Enemy/Spider/Spider";
 import Ghost, { GhostType } from "@/Autopsy/Enemy/Ghost/Ghost";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 export default class Level3 extends GameLevel {
   triggeredBoss: Boolean;
@@ -22,6 +23,8 @@ export default class Level3 extends GameLevel {
       "SpiderBoss",
       "assets/spritesheets/SpiderBoss/SpiderBoss.json",
     );
+
+    this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
 
   startScene() {
@@ -33,6 +36,17 @@ export default class Level3 extends GameLevel {
 
     this.triggeredBoss = false;
     this.nextLevel = Level4;
+
+    this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
+      key: "bluddington",
+      loop: true,
+      holdReference: true,
+    });
+  }
+
+  unloadScene() {
+    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
+    super.unloadScene();
   }
 
   update(deltaT: number): void {

@@ -5,11 +5,18 @@ import WaveLevel from "../WaveLevel/WaveLevel";
 import Wave from "../WaveLevel/Wave";
 import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
 import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 export default class Level4 extends WaveLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/WaveTest(Level4)/Level4.json");
+    this.load.audio("bluddington", "assets/music/bluddington.mp3");
+  }
+
+  unloadScene() {
+    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
+    super.unloadScene();
   }
 
   startScene() {
@@ -20,6 +27,12 @@ export default class Level4 extends WaveLevel {
     this.viewport.setBounds(0, 0, 6400, 1280);
 
     this.nextLevel = Level5;
+
+    this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
+      key: "bluddington",
+      loop: true,
+      holdReference: true,
+    });
     
     this.setLevelEndArea(new Vec2(2877, 670), new Vec2(32, 128));
 
