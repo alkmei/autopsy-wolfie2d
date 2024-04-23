@@ -74,8 +74,8 @@ export default class Level3 extends GameLevel {
       this.enemies.push(spider);
     }
 
-    // spawn 1 ghost
-    for (let i = 0; i < 1; i++) {
+    // spawn ghosts
+    for (let i = 0; i < ghostSpawn.length; i++) {
       const ghost = new Ghost(
         this.add.animatedSprite("RedSoul", Layers.Main),
         new Vec2(ghostSpawn[i].x, ghostSpawn[i].y),
