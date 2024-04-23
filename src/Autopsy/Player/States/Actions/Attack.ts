@@ -31,7 +31,7 @@ export default class Attack extends PlayerActionState {
           sprite,
           DamageType.TO_ENEMY,
           new Vec2(0, 0),
-          new Vec2(48, 16),
+          new Vec2(48, 40),
           this.player.node.invertX,
           offset,
         );
