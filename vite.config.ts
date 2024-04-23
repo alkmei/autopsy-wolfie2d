@@ -8,11 +8,11 @@ export default defineConfig({
       targets: [
         {
           src: resolve(__dirname, "benchmark2/assets"),
-          dest: "./benchmark2/assets",
+          dest: "./benchmark2",
         },
         {
           src: resolve(__dirname, "benchmark3/assets"),
-          dest: "./benchmark3/assets",
+          dest: "./benchmark3",
         },
       ],
     }),
