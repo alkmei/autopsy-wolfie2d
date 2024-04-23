@@ -7,6 +7,7 @@ import AnimatedSprite from "../../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GameLevel from "../../../Scenes/GameLevel";
 import { Events } from "../../../../globals";
 import SpiderController from "../SpiderController";
+import { SpiderAnimations } from "../Spider";
 
 export default abstract class SpiderState extends State {
   owner: AnimatedSprite;
@@ -15,13 +16,14 @@ export default abstract class SpiderState extends State {
   knockbackTimer: Timer;
   playerPos: Vec2;
   canFollow: boolean;
+  isDying: boolean;
   stateName: string; // For debug purposes
 
   constructor(parent: StateMachine, owner: AnimatedSprite) {
     super(parent);
     this.owner = owner;
     this.contactCooldown = new Timer(1000);
-    this.knockbackTimer = new Timer(500);
+    this.knockbackTimer = new Timer(400);
   }
 
   handleInput(event: GameEvent): void {}
@@ -38,9 +40,17 @@ export default abstract class SpiderState extends State {
     );
   }
 
+  angleToPlayer() {
+    this.playerPos = (<GameLevel>this.owner.getScene()).player.node.position;
+    const dx = this.playerPos.x - this.owner.position.x;
+    const dy = this.playerPos.y - this.owner.position.y;
+    return -Math.atan2(dy, dx) + 0.5 * Math.PI;
+  }
+
   update(deltaT: number): void {
     if (
       this.contactCooldown.isStopped() &&
+      !this.isDying &&
       this.owner.collisionShape.overlaps(
         (<GameLevel>this.owner.getScene()).player.node.collisionShape,
       )
@@ -48,5 +58,8 @@ export default abstract class SpiderState extends State {
       this.emitter.fireEvent(Events.PLAYER_DAMAGE);
       this.contactCooldown.start();
     }
+    
+    if (this.owner.animation.isPlaying(SpiderAnimations.Dead))
+      this.owner.destroy();
   }
 }

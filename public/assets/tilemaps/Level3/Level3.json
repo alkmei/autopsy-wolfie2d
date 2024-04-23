@@ -73,7 +73,7 @@
         {
          "draworder":"topdown",
          "id":3,
-         "name":"EnemySpawn1",
+         "name":"SpiderSpawn",
          "objects":[
                 {
                  "height":0,
@@ -98,6 +98,30 @@
                  "width":0,
                  "x":1888,
                  "y":96
+                }, 
+                {
+                 "height":0,
+                 "id":34,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1894,
+                 "y":210
+                }, 
+                {
+                 "height":0,
+                 "id":35,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1564,
+                 "y":88
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -131,20 +155,8 @@
         {
          "draworder":"topdown",
          "id":6,
-         "name":"EnemySpawn2",
+         "name":"GhostSpawn",
          "objects":[
-                {
-                 "height":0,
-                 "id":15,
-                 "name":"",
-                 "point":true,
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":0,
-                 "x":766,
-                 "y":320
-                }, 
                 {
                  "height":0,
                  "id":16,
@@ -156,6 +168,18 @@
                  "width":0,
                  "x":1887,
                  "y":320
+                }, 
+                {
+                 "height":0,
+                 "id":33,
+                 "name":"",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":992,
+                 "y":88
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -187,7 +211,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":33,
+ "nextobjectid":36,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

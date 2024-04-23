@@ -1,6 +1,7 @@
 import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level6 from "./Level6";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
 
 export default class Level5 extends GameLevel {
@@ -11,6 +12,12 @@ export default class Level5 extends GameLevel {
       "Zombie",
       "assets/spritesheets/Zombie/Zombie.json",
     );
+    this.load.audio("bluddington", "assets/music/bluddington.mp3");
+  }
+  
+  unloadScene() {
+    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
+    super.unloadScene();
   }
 
   startScene() {
@@ -21,6 +28,12 @@ export default class Level5 extends GameLevel {
     this.viewport.setBounds(0, 0, 6400, 1280);
 
     this.nextLevel = Level6;
+
+    this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
+      key: "bluddington",
+      loop: true,
+      holdReference: true,
+    });
 
     this.addLevelEnd(new Vec2(4576, 128), new Vec2(32, 135));
     this.initializeZombies();

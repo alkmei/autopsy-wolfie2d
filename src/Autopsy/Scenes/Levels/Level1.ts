@@ -4,10 +4,8 @@ import Ghost from "../../Enemy/Ghost/Ghost";
 import { Layers } from "../GameLevel";
 import { GhostType } from "../../Enemy/Ghost/Ghost";
 import Level2 from "./Level2";
-import GameEvent from "@/Wolfie2D/Events/GameEvent";
 import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
-import AudioManager from "@/Wolfie2D/Sound/AudioManager";
 
 export default class Level1 extends GameLevel {
   loadScene() {
@@ -25,11 +23,11 @@ export default class Level1 extends GameLevel {
     );
 
     this.load.image("bg", "assets/tilemaps/Level1/limbo_bg.jpg");
-    this.load.audio("fire1", "assets/music/fire1.wav");
+    this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
 
   unloadScene() {
-    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "fire1" });
+    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
     super.unloadScene();
   }
 
@@ -38,9 +36,10 @@ export default class Level1 extends GameLevel {
     this.player.node.position = new Vec2(100, 1000);
     this.camera.node.position = this.player.node.position.clone();
     this.add.tilemap("tilemap", new Vec2(1, 1));
-    const background = this.add.sprite("bg", Layers.Parallax);
 
     this.viewport.setBounds(0, 0, 6400, 1280);
+    const background = this.add.sprite("bg", Layers.Parallax);
+    background.alpha = 0.3;
     background.position = new Vec2(300, 200);
     background.scale = new Vec2(8, 8);
 
@@ -48,7 +47,7 @@ export default class Level1 extends GameLevel {
 
     this.addLevelEnd(new Vec2(4576, 128), new Vec2(32, 135));
     this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
-      key: "fire1",
+      key: "bluddington",
       loop: true,
       holdReference: true,
     });

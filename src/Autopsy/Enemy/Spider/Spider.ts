@@ -5,6 +5,8 @@ import { PhysicsGroups, SpriteSizes } from "@/globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
 import { SState } from "./SpiderController";
+import Dying from "./SpiderStates/Dying";
+import SpiderState from "./SpiderStates/SpiderState";
 
 export enum SpiderAnimations {
   Idle = "Idle",
@@ -21,14 +23,14 @@ export default class Spider extends Enemy {
     super();
     this.node = sprite;
     this.node.addPhysics(
-      new AABB(new Vec2(0, 0), new Vec2(18, 24)),
+      new AABB(new Vec2(0, 0), new Vec2(20, 24)),
       new Vec2(0, 0),
     );
     this.node.addAI(SpiderController);
     this.node.setGroup(PhysicsGroups.ENEMY_PHYS);
     this.node.position = pos;
     this.node.animation.play(SpiderAnimations.Idle, true);
-    this.health = 5;
+    this.health = 4;
   }
 
   die() {

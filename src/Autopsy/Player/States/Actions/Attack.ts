@@ -17,7 +17,7 @@ export default class Attack extends PlayerActionState {
       keepReference: false,
     });
 
-    const offset = new Vec2(60, 0);
+    const offset = new Vec2(40, 0);
 
     const sprite = this.player.node
       .getScene()
@@ -31,7 +31,7 @@ export default class Attack extends PlayerActionState {
           sprite,
           DamageType.TO_ENEMY,
           new Vec2(0, 0),
-          new Vec2(48, 16),
+          new Vec2(52, 40),
           this.player.node.invertX,
           offset,
         );

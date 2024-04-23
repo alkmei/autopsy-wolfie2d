@@ -6,5 +6,5 @@ import tseslint from "typescript-eslint";
 export default tseslint.config(
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
-  { ignores: ["src/Wolfie2D/*"] },
+  { ignores: ["src/Wolfie2D/*", "benchmark1/*", "benchmark2/*"] },
 );
