@@ -23,7 +23,7 @@ export default class Level1 extends GameLevel {
     );
 
     this.load.image("bg", "assets/tilemaps/Level1/limbo_bg.jpg");
-    this.load.audio("bluddington", "assets/music/bluddington.mp3");
+    this.load.audio("bluddington", "assets/music/fire1.wav");
   }
 
   unloadScene() {

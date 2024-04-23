@@ -33,6 +33,7 @@ export default class Level2 extends GameLevel {
     });
 
     this.nextLevel = Level3;
+    this.addLevelEnd(new Vec2(3170, 691), new Vec2(32, 135));
     this.initializeMonoliths();
     this.initializeGhosts();
     this.initializeSpiders();
