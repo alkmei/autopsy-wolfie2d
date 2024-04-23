@@ -4,10 +4,8 @@ import Ghost from "../../Enemy/Ghost/Ghost";
 import { Layers } from "../GameLevel";
 import { GhostType } from "../../Enemy/Ghost/Ghost";
 import Level2 from "./Level2";
-import GameEvent from "@/Wolfie2D/Events/GameEvent";
 import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
-import AudioManager from "@/Wolfie2D/Sound/AudioManager";
 
 export default class Level1 extends GameLevel {
   loadScene() {
