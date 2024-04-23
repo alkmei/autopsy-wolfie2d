@@ -4,6 +4,7 @@ import Level3 from "./Level3";
 import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
+import Spider from "@/Autopsy/Enemy/Spider/Spider";
 
 export default class Level2 extends GameLevel {
   loadScene() {
@@ -14,6 +15,7 @@ export default class Level2 extends GameLevel {
       "assets/spritesheets/Monolith/Monolith.json",
     );
     this.load.spritesheet("Ghost", "assets/spritesheets/RedSoul/RedSoul.json");
+    this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");
     this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
 
@@ -33,6 +35,7 @@ export default class Level2 extends GameLevel {
     this.nextLevel = Level3;
     this.initializeMonoliths();
     this.initializeGhosts();
+    this.initializeSpiders();
   }
 
   unloadScene() {
@@ -63,6 +66,20 @@ export default class Level2 extends GameLevel {
             this.add.animatedSprite("Ghost", Layers.Main),
             new Vec2(m.x, m.y),
             "red",
+          ),
+        );
+      });
+  }
+
+  initializeSpiders() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Spiders")
+      .objects.forEach(m => {
+        this.enemies.push(
+          new Spider(
+            this.add.animatedSprite("Spider", Layers.Main),
+            new Vec2(m.x, m.y),
           ),
         );
       });

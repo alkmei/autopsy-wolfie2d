@@ -9,10 +9,11 @@ export default class Dashing extends SpiderState {
   private pauseTimer: Timer;
   private playerPosSnapshot: Vec2;
   private isDashing: boolean;
+  private dashSpeed: number = 380;
 
   onEnter(options: Record<string, any>): void {
     this.dashTimer = new Timer(
-      350,
+      300,
       () => {
         if (!this.isDying)
           this.finished(SState.Following);
@@ -20,7 +21,7 @@ export default class Dashing extends SpiderState {
       false,
     );
     this.pauseTimer = new Timer(
-      1000,
+      1200,
       () => {
         this.dashTimer.start();
         this.isDashing = true;
@@ -40,7 +41,7 @@ export default class Dashing extends SpiderState {
         this.playerPosSnapshot.x - this.owner.position.x,
         this.playerPosSnapshot.y - this.owner.position.y,
       ).normalize();
-      this.parent.velocity = dirToPlayer.scale(400 * deltaT);
+      this.parent.velocity = dirToPlayer.scale(this.dashSpeed * deltaT);
     } else {
       this.parent.velocity = Vec2.ZERO;
     }
