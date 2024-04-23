@@ -4,7 +4,7 @@ import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
 
 export default class Dying extends SpiderState {
   onEnter(options: Record<string, any>) {
-    this.owner.animation.play(SpiderAnimations.Dying);
+    this.owner.animation.playIfNotAlready(SpiderAnimations.Dying);
     this.owner.animation.queue(SpiderAnimations.Dead, true);
     this.parent.velocity = Vec2.ZERO;
   }

@@ -21,7 +21,7 @@ export default class Knockback extends SpiderState {
 
     this.owner.move(this.parent.velocity);
 
-    if (this.knockbackTimer.isStopped()) {
+    if (this.knockbackTimer.isStopped() && !this.isDying) {
       this.finished(SState.Following);
     }
   }

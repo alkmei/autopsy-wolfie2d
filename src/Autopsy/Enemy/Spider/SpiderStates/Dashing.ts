@@ -12,27 +12,35 @@ export default class Dashing extends SpiderState {
 
   onEnter(options: Record<string, any>): void {
     this.dashTimer = new Timer(
-        350,
-        () => this.finished(SState.Following),
-        false,
-      );
-    this.pauseTimer = new Timer (
-        1000,
-        () => {
-          this.dashTimer.start();
-          this.isDashing = true;
-        },
-        false,
+      350,
+      () => {
+        if (!this.isDying)
+          this.finished(SState.Following);
+      },
+      false,
+    );
+    this.pauseTimer = new Timer(
+      1000,
+      () => {
+        this.dashTimer.start();
+        this.isDashing = true;
+      },
+      false,
     );
     this.pauseTimer.start();
     this.isDashing = false;
-    this.playerPosSnapshot = (<GameLevel>this.owner.getScene()).player.node.position;
+    this.playerPosSnapshot = (<GameLevel>(
+      this.owner.getScene()
+    )).player.node.position;
   }
 
   update(deltaT: number) {
     if (this.isDashing) {
-        const dirToPlayer = new Vec2(this.playerPosSnapshot.x - this.owner.position.x, this.playerPosSnapshot.y - this.owner.position.y).normalize();
-        this.parent.velocity = dirToPlayer.scale(400 * deltaT);
+      const dirToPlayer = new Vec2(
+        this.playerPosSnapshot.x - this.owner.position.x,
+        this.playerPosSnapshot.y - this.owner.position.y,
+      ).normalize();
+      this.parent.velocity = dirToPlayer.scale(400 * deltaT);
     } else {
       this.parent.velocity = Vec2.ZERO;
     }
