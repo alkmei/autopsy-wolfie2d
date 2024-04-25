@@ -1,10 +1,10 @@
 {
     "name": "Zombie",
     "spriteSheetImage": "Zombie.png",
-    "spriteWidth": 24,
-    "spriteHeight": 32,
+    "spriteWidth": 48,
+    "spriteHeight": 64,
     "columns": 5,
-    "rows": 3,
+    "rows": 4,
     "animations": [
         {
             "name": "Idle",
@@ -18,19 +18,19 @@
                 {
                     "index": 1,
                     "duration": 30.0,
-                    "x": 24,
+                    "x": 48,
                     "y": 0
                 },
                 {
                     "index": 2,
                     "duration": 30.0,
-                    "x": 48,
+                    "x": 96,
                     "y": 0
                 },
                 {
                     "index": 3,
                     "duration": 30.0,
-                    "x": 72,
+                    "x": 144,
                     "y": 0
                 }
             ]
@@ -42,31 +42,31 @@
                     "index": 5,
                     "duration": 10.0,
                     "x": 0,
-                    "y": 32
+                    "y": 64
                 },
                 {
                     "index": 6,
                     "duration": 10.0,
-                    "x": 24,
-                    "y": 32
+                    "x": 48,
+                    "y": 64
                 },
                 {
                     "index": 7,
                     "duration": 10.0,
-                    "x": 48,
-                    "y": 32
+                    "x": 96,
+                    "y": 64
                 },
                 {
                     "index": 8,
                     "duration": 10.0,
-                    "x": 72,
-                    "y": 32
+                    "x": 144,
+                    "y": 64
                 },
                 {
                     "index": 9,
                     "duration": 10.0,
-                    "x": 96,
-                    "y": 32
+                    "x": 192,
+                    "y": 64
                 }
             ]
         },
@@ -77,31 +77,31 @@
                     "index": 10,
                     "duration": 10.0,
                     "x": 0,
-                    "y": 64
+                    "y": 128
                 },
                 {
                     "index": 11,
                     "duration": 10.0,
-                    "x": 24,
-                    "y": 64
+                    "x": 48,
+                    "y": 128
                 },
                 {
                     "index": 12,
                     "duration": 10.0,
-                    "x": 48,
-                    "y": 64
+                    "x": 96,
+                    "y": 128
                 },
                 {
                     "index": 13,
                     "duration": 10.0,
-                    "x": 72,
-                    "y": 64
+                    "x": 144,
+                    "y": 128
                 },
                 {
                     "index": 14,
                     "duration": 10.0,
-                    "x": 96,
-                    "y": 64
+                    "x": 192,
+                    "y": 128
                 }
             ]
         },
@@ -112,25 +112,25 @@
                     "index": 15,
                     "duration": 10.0,
                     "x": 0,
-                    "y": 96
+                    "y": 192
                 },
                 {
                     "index": 16,
                     "duration": 10.0,
-                    "x": 24,
-                    "y": 96
+                    "x": 48,
+                    "y": 192
                 },
                 {
                     "index": 17,
                     "duration": 10.0,
-                    "x": 48,
-                    "y": 96
+                    "x": 96,
+                    "y": 192
                 },
                 {
                     "index": 18,
                     "duration": 10.0,
-                    "x": 72,
-                    "y": 96
+                    "x": 144,
+                    "y": 192
                 }
             ]
         },
@@ -140,8 +140,8 @@
                 {
                     "index": 19,
                     "duration": 10.0,
-                    "x": 96,
-                    "y": 96
+                    "x": 192,
+                    "y": 192
                 }
             ]
         }

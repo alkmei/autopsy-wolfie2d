@@ -14,6 +14,7 @@ export default abstract class HitboxState extends State {
   constructor(parent: StateMachine, owner: GameNode) {
     super(parent);
     this.owner = <AnimatedSprite>owner;
+    this.owner.animation.play("animation", false);
     this.hasHit = true;
   }
 
