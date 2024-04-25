@@ -22,8 +22,10 @@ export default class Level1 extends GameLevel {
       "assets/spritesheets/Monolith/Monolith.json",
     );
 
+    this.addParallaxLayer(Layers.Parallax, new Vec2(0.005, 0.01), -1);
+
     this.load.image("bg", "assets/tilemaps/Level1/limbo_bg.jpg");
-    this.load.audio("bluddington", "assets/music/bluddington.mp3");
+    this.load.audio("bluddington", "assets/music/fire2.wav");
   }
 
   unloadScene() {

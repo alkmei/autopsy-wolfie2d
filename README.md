@@ -2,7 +2,7 @@
 
 ## Run and Build Instructions
 
-This project uses Vite. The only big difference is that game assets are stored
+This project uses Vite instead of Gulp. The only big difference is that game assets are stored
 in the /public folder, rather than the /dist folder.
 
 Rather than starting the live server in VSCode, Vite automatically starts a live

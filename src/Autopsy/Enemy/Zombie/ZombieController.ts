@@ -9,15 +9,13 @@ import Attacking from "./ZombieStates/Walking";
 import ZombieState from "./ZombieStates/ZombieState";
 import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 
-
-export enum ZState{
-    Idle = "Idle",
-    Walking = "Walking",
-    Dying = "Dying",
-    Knockback = "Knockback",
-    Attacking = "Attacking",
+export enum ZState {
+  Idle = "Idle",
+  Walking = "Walking",
+  Dying = "Dying",
+  Knockback = "Knockback",
+  Attacking = "Attacking",
 }
-
 
 export default class GhostController extends StateMachineAI {
   owner: AnimatedSprite;
@@ -25,7 +23,7 @@ export default class GhostController extends StateMachineAI {
   velocity: Vec2 = Vec2.ZERO;
   speed = 20;
   knockbackSpeed = 25;
-  gravity = 10;
+  gravity = 980;
   tilemap: OrthogonalTilemap;
 
   initializeAI(owner: AnimatedSprite, config: Record<string, any>) {
@@ -39,7 +37,7 @@ export default class GhostController extends StateMachineAI {
     this.addState(ZState.Idle, new Idle(this, this.owner));
     this.addState(ZState.Walking, new Walking(this, this.owner));
     //this.addState(ZState.Knockback, new Knockback(this, this.owner));
-    this.addState(ZState.Attacking, new Attacking(this, this.owner))
+    this.addState(ZState.Attacking, new Attacking(this, this.owner));
     this.addState(ZState.Dying, new Dying(this, this.owner));
 
     this.initialize(ZState.Idle);
@@ -47,9 +45,9 @@ export default class GhostController extends StateMachineAI {
 
   update(deltaT: number) {
     super.update(deltaT);
-    
+
     //if (this.owner)
-      //this.owner.move(this.velocity);
+    //this.owner.move(this.velocity);
   }
 
   randomDirection() {
