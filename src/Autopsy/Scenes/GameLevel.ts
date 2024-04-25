@@ -1,9 +1,5 @@
 import Scene from "../../Wolfie2D/Scene/Scene";
-import {
-  ActionState,
-  PlayerAnimations,
-  PlayerSounds,
-} from "../Player/PlayerEnum";
+import { PlayerSounds } from "../Player/PlayerEnum";
 import Player from "../Player/Player";
 import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Camera from "../Camera";
@@ -18,7 +14,7 @@ import MainMenu from "./MainMenu";
 import Input from "../../Wolfie2D/Input/Input";
 import { Action } from "@/globals";
 import PlayerState from "../Player/States/PlayerState";
-import Ghost, { GhostType } from "../Enemy/Ghost/Ghost";
+import { GhostType } from "../Enemy/Ghost/Ghost";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
 import SceneManager from "../../Wolfie2D/Scene/SceneManager";
 import RenderingManager from "../../Wolfie2D/Rendering/RenderingManager";
@@ -112,7 +108,6 @@ export default class GameLevel extends Scene {
     this.addUILayer(Layers.Pause).setHidden(true);
     this.addUILayer(Layers.DeathMenu).setHidden(true);
     this.addLayer(Layers.Debug, 2);
-    this.addParallaxLayer(Layers.Parallax, new Vec2(0.005, 0.01), -1);
     this.addLayer(Layers.Hidden, 1).setHidden(true);
   }
 
@@ -152,6 +147,9 @@ export default class GameLevel extends Scene {
     );
     this.playerActionStateLabel.font = "Mister Pixel";
     this.playerActionStateLabel.textColor = Color.WHITE;
+
+    this.playerStateLabel.visible = false;
+    this.playerActionStateLabel.visible = false;
 
     this.viewport.follow(this.camera.node);
     this.viewport.setZoomLevel(2);
