@@ -16,7 +16,7 @@ export default abstract class SpiderState extends State {
   knockbackTimer: Timer;
   playerPos: Vec2;
   canFollow: boolean;
-  isDying: boolean;
+  isDying: boolean = false;
   stateName: string; // For debug purposes
 
   constructor(parent: StateMachine, owner: AnimatedSprite) {

@@ -35,6 +35,7 @@ export default class Spider extends Enemy {
 
   die() {
     (<SpiderController>this.node._ai).changeState(SState.Dying);
+    (<SpiderState>(<SpiderController>this.node._ai).getState()).isDying = true;
   }
 
   knockback() {

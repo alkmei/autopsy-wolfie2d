@@ -1,7 +1,22 @@
 import { defineConfig } from "vite";
 import { resolve } from "path";
+import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig({
+  plugins: [
+    viteStaticCopy({
+      targets: [
+        {
+          src: resolve(__dirname, "benchmark2/assets"),
+          dest: "./benchmark2",
+        },
+        {
+          src: resolve(__dirname, "benchmark3/assets"),
+          dest: "./benchmark3",
+        },
+      ],
+    }),
+  ],
   resolve: {
     alias: {
       "@": resolve(__dirname, "src"),
