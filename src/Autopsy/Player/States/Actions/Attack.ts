@@ -19,16 +19,14 @@ export default class Attack extends PlayerActionState {
 
     const offset = new Vec2(40, 0);
 
-    const sprite = this.player.node
-      .getScene()
-      .add.animatedSprite("ScytheSlash", Layers.Main);
-
     const timer = new Timer(
       100,
       () => {
         const hitbox = new Hitbox(
           this.player.node,
-          sprite,
+          this.player.node
+            .getScene()
+            .add.animatedSprite("ScytheSlash", Layers.Main),
           DamageType.TO_ENEMY,
           new Vec2(0, 0),
           new Vec2(52, 40),

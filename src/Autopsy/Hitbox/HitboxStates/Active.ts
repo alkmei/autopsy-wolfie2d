@@ -9,7 +9,6 @@ import { Events } from "@/globals";
 export default class Active extends HitboxState {
   onEnter(options: Record<string, any>) {
     this.stateName = HState.Active;
-    this.owner.animation.play("animation", false);
   }
 
   update(deltaT: number) {

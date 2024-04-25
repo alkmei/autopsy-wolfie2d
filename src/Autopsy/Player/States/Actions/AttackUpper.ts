@@ -18,21 +18,19 @@ export default class AttackUpper extends PlayerActionState {
     });
 
 
-    const offset = new Vec2(10, -50);
-
-    const sprite = this.player.node
-      .getScene()
-      .add.animatedSprite("ScytheUpper", Layers.Main);
+    const offset = new Vec2(10, -60);
 
     const timer = new Timer(
       120,
       () => {
         const hitbox = new Hitbox(
           this.player.node,
-          sprite,
+          this.player.node
+            .getScene()
+            .add.animatedSprite("ScytheUpper", Layers.Main),
           DamageType.TO_ENEMY,
           new Vec2(0, 0),
-          new Vec2(30, 60),
+          new Vec2(30, 45),
           this.player.node.invertX,
           offset,
         );

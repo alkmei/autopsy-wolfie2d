@@ -1,3 +1,4 @@
+import Timer from "@/Wolfie2D/Timing/Timer";
 import State from "../../../Wolfie2D/DataTypes/State/State";
 import StateMachine from "../../../Wolfie2D/DataTypes/State/StateMachine";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
@@ -11,6 +12,7 @@ export default abstract class PlayerState extends State {
   owner: AnimatedSprite;
   parent: StateMachine;
   player: Player;
+
   stateName: string; // For debug purposes
 
   constructor(parent: StateMachine, owner: GameNode, player: Player) {

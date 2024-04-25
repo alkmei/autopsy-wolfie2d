@@ -37,8 +37,10 @@ export default class Grounded extends PlayerMovementState {
 
     if (
       Input.isJustPressed(Action.Attack) &&
-      this.player.actionStateMachine.getState() instanceof Idle
+      this.player.attackCooldown.isStopped()
     ) {
+      this.player.attackCooldown.start();
+
       if (Input.isPressed(Action.Up))
         this.player.actionStateMachine.changeState(ActionState.AttackUpper);
       else this.player.actionStateMachine.changeState(ActionState.Attack);

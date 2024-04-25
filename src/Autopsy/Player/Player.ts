@@ -23,6 +23,7 @@ import {
 import Emitter from "@/Wolfie2D/Events/Emitter";
 import MathUtils from "@/Wolfie2D/Utils/MathUtils";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import Timer from "@/Wolfie2D/Timing/Timer";
 
 export default class Player implements Updateable {
   node: AnimatedSprite;
@@ -38,6 +39,7 @@ export default class Player implements Updateable {
   jumpVelocity: number;
   canDash: boolean;
   lastGroundedPosition: Vec2;
+  attackCooldown: Timer;
 
   // State Machines
   movementStateMachine: StateMachine;
@@ -57,6 +59,7 @@ export default class Player implements Updateable {
     this.emitter = new Emitter();
     this.updateGravity();
     this.initializeAI();
+    this.attackCooldown = new Timer(300);
   }
 
   changeHealth(dHealth: number) {
