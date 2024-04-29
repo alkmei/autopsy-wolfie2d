@@ -17,21 +17,19 @@ export default class AttackDown extends PlayerActionState {
       keepReference: false,
     });
 
-    const offset = new Vec2(10, 50);
-
-    const sprite = this.player.node
-      .getScene()
-      .add.animatedSprite("ScytheDown", Layers.Main);
+    const offset = new Vec2(10, 60);
 
     const timer = new Timer(
       120,
       () => {
         new Hitbox(
           this.player.node,
-          sprite,
+          this.player.node
+            .getScene()
+            .add.animatedSprite("ScytheDown", Layers.Main),
           DamageType.TO_ENEMY,
           new Vec2(0, 0),
-          new Vec2(30, 60),
+          new Vec2(30, 45),
           this.player.node.invertX,
           offset,
         );
