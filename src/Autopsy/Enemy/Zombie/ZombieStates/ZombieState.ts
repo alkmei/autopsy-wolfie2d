@@ -26,7 +26,7 @@ export default abstract class ZombieState extends State {
     this.owner = owner;
     this.contactCooldown = new Timer(1000);
     this.knockbackTimer = new Timer(500);
-    this.idleTimer = new Timer(4000);
+    this.idleTimer = new Timer(3000);
     this.isDying = false;
   }
 

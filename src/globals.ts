@@ -62,6 +62,8 @@ export const Levels = {
 
 export const EnemyType = {
   GHOST_RED: "ghost_red",
+  SPIDER: "spider",
+  ZOMBIE: "zombie",
 }
 
 /*

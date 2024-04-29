@@ -1,19 +1,20 @@
-import GameLevel from "../GameLevel";
+import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level5 from "./Level5";
-import WaveLevel from "../WaveLevel/WaveLevel";
-import Wave from "../WaveLevel/Wave";
-import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
-import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
 
-export default class Level4 extends WaveLevel {
+export default class Level4 extends GameLevel {
   loadScene() {
     super.loadScene();
-    this.load.tilemap("tilemap", "assets/tilemaps/WaveTest(Level4)/Level4.json");
+    this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
+    this.load.spritesheet(
+      "Zombie",
+      "assets/spritesheets/Zombie/Zombie.json",
+    );
     this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
-
+  
   unloadScene() {
     this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
     super.unloadScene();
@@ -33,18 +34,24 @@ export default class Level4 extends WaveLevel {
       loop: true,
       holdReference: true,
     });
-    
-    this.setLevelEndArea(new Vec2(2877, 670), new Vec2(32, 128));
 
-    //this.waves=[new Wave([1])];
-    let tmap = this.getTilemap('World') as OrthogonalTilemap;
-    this.setTilemap = tmap;
-    
+    this.addLevelEnd(new Vec2(4576, 128), new Vec2(32, 135));
+    this.initializeZombies();
+  }
 
-  
-    this.waves=[new Wave([3]),new Wave([9]),new Wave([27])]
+  initializeZombies() {
+    //const zombiePositions = this.resourceManager
+      //.getTilemap("tilemap")
+      //.layers.find(x => x.name == "Zombies").objects;
+    const zombiePositions = [new Vec2(1236,1044), new Vec2(2240, 692), new Vec2(3840, 604)];
+    for (let i = 0; i < 3; i++) {
+      const zombie = new Zombie(
+        this.add.animatedSprite("Zombie", Layers.Main),
+        new Vec2(zombiePositions[i].x, zombiePositions[i].y),
+        "World"
+      );
 
-    this.startWave();
-
+      this.enemies.push(zombie);
+    }
   }
 }

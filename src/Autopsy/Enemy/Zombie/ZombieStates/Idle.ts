@@ -9,8 +9,7 @@ export default class Idle extends ZombieState {
     this.stateName = "Idle";
     this.owner.animation.playIfNotAlready(ZombieAnimations.Idle,true);
     this.idleTimer.start();
-    console.log("Idle");
-    console.log("size: "+ this.owner.size);
+    
   }
 
   update(deltaT: number) {
