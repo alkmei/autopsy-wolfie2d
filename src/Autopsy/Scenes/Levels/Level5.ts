@@ -12,7 +12,7 @@ import { Layers } from "../GameLevel";
 export default class Level5 extends WaveLevel {
   loadScene() {
     super.loadScene();
-    this.load.tilemap("tilemap", "assets/tilemaps/WaveTest(Level4)/Level4.json");
+    this.load.tilemap("tilemap", "assets/tilemaps/Level5/Level5.json");
     this.load.audio("bluddington", "assets/music/bluddington.mp3");
 
     this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");

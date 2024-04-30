@@ -143,11 +143,11 @@
         {
          "columns":3,
          "firstgid":1,
-         "image":"New Piskel.png",
+         "image":"UnderWorld.png",
          "imageheight":96,
          "imagewidth":96,
          "margin":0,
-         "name":"Debug",
+         "name":"UnderWorld",
          "spacing":0,
          "tilecount":9,
          "tileheight":32,
