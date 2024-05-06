@@ -18,6 +18,7 @@ import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Timer from "@/Wolfie2D/Timing/Timer";
 import Hitbox, { HType } from "@/Autopsy/Hitbox/Hitbox";
 import { DamageType } from "@/Autopsy/Hitbox/DamageType";
+import Congratulations from "../Congratulations";
 
 export default class Level6 extends GameLevel {
   bossHealthBar: Label;
@@ -130,7 +131,7 @@ export default class Level6 extends GameLevel {
       new Timer(
         2000,
         () => {
-          this.sceneManager.changeToScene(MainMenu); 
+          this.sceneManager.changeToScene(Congratulations); 
         },
         false,
       ).start();

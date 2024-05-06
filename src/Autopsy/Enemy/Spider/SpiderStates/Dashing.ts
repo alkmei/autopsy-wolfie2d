@@ -10,19 +10,19 @@ export default class Dashing extends SpiderState {
   private pauseTimer: Timer;
   private playerPosSnapshot: Vec2;
   private isDashing: boolean;
-  private dashSpeed: number = 220;
+  private dashSpeed: number = 250;
 
   onEnter(options: Record<string, any>): void {
     this.stateName = "Dashing";
     this.dashTimer = new Timer(
-      250,
+      350,
       () => {
         if (!this.isDying) this.finished(SState.Following);
       },
       false,
     );
     this.pauseTimer = new Timer(
-      1200,
+      1500,
       () => {
         if (!this.isDying) {
           this.dashTimer.start();
