@@ -5,9 +5,7 @@ import { PhysicsGroups, SpriteSizes } from "@/globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
 import { SState } from "./SpiderController";
-import Dying from "./SpiderStates/Dying";
 import SpiderState from "./SpiderStates/SpiderState";
-import Walking from "../Zombie/ZombieStates/Walking";
 
 export enum SpiderAnimations {
   Idle = "Idle",

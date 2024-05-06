@@ -8,10 +8,12 @@ import Enemy from "../Enemy";
 export enum SpiderBossAnimations {
   Cocooned = "Idle Cocooned",
   Exposed = "Exposed Idle",
+  Transition = "Transition",
   TakeDamage = "Take Damage",
   Dying = "Dying",
   Dead = "Dead",
 }
+
 
 export default class SpiderBoss extends Enemy {
   node: AnimatedSprite;

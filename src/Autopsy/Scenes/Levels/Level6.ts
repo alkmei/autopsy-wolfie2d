@@ -1,16 +1,29 @@
 import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import Level4 from "./Level4";
-import SpiderBoss from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
+import SpiderBoss, {
+  SpiderBossAnimations,
+} from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
 import Spider from "@/Autopsy/Enemy/Spider/Spider";
 import Ghost, { GhostType } from "@/Autopsy/Enemy/Ghost/Ghost";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
+import Label from "@/Wolfie2D/Nodes/UIElements/Label";
+import { UIElementType } from "@/Wolfie2D/Nodes/UIElements/UIElementTypes";
+import Color from "@/Wolfie2D/Utils/Color";
+import { Events } from "@/globals";
+import GameEvent from "@/Wolfie2D/Events/GameEvent";
+import MainMenu from "../MainMenu";
+import LanternCorpse from "@/Autopsy/Enemy/LanternCorpse";
+import { SpiderBossEvents } from "@/Autopsy/Enemy/SpiderBoss/SpiderBossController";
 
 export default class Level6 extends GameLevel {
+  bossHealthBar: Label;
+  bossHealthBarBg: Label;
   phase: number;
   triggeredBoss: boolean;
+
   boss: SpiderBoss;
+  lantern: LanternCorpse;
 
   loadScene() {
     super.loadScene();
@@ -20,7 +33,7 @@ export default class Level6 extends GameLevel {
       "RedSoul",
       "assets/spritesheets/RedSoul/RedSoul.json",
     );
-    
+
     this.load.spritesheet(
       "Monolith",
       "assets/spritesheets/Monolith/Monolith.json",
@@ -30,6 +43,15 @@ export default class Level6 extends GameLevel {
     this.load.spritesheet(
       "SpiderBoss",
       "assets/spritesheets/SpiderBoss/SpiderBoss.json",
+    );
+
+    this.load.spritesheet(
+      "WebProjectile",
+      "assets/spritesheets/WebProjectile/WebProjectile.json",
+    );
+    this.load.spritesheet(
+      "LanternCorpse",
+      "assets/spritesheets/LanternCorpse/LanternCorpse.json",
     );
 
     this.load.audio("bluddington", "assets/music/weird.wav");
@@ -44,7 +66,6 @@ export default class Level6 extends GameLevel {
 
     this.triggeredBoss = false;
     this.phase = 1;
-    this.nextLevel = Level4;
 
     this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
       key: "bluddington",
@@ -65,34 +86,17 @@ export default class Level6 extends GameLevel {
     if (!this.triggeredBoss && this.player.node.position.x > 672) {
       this.triggeredBoss = true;
       this.spawnBoss();
-      this.initPhase(1);
-    } 
-  }
+      this.initPhase(this.phase);
+      this.initBossHp();
+    }
 
-  initializeMonoliths() {
-    this.resourceManager
-      .getTilemap("tilemap")
-      .layers.find(x => x.name == "Monoliths")
-      .objects.forEach(m => {
-        new Monolith(
-          this.add.animatedSprite("Monolith", Layers.Main),
-          new Vec2(m.x, m.y),
-          m.name,
-        );
-      });
-  }
+    if (this.phase === 1 && this.enemies.length === 1)
+      this.initPhase(++this.phase);
 
-  spawnBoss() {
-    const bossPosition = this.resourceManager
-      .getTilemap("tilemap")
-      .layers.find(x => x.name == "BossSpawn").objects;
-    const spiderBoss = new SpiderBoss(
-      this.add.animatedSprite("SpiderBoss", Layers.Main),
-      new Vec2(bossPosition[0].x, bossPosition[0].y),
-    );
+    if (this.phase === 2 && this.lantern.node.onGround) this.initPhase(++this.phase);
 
-    this.boss = spiderBoss;
-    this.enemies.push(spiderBoss);
+    if (this.triggeredBoss && this.enemies.length === 0)
+      this.sceneManager.changeToScene(MainMenu);
   }
 
   initPhase(phase: number) {
@@ -127,8 +131,118 @@ export default class Level6 extends GameLevel {
         break;
       }
       case 2: {
+        const lanternSpawn = this.resourceManager
+          .getTilemap("tilemap")
+          .layers.find(x => x.name == "LanternSpawn").objects;
+
+        this.lantern = new LanternCorpse(
+          this.add.animatedSprite("LanternCorpse", Layers.Main),
+          new Vec2(lanternSpawn[0].x, lanternSpawn[0].y),
+        );
+        this.enemies.push(this.lantern);
+        break;
+      }
+      case 3: {
+        this.emitter.fireEvent(SpiderBossEvents.Transition);
+      }
+    }
+  }
+
+  initBossHp(): void {
+    const bossName = <Label>this.add.uiElement(UIElementType.LABEL, Layers.UI, {
+      position: new Vec2(300, 355),
+      text: "THE SPINDLER",
+    });
+    bossName.textColor = Color.WHITE;
+    bossName.size = new Vec2(600, 35);
+    bossName.font = "MEGAPIX";
+    bossName.fontSize = 45;
+
+    const bossHealthBarBg = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.UI,
+      {
+        position: new Vec2(300, 380),
+        text: "",
+      },
+    );
+    bossHealthBarBg.size = new Vec2(600, 35);
+    bossHealthBarBg.backgroundColor = Color.BLACK;
+
+    this.bossHealthBar = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.UI,
+      {
+        position: new Vec2(300, 380),
+        text: "",
+      },
+    );
+    this.bossHealthBar.size = new Vec2(600, 35);
+    this.bossHealthBar.backgroundColor = this.healthBarColor;
+    this.bossHealthBar.borderWidth = 2;
+    this.bossHealthBar.borderRadius = 0;
+
+    const bossHealthBarBorder = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.UI,
+      {
+        position: new Vec2(300, 380),
+        text: "",
+      },
+    );
+    bossHealthBarBorder.size = new Vec2(600, 35);
+    bossHealthBarBorder.borderColor = Color.WHITE;
+    bossHealthBarBorder.borderWidth = 4;
+    bossHealthBarBorder.borderRadius = 0;
+  }
+
+  handleEvent(event: GameEvent) {
+    super.handleEvent(event);
+
+    switch (event.type) {
+      case Events.ENEMY_DAMAGE: {
+        const enemy = event.data.get("enemy");
+
+        if (!enemy.isInvincible && enemy instanceof SpiderBoss) {
+          this.boss.health -= 1;
+          console.log(`Boss: ${enemy.health}`);
+
+          // damage animation
+          this.boss.takeDamage();
+
+          this.bossHealthBar.size.x = 600 * (this.boss.health / 10);
+
+          if (enemy.health <= 0)
+            this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });
+        }
         break;
       }
     }
+  }
+
+  initializeMonoliths() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Monoliths")
+      .objects.forEach(m => {
+        new Monolith(
+          this.add.animatedSprite("Monolith", Layers.Main),
+          new Vec2(m.x, m.y),
+          m.name,
+        );
+      });
+  }
+
+  spawnBoss() {
+    const bossPosition = this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "BossSpawn").objects;
+    const spiderBoss = new SpiderBoss(
+      this.add.animatedSprite("SpiderBoss", Layers.Main),
+      new Vec2(bossPosition[0].x, bossPosition[0].y),
+    );
+
+    this.boss = spiderBoss;
+    this.enemies.push(spiderBoss);
   }
 }

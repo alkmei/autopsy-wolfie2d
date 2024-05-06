@@ -31,7 +31,7 @@ export default class AttackDown extends PlayerActionState {
             .add.animatedSprite("ScytheDown", Layers.Main),
           DamageType.TO_ENEMY,
           new Vec2(0, 0),
-          new Vec2(30, 45),
+          new Vec2(30, 32),
           this.player.node.invertX,
           offset,
         );
