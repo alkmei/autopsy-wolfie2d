@@ -18,8 +18,8 @@ export default class SpiderController extends StateMachineAI {
   owner: AnimatedSprite;
   direction: Vec2 = Vec2.ZERO;
   velocity: Vec2 = Vec2.ZERO;
-  followSpeed = 150;
-  knockbackSpeed = 250;
+  followSpeed = 110;
+  knockbackSpeed = 300;
   gravity = 0;
 
   initializeAI(owner: AnimatedSprite, config: Record<string, any>) {

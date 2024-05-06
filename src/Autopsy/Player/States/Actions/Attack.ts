@@ -1,5 +1,5 @@
 import PlayerActionState from "./PlayerActionState";
-import Hitbox from "@/Autopsy/Hitbox/Hitbox";
+import Hitbox, { HType } from "@/Autopsy/Hitbox/Hitbox";
 import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
 import { ActionState, PlayerAnimations, PlayerSounds } from "../../PlayerEnum";
 import { Layers } from "@/Autopsy/Scenes/GameLevel";
@@ -12,7 +12,7 @@ export default class Attack extends PlayerActionState {
     this.stateName = "Attack";
     this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheSlash);
     this.emitter.fireEvent(GameEventType.PLAY_SFX, {
-      key: PlayerSounds.Slash + Math.ceil(Math.random() * 3),
+      key: PlayerSounds.Slash,
       loop: false,
       keepReference: false,
     });
@@ -28,10 +28,10 @@ export default class Attack extends PlayerActionState {
             .getScene()
             .add.animatedSprite("ScytheSlash", Layers.Main),
           DamageType.TO_ENEMY,
-          new Vec2(0, 0),
           new Vec2(52, 40),
           this.player.node.invertX,
           offset,
+          HType.Active,
         );
       },
       false,

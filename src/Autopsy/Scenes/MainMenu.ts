@@ -138,42 +138,42 @@ export default class MainMenu extends Scene {
     const paddingSize = new Vec2(15, 15);
 
     const levelOne = this.newButton(
-      new Vec2(255, 645),
+      new Vec2(254, 645),
       "1",
       fontSize,
       Layers.Levels,
       true,
     );
     const levelTwo = this.newButton(
-      new Vec2(360, 320),
+      new Vec2(360, 321),
       "2",
       fontSize,
       Layers.Levels,
       true,
     );
     const levelThree = this.newButton(
-      new Vec2(565, 495),
+      new Vec2(564, 489),
       "3",
       fontSize,
       Layers.Levels,
       true,
     );
     const levelFour = this.newButton(
-      new Vec2(773, 550),
+      new Vec2(772, 548),
       "4",
       fontSize,
       Layers.Levels,
       true,
     );
     const levelFive = this.newButton(
-      new Vec2(914, 342),
+      new Vec2(914, 340),
       "5",
       fontSize,
       Layers.Levels,
       true,
     );
     const levelSix = this.newButton(
-      new Vec2(798, 118),
+      new Vec2(798, 115),
       "6",
       fontSize,
       Layers.Levels,

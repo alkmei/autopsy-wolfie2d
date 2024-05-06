@@ -4,10 +4,13 @@ import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import { PhysicsGroups, SpriteSizes } from "@/globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import Emitter from "@/Wolfie2D/Events/Emitter";
 
 export enum SpiderBossAnimations {
   Cocooned = "Idle Cocooned",
   Exposed = "Exposed Idle",
+  Transition = "Transition",
   TakeDamage = "Take Damage",
   Dying = "Dying",
   Dead = "Dead",
@@ -30,11 +33,17 @@ export default class SpiderBoss extends Enemy {
     this.node.setGroup(PhysicsGroups.ENEMY_PHYS);
     this.node.position = pos;
     this.node.animation.play(SpiderBossAnimations.Cocooned, true);
-    this.health = 10;
+    this.health = 50;
   }
 
   takeDamage() {
     this.node.animation.play(SpiderBossAnimations.TakeDamage);
+
+    this.emitter.fireEvent(GameEventType.PLAY_SFX, {
+      key: "soulDeath",
+      loop: false,
+      holdReference: false,
+    });
   }
 
   die() {

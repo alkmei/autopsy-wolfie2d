@@ -6,6 +6,8 @@ import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
 import { ZState } from "./ZombieController";
 import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import Emitter from "@/Wolfie2D/Events/Emitter";
 
 export enum ZombieAnimations {
   Idle = "Idle",
@@ -40,6 +42,14 @@ export default class Zombie extends Enemy {
 
   die() {
     (<ZombieController>this.node._ai).changeState(ZState.Dying);
+  }
+
+  takeDamage() {
+    this.emitter.fireEvent(GameEventType.PLAY_SFX, {
+      key: "playerHurt",
+      loop: false,
+      holdReference: false,
+    });
   }
 
   knockback() {

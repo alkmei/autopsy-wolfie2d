@@ -10,6 +10,7 @@ export default class Knockback extends SpiderState {
     this.parent.direction.y = 0;
     this.stateName = SState.Knockback;
     this.knockbackTimer.start();
+    this.stateName = "knockback";
   }
 
   update(deltaT: number) {

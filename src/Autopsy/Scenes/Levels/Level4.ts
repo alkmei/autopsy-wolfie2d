@@ -1,19 +1,24 @@
-import GameLevel from "../GameLevel";
+import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level5 from "./Level5";
-import WaveLevel from "../WaveLevel/WaveLevel";
-import Wave from "../WaveLevel/Wave";
-import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
-import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
+import Spider from "@/Autopsy/Enemy/Spider/Spider";
+import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
+import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
 
-export default class Level4 extends WaveLevel {
+export default class Level4 extends GameLevel {
   loadScene() {
     super.loadScene();
-    this.load.tilemap("tilemap", "assets/tilemaps/WaveTest(Level4)/Level4.json");
+    this.load.tilemap("tilemap", "assets/tilemaps/Level4/Level4.json");
+    this.load.spritesheet(
+      "Zombie",
+      "assets/spritesheets/Zombie/Zombie.json",
+    );
+    this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");
     this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
-
+  
   unloadScene() {
     this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
     super.unloadScene();
@@ -33,18 +38,67 @@ export default class Level4 extends WaveLevel {
       loop: true,
       holdReference: true,
     });
-    
-    this.setLevelEndArea(new Vec2(2877, 670), new Vec2(32, 128));
 
-    //this.waves=[new Wave([1])];
-    let tmap = this.getTilemap('World') as OrthogonalTilemap;
-    this.setTilemap = tmap;
-    
+    this.addLevelEnd(new Vec2(2754, 700), new Vec2(32, 135));
+    this.initializeZombies();
+    this.initializeGhosts();
+    this.initializeSpiders();
+  }
 
-  
-    this.waves=[new Wave([3]),new Wave([9]),new Wave([27])]
+  initializeZombies() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Zombies")
+      .objects.forEach(m => {
+        this.enemies.push(
+          new Zombie(
+            this.add.animatedSprite("Zombie", Layers.Main),
+            new Vec2(m.x, m.y),
+            "World",
+          ),
+        );
+      });
+  }
 
-    this.startWave();
+  initializeMonoliths() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Monoliths")
+      .objects.forEach(m => {
+        new Monolith(
+          this.add.animatedSprite("Monolith", Layers.Main),
+          new Vec2(m.x, m.y),
+          m.name,
+        );
+      });
+  }
 
+  initializeGhosts() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Ghosts")
+      .objects.forEach(m => {
+        this.enemies.push(
+          new Ghost(
+            this.add.animatedSprite("RedSoul", Layers.Main),
+            new Vec2(m.x, m.y),
+            "red",
+          ),
+        );
+      });
+  }
+
+  initializeSpiders() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Spiders")
+      .objects.forEach(m => {
+        this.enemies.push(
+          new Spider(
+            this.add.animatedSprite("Spider", Layers.Main),
+            new Vec2(m.x, m.y),
+          ),
+        );
+      });
   }
 }

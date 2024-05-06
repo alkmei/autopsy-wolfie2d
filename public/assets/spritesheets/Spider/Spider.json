@@ -4,7 +4,7 @@
     "spriteWidth": 64,
     "spriteHeight": 48,
     "columns": 4,
-    "rows": 3,
+    "rows": 4,
     "animations": [
         {
             "name": "Idle",
@@ -18,7 +18,7 @@
             ]
         },
         {
-            "name": "Walking",
+            "name": "Take Damage",
             "frames": [
                 {
                     "index": 1,
@@ -37,11 +37,34 @@
                     "duration": 10.0,
                     "x": 192,
                     "y": 0
-                },
+                }
+            ]
+        },
+        {
+            "name": "Walking",
+            "frames": [
                 {
                     "index": 4,
                     "duration": 10.0,
                     "x": 0,
+                    "y": 48
+                },
+                {
+                    "index": 5,
+                    "duration": 10.0,
+                    "x": 64,
+                    "y": 48
+                },
+                {
+                    "index": 6,
+                    "duration": 10.0,
+                    "x": 128,
+                    "y": 48
+                },
+                {
+                    "index": 7,
+                    "duration": 10.0,
+                    "x": 192,
                     "y": 48
                 }
             ]
@@ -49,24 +72,6 @@
         {
             "name": "Dying",
             "frames": [
-                {
-                    "index": 5,
-                    "duration": 10.0,
-                    "x": 0,
-                    "y": 48
-                },
-                {
-                    "index": 6,
-                    "duration": 10.0,
-                    "x": 64,
-                    "y": 48
-                },
-                {
-                    "index": 7,
-                    "duration": 10.0,
-                    "x": 128,
-                    "y": 48
-                },
                 {
                     "index": 8,
                     "duration": 10.0,
@@ -84,6 +89,24 @@
                     "duration": 10.0,
                     "x": 64,
                     "y": 96
+                },
+                {
+                    "index": 11,
+                    "duration": 10.0,
+                    "x": 128,
+                    "y": 96
+                },
+                {
+                    "index": 12,
+                    "duration": 10.0,
+                    "x": 192,
+                    "y": 96
+                },
+                {
+                    "index": 13,
+                    "duration": 10.0,
+                    "x": 0,
+                    "y": 144
                 }
             ]
         },
@@ -91,10 +114,10 @@
             "name": "Dead",
             "frames": [
                 {
-                    "index": 11,
+                    "index": 14,
                     "duration": 10.0,
-                    "x": 128,
-                    "y": 96
+                    "x": 64,
+                    "y": 144
                 }
             ]
         }

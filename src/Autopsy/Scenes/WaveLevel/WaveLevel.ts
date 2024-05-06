@@ -12,6 +12,9 @@ import Spawning from "./WaveState/Spawning";
 import Waiting from "./WaveState/Waiting";
 import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
+import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
+import Spider from "@/Autopsy/Enemy/Spider/Spider";
+import RandUtils from "@/Wolfie2D/Utils/RandUtils";
 
 export enum WaveState{
     SPAWNING = "spawning",
@@ -26,6 +29,7 @@ export default class WaveLevel extends GameLevel {
     waveStateMachine: StateMachine;
 
     waveLabel: Label;
+    enemyKilledLabel: Label;
     private curWave = 0
 
     private LevelEndPos: Vec2;
@@ -47,6 +51,7 @@ export default class WaveLevel extends GameLevel {
         });
         //this.waveLabel.size = new Vec2(600, 50);
         this.waveLabel.textColor = Color.WHITE;
+        this.waveLabel.font = "Mister Pixel";
     }
 
     initWaveState() {
@@ -98,6 +103,36 @@ export default class WaveLevel extends GameLevel {
             type,
             );
         this.enemies.push(ghost);
+    }
+
+    addSpider(pos: Vec2){
+        const spider = new Spider(
+            this.add.animatedSprite("Spider", Layers.Main),
+            new Vec2(pos.x, pos.y),
+            );
+        this.enemies.push(spider);
+    }
+
+    addZombie(pos: Vec2){
+        const zombie = new Zombie(
+            this.add.animatedSprite("Zombie", Layers.Main),
+            new Vec2(pos.x, pos.y),
+            this.tilemap.name,
+            );
+        
+        /*while(){
+            let worldSize = this.tilemap.size;
+            let spawnPos = RandUtils.randVec(0, worldSize.x, 0, worldSize.y);
+			while(
+                spawnPos.distanceTo(this.player.node.position) < 32 * 6 ||
+                this.tilemap.getTileAtWorldPosition(spawnPos) !== 0){
+				    spawnPos = RandUtils.randVec(0, worldSize.x, 0, worldSize.y);
+			}
+            zombie.node.position=spawnPos;
+            
+        }*/
+
+        this.enemies.push(zombie);
     }
 
 }
