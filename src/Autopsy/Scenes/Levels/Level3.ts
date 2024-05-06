@@ -6,7 +6,6 @@ import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
 import Spider from "@/Autopsy/Enemy/Spider/Spider";
 import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
-import Sprite from "@/Wolfie2D/Nodes/Sprites/Sprite";
 
 export default class Level3 extends GameLevel {
   loadScene() {

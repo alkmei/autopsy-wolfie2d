@@ -6,6 +6,8 @@ import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
 import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
 import Level3 from "@/Autopsy/Scenes/Levels/Level3";
 import Sprite from "@/Wolfie2D/Nodes/Sprites/Sprite";
+import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
+import Color from "@/Wolfie2D/Utils/Color";
 
 export default class Level2 extends GameLevel {
   blockerPositions: Vec2[];
@@ -25,6 +27,8 @@ export default class Level2 extends GameLevel {
     );
     this.load.audio("calm", "assets/music/calm.mp3");
     this.load.audio("fire", "assets/music/fire3.mp3");
+    this.load.image("bg", "assets/tilemaps/Level6/blue_sky.png");
+    this.addParallaxLayer(Layers.Parallax, new Vec2(0.005, 0.01), -1);
     this.nextLevel = Level3;
   }
 
@@ -40,6 +44,10 @@ export default class Level2 extends GameLevel {
     this.camera.node.position = this.player.node.position.clone();
     this.add.tilemap("tilemap", new Vec2(1, 1));
     this.viewport.setBounds(0, 0, 6400, 1280);
+    const background = this.add.sprite("bg", Layers.Parallax);
+    background.alpha = 1;
+    background.position = new Vec2(300, 200);
+    background.scale = new Vec2(1, 1);
 
     this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
       key: "calm",

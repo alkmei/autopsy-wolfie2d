@@ -97,6 +97,7 @@ export default class GameLevel extends Scene {
     this.addUILayer(Layers.Pause).setHidden(true);
     this.addUILayer(Layers.DeathMenu).setHidden(true);
     this.addLayer(Layers.Debug, 2);
+    this.addLayer(Layers.Background, 2);
     this.addLayer(Layers.Hidden, 1).setHidden(true);
   }
 
