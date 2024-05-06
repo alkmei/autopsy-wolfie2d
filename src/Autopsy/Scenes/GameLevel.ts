@@ -190,7 +190,6 @@ export default class GameLevel extends Scene {
     while (this.receiver.hasNextEvent()) {
       this.handleEvent(this.receiver.getNextEvent());
     }
-
     this.enemiesLeft.text = `Enemies Left: ${this.enemies.length}`;
   }
 

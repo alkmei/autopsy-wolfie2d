@@ -10,7 +10,6 @@ import { UIElementType } from "@/Wolfie2D/Nodes/UIElements/UIElementTypes";
 import Color from "@/Wolfie2D/Utils/Color";
 import { Events } from "@/globals";
 import GameEvent from "@/Wolfie2D/Events/GameEvent";
-import MainMenu from "../MainMenu";
 import LanternCorpse from "@/Autopsy/Enemy/LanternCorpse";
 import { SpiderBossEvents } from "@/Autopsy/Enemy/SpiderBoss/SpiderBossController";
 import Rect from "@/Wolfie2D/Nodes/Graphics/Rect";
@@ -83,6 +82,7 @@ export default class Level6 extends GameLevel {
     this.projSpeed = 270;
 
     this.initializeMonoliths();
+    this.enemiesLeft.visible = false;
   }
 
   unloadScene() {
@@ -126,12 +126,13 @@ export default class Level6 extends GameLevel {
     )
       this.initPhase(++this.phase);
 
-    if (this.triggeredBoss && this.boss.health === 0) { // Handle boss death
+    if (this.triggeredBoss && this.boss.health === 0) {
+      // Handle boss death
       this.player.debugInvincible = true;
       new Timer(
         2000,
         () => {
-          this.sceneManager.changeToScene(Congratulations); 
+          this.sceneManager.changeToScene(Congratulations);
         },
         false,
       ).start();
@@ -198,7 +199,7 @@ export default class Level6 extends GameLevel {
 
         this.spawnSpiders(3);
         this.spawnGhosts();
-        
+
         const spawnWaves = new Timer(
           12000,
           () => {
