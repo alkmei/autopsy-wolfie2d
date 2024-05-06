@@ -5,8 +5,8 @@
     },
     "activeFile": "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json",
     "expandedProjectPaths": [
-        "CaveTileset",
         "Debug",
+        "CaveTileset",
         "."
     ],
     "file.lastUsedOpenFilter": "All Files (*)",
@@ -35,6 +35,9 @@
             "scaleInEditor": 3
         },
         "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level1/Level1.json": {
+            "expandedObjectLayers": [
+                6
+            ],
             "scale": 2,
             "selectedLayer": 2,
             "viewCenter": {
@@ -46,11 +49,11 @@
             "scaleInDock": 1
         },
         "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json": {
-            "scale": 0.75,
-            "selectedLayer": 4,
+            "scale": 3,
+            "selectedLayer": 5,
             "viewCenter": {
-                "x": 993.9999999999999,
-                "y": 337.99999999999994
+                "x": 987.1666666666666,
+                "y": 200.16666666666669
             }
         },
         "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json#Brick": {
@@ -90,13 +93,15 @@
     "last.imagePath": "C:/Users/aster/OneDrive/Documents/cse380-final/devassets/Tiled/CaveTileset",
     "map.lastUsedFormat": "json",
     "openFiles": [
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json"
+        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json",
+        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level1/Level1.json"
     ],
     "project": "Autopsy.tiled-project",
     "property.type": "bool",
     "recentFiles": [
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/WaveTest(Level4)/Level4.json",
+        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level1/Level1.json",
         "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json",
+        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/WaveTest(Level4)/Level4.json",
         "CaveTileset/CaveTileset.tsx",
         "Debug/Debug.tmx",
         "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Level1.json",

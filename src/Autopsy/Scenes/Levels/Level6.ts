@@ -17,6 +17,7 @@ import LanternCorpse from "@/Autopsy/Enemy/LanternCorpse";
 import { SpiderBossEvents } from "@/Autopsy/Enemy/SpiderBoss/SpiderBossController";
 import Rect from "@/Wolfie2D/Nodes/Graphics/Rect";
 import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
+import Timer from "@/Wolfie2D/Timing/Timer";
 
 export default class Level6 extends GameLevel {
   bossHealthBar: Label;
@@ -69,12 +70,6 @@ export default class Level6 extends GameLevel {
     this.triggeredBoss = false;
     this.phase = 1;
 
-    this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
-      key: "bluddington",
-      loop: true,
-      holdReference: true,
-    });
-
     this.initializeMonoliths();
   }
 
@@ -91,6 +86,12 @@ export default class Level6 extends GameLevel {
       this.initPhase(this.phase);
       this.initBossHp();
 
+      this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
+        key: "bluddington",
+        loop: true,
+        holdReference: true,
+      });
+
       const blocker = <Rect>this.add.graphic(GraphicType.RECT, Layers.Main, {
         position: new Vec2(665, 272),
         size: new Vec2(50, 160),
@@ -99,6 +100,9 @@ export default class Level6 extends GameLevel {
     } else if (this.triggeredBoss && this.player.node.position.x <= 715) {
       this.player.node.position.x = 712;
     }
+    this.enemies.some(e => {
+      if (e.node.position.x <= 715) e.node.position.x = 712;
+    });
 
     if (this.phase === 1 && this.enemies.length === 1)
       this.initPhase(++this.phase);
@@ -106,8 +110,15 @@ export default class Level6 extends GameLevel {
     if (this.phase === 2 && this.lantern.node.onGround)
       this.initPhase(++this.phase);
 
-    if (this.triggeredBoss && this.enemies.length === 0)
-      this.sceneManager.changeToScene(MainMenu);
+    if (this.triggeredBoss && this.enemies.length === 0) {
+      new Timer(
+        2000,
+        () => {
+          this.sceneManager.changeToScene(MainMenu);
+        },
+        false,
+      ).start();
+    }
   }
 
   initPhase(phase: number) {

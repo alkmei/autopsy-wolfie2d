@@ -5,12 +5,13 @@ export default class Enraged extends SpiderBossState {
   onEnter(options: Record<string, any>) {
     this.stateName = "Enraged";
     this.owner.animation.play(SpiderBossAnimations.Transition);
+    this.owner.animation.queue(SpiderBossAnimations.Exposed, true);
     this.boss.isInvincible = false;
   }
 
   update(deltaT: number) {
     super.update(deltaT);
-    if (!this.owner.animation.isPlaying(SpiderBossAnimations.Transition))
+    if (!this.owner.animation.isPlaying(SpiderBossAnimations.Transition) && !this.owner.animation.isPlaying(SpiderBossAnimations.TakeDamage))
       this.owner.animation.playIfNotAlready(SpiderBossAnimations.Exposed, true);
   }
 
