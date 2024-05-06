@@ -80,7 +80,7 @@ export default class Level6 extends GameLevel {
       .layers.find(x => x.name == "GhostSpawn").objects;
 
     // spawn spiders at the top
-    for (let i = 0; i < spiderSpawn.length; i++) {
+    for (let i = 0; i < 1; i++) {
       const spider = new Spider(
         this.add.animatedSprite("Spider", Layers.Main),
         new Vec2(spiderSpawn[i].x, spiderSpawn[i].y),

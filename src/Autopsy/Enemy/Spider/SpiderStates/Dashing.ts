@@ -3,6 +3,7 @@ import Timer from "../../../../Wolfie2D/Timing/Timer";
 import { SState } from "../SpiderController";
 import SpiderState from "./SpiderState";
 import GameLevel from "@/Autopsy/Scenes/GameLevel";
+import { SpiderAnimations } from "../Spider";
 
 export default class Dashing extends SpiderState {
   private dashTimer: Timer;
@@ -12,6 +13,7 @@ export default class Dashing extends SpiderState {
   private dashSpeed: number = 380;
 
   onEnter(options: Record<string, any>): void {
+    this.stateName = "Dashing";
     this.dashTimer = new Timer(
       300,
       () => {
