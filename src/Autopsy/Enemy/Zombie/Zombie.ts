@@ -42,6 +42,10 @@ export default class Zombie extends Enemy {
     (<ZombieController>this.node._ai).changeState(ZState.Dying);
   }
 
+  takeDamage() {
+    super.takeDamage();
+  }
+
   knockback() {
     //(<ZombieController>this.node._ai).changeState(ZState.Knockback);
   }

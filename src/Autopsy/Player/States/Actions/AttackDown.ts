@@ -6,6 +6,8 @@ import { Layers } from "@/Autopsy/Scenes/GameLevel";
 import Timer from "@/Wolfie2D/Timing/Timer";
 import { DamageType } from "@/Autopsy/Hitbox/DamageType";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import GameEvent from "@/Wolfie2D/Events/GameEvent";
+import { Events } from "@/globals";
 
 export default class AttackDown extends PlayerActionState {
   onEnter(options: Record<string, any>): void {
@@ -42,6 +44,14 @@ export default class AttackDown extends PlayerActionState {
 
   onExit(): Record<string, any> {
     return {};
+  }
+
+  handleInput(event: GameEvent) {
+    switch (event.type) {
+      case Events.ENEMY_DAMAGE: {
+        this.player.velocity.y = this.player.jumpVelocity;
+      }
+    }
   }
 
   update(deltaT: number): void {

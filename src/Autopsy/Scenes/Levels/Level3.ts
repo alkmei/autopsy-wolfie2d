@@ -3,14 +3,17 @@ import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
 import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
+import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
 
 export default class Level3 extends GameLevel {
   badMood: boolean = false;
+  blockerPositions: Vec2[];
 
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Level6/Level6.json");
     this.load.spritesheet("Zombie", "assets/spritesheets/Zombie/Zombie.json");
+    this.load.image("Blocker", "assets/spritesheets/Blocker/x.png");
     this.load.spritesheet(
       "Monolith",
       "assets/spritesheets/Monolith/Monolith.json",
@@ -38,6 +41,7 @@ export default class Level3 extends GameLevel {
 
     this.initializeZombies();
     this.initializeMonoliths();
+    this.initializeGhosts();
   }
 
   initializeMonoliths() {
@@ -63,6 +67,21 @@ export default class Level3 extends GameLevel {
             this.add.animatedSprite("Zombie", Layers.Main),
             new Vec2(m.x, m.y),
             "World",
+          ),
+        );
+      });
+  }
+
+  initializeGhosts() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Ghosts")
+      .objects.forEach(m => {
+        this.enemies.push(
+          new Ghost(
+            this.add.animatedSprite("RedSoul", Layers.Main),
+            new Vec2(m.x, m.y),
+            "red",
           ),
         );
       });

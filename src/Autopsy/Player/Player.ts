@@ -24,6 +24,8 @@ import Emitter from "@/Wolfie2D/Events/Emitter";
 import MathUtils from "@/Wolfie2D/Utils/MathUtils";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import Timer from "@/Wolfie2D/Timing/Timer";
+import GameEvent from "@/Wolfie2D/Events/GameEvent";
+import Receiver from "@/Wolfie2D/Events/Receiver";
 
 export default class Player implements Updateable {
   node: AnimatedSprite;
@@ -49,6 +51,7 @@ export default class Player implements Updateable {
 
   // General
   private emitter: Emitter;
+  private receiver: Receiver;
 
   constructor(sprite: AnimatedSprite) {
     this.node = sprite;
@@ -59,6 +62,9 @@ export default class Player implements Updateable {
     this.maxHealth = 10;
     this.health = 10;
     this.emitter = new Emitter();
+    this.receiver = new Receiver();
+
+    this.receiver.subscribe(Events.ENEMY_DAMAGE);
     this.updateGravity();
     this.initializeAI();
     this.attackCooldown = new Timer(300);
@@ -94,7 +100,14 @@ export default class Player implements Updateable {
     this.jumpVelocity = -this.gravity * this.timeToApex;
   }
 
+  handleEvent(event: GameEvent) {
+    this.movementStateMachine.handleEvent(event);
+    this.actionStateMachine.handleEvent(event);
+  }
+
   update(deltaT: number): void {
+    while (this.receiver.hasNextEvent())
+      this.handleEvent(this.receiver.getNextEvent());
     this.movementStateMachine.update(deltaT);
     this.actionStateMachine.update(deltaT);
     this.node.move(this.velocity);

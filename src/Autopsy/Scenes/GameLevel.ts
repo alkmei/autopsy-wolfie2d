@@ -89,6 +89,7 @@ export default class GameLevel extends Scene {
       "RedSoul",
       "assets/spritesheets/RedSoul/RedSoul.json",
     );
+    this.load.audio("soulDeath", "assets/sounds/RedSoul/soul_hit.wav");
 
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
@@ -192,10 +193,11 @@ export default class GameLevel extends Scene {
   handleEvent(event: GameEvent) {
     switch (event.type) {
       case Events.ENEMY_DAMAGE: {
-        const enemy = event.data.get("enemy");
+        const enemy: Enemy = event.data.get("enemy");
+        const damage = event.data.get("damage");
         console.log(enemy.isInvincible);
         if (!enemy.isInvincible) {
-          enemy.health -= 1;
+          enemy.health -= damage;
           console.log(`Enemy: ${enemy.health}`);
 
           // damage animation
@@ -264,6 +266,17 @@ export default class GameLevel extends Scene {
   }
 
   initUI() {
+    const healthBarBg = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.UI,
+      {
+        position: new Vec2(0, 30),
+        text: "",
+      },
+    );
+    healthBarBg.size = new Vec2(600, 50);
+    healthBarBg.backgroundColor = Color.BLACK;
+
     this.healthBar = <Label>this.add.uiElement(UIElementType.LABEL, Layers.UI, {
       position: new Vec2(0, 30),
       text: "",
