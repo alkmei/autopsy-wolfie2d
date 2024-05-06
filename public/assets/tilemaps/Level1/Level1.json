@@ -230,6 +230,18 @@
                  "width":0,
                  "x":3474.5,
                  "y":578
+                }, 
+                {
+                 "height":0,
+                 "id":17,
+                 "name":"Hold [Space] to jump higher!",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":1504,
+                 "y":960
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -289,7 +301,7 @@
          "y":0
         }],
  "nextlayerid":7,
- "nextobjectid":17,
+ "nextobjectid":19,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
