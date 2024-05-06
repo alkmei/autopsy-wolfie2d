@@ -1,29 +1,28 @@
 import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
-import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
+import Level4 from "./Level4";
 import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
+import Spider from "@/Autopsy/Enemy/Spider/Spider";
+import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
 
 export default class Level3 extends GameLevel {
-  badMood: boolean = false;
-  blockerPositions: Vec2[];
-
   loadScene() {
     super.loadScene();
-    this.load.tilemap("tilemap", "assets/tilemaps/Level6/Level6.json");
-    this.load.spritesheet("Zombie", "assets/spritesheets/Zombie/Zombie.json");
-    this.load.image("Blocker", "assets/spritesheets/Blocker/x.png");
+    this.load.tilemap("tilemap", "assets/tilemaps/Level2/Level2.json");
     this.load.spritesheet(
       "Monolith",
       "assets/spritesheets/Monolith/Monolith.json",
     );
-    this.load.audio("calm", "assets/music/calm.mp3");
-  }
 
-  unloadScene() {
-    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "calm" });
-    super.unloadScene();
+    this.load.image("bg", "assets/tilemaps/Level2/lvl2bg.png");
+    this.addParallaxLayer(Layers.Parallax, new Vec2(0.005, 0.01), -1);
+
+    this.load.spritesheet("Ghost", "assets/spritesheets/RedSoul/RedSoul.json");
+    this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");
+    this.load.spritesheet("Zombie", "assets/spritesheets/Zombie/Zombie.json");
+    this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
 
   startScene() {
@@ -33,15 +32,28 @@ export default class Level3 extends GameLevel {
     this.add.tilemap("tilemap", new Vec2(1, 1));
     this.viewport.setBounds(0, 0, 6400, 1280);
 
+    const background = this.add.sprite("bg", Layers.Parallax);
+    background.alpha = 0.4;
+    background.position = new Vec2(300, 200);
+    background.scale = new Vec2(1, 1);
+
     this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
-      key: "calm",
+      key: "bluddington",
       loop: true,
       holdReference: true,
     });
 
-    this.initializeZombies();
+    this.nextLevel = Level4;
+    this.addLevelEnd(new Vec2(3460, 132), new Vec2(32, 135));
     this.initializeMonoliths();
     this.initializeGhosts();
+    this.initializeSpiders();
+    this.initializeZombies();
+  }
+
+  unloadScene() {
+    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
+    super.unloadScene();
   }
 
   initializeMonoliths() {
@@ -53,6 +65,35 @@ export default class Level3 extends GameLevel {
           this.add.animatedSprite("Monolith", Layers.Main),
           new Vec2(m.x, m.y),
           m.name,
+        );
+      });
+  }
+
+  initializeGhosts() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Ghosts")
+      .objects.forEach(m => {
+        this.enemies.push(
+          new Ghost(
+            this.add.animatedSprite("Ghost", Layers.Main),
+            new Vec2(m.x, m.y),
+            "red",
+          ),
+        );
+      });
+  }
+
+  initializeSpiders() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Spiders")
+      .objects.forEach(m => {
+        this.enemies.push(
+          new Spider(
+            this.add.animatedSprite("Spider", Layers.Main),
+            new Vec2(m.x, m.y),
+          ),
         );
       });
   }
@@ -70,32 +111,5 @@ export default class Level3 extends GameLevel {
           ),
         );
       });
-  }
-
-  initializeGhosts() {
-    this.resourceManager
-      .getTilemap("tilemap")
-      .layers.find(x => x.name == "Ghosts")
-      .objects.forEach(m => {
-        this.enemies.push(
-          new Ghost(
-            this.add.animatedSprite("RedSoul", Layers.Main),
-            new Vec2(m.x, m.y),
-            "red",
-          ),
-        );
-      });
-  }
-
-  updateScene(deltaT: number) {
-    super.updateScene(deltaT);
-    if (this.player.node.position.x >= 3264 && !this.badMood) {
-      this.darkenMood();
-    }
-  }
-
-  darkenMood() {
-    this.badMood = true;
-    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "calm" });
   }
 }
