@@ -193,6 +193,7 @@ export default class GameLevel extends Scene {
     switch (event.type) {
       case Events.ENEMY_DAMAGE: {
         const enemy = event.data.get("enemy");
+        console.log(enemy.isInvincible);
         if (!enemy.isInvincible) {
           enemy.health -= 1;
           console.log(`Enemy: ${enemy.health}`);
@@ -207,7 +208,7 @@ export default class GameLevel extends Scene {
       }
 
       case Events.PLAYER_DAMAGE: {
-        if (!this.player.invincible) {
+        if (!this.player.invincible && !this.player.debugInvincible) {
           this.player.changeHealth(-1);
           this.healthBar.size.x = 600 * (this.player.health / 10);
           this.healthBar.position.x = 0;
@@ -394,13 +395,9 @@ export default class GameLevel extends Scene {
 
   private handleCheats() {
     if (Input.isJustPressed(Action.Invincible)) {
-      this.player.invincible = !this.player.invincible;
-      if (this.player.invincible) console.log("Player is now invincible.");
+      this.player.debugInvincible = !this.player.debugInvincible;
+      if (this.player.debugInvincible) console.log("Player is now invincible.");
     }
-    if (Input.isJustPressed(Action.Invincible))
-      this.player.invincible = !this.player.invincible;
-    if (Input.isJustPressed(Action.Invincible))
-      this.player.invincible = !this.player.invincible;
     if (Input.isJustPressed(Action.Level1))
       this.sceneManager.changeToScene(Levels.Level1, {}, levelPhysics);
     if (Input.isJustPressed(Action.Level2))

@@ -35,11 +35,11 @@
             "scaleInEditor": 3
         },
         "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level1/Level1.json": {
-            "scale": 0.33,
-            "selectedLayer": 1,
+            "scale": 2,
+            "selectedLayer": 2,
             "viewCenter": {
-                "x": 2445.4545454545455,
-                "y": 522.7272727272727
+                "x": 203.75,
+                "y": 1042.75
             }
         },
         "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level1/Level1.json#Limbo": {
@@ -49,8 +49,8 @@
             "scale": 0.75,
             "selectedLayer": 4,
             "viewCenter": {
-                "x": 956.6666666666665,
-                "y": 453.99999999999994
+                "x": 993.9999999999999,
+                "y": 337.99999999999994
             }
         },
         "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json#Brick": {

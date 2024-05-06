@@ -5,9 +5,11 @@ import SpiderBoss from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
 import Spider from "@/Autopsy/Enemy/Spider/Spider";
 import Ghost, { GhostType } from "@/Autopsy/Enemy/Ghost/Ghost";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
 
 export default class Level6 extends GameLevel {
-  triggeredBoss: Boolean;
+  phase: number;
+  triggeredBoss: boolean;
   boss: SpiderBoss;
 
   loadScene() {
@@ -18,6 +20,12 @@ export default class Level6 extends GameLevel {
       "RedSoul",
       "assets/spritesheets/RedSoul/RedSoul.json",
     );
+    
+    this.load.spritesheet(
+      "Monolith",
+      "assets/spritesheets/Monolith/Monolith.json",
+    );
+
     this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");
     this.load.spritesheet(
       "SpiderBoss",
@@ -35,6 +43,7 @@ export default class Level6 extends GameLevel {
     this.viewport.setBounds(0, 0, 2048, 1280);
 
     this.triggeredBoss = false;
+    this.phase = 1;
     this.nextLevel = Level4;
 
     this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
@@ -42,6 +51,8 @@ export default class Level6 extends GameLevel {
       loop: true,
       holdReference: true,
     });
+
+    this.initializeMonoliths();
   }
 
   unloadScene() {
@@ -54,8 +65,21 @@ export default class Level6 extends GameLevel {
     if (!this.triggeredBoss && this.player.node.position.x > 672) {
       this.triggeredBoss = true;
       this.spawnBoss();
-      this.firstWave();
-    }
+      this.initPhase(1);
+    } 
+  }
+
+  initializeMonoliths() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Monoliths")
+      .objects.forEach(m => {
+        new Monolith(
+          this.add.animatedSprite("Monolith", Layers.Main),
+          new Vec2(m.x, m.y),
+          m.name,
+        );
+      });
   }
 
   spawnBoss() {
@@ -71,31 +95,40 @@ export default class Level6 extends GameLevel {
     this.enemies.push(spiderBoss);
   }
 
-  firstWave() {
-    const spiderSpawn = this.resourceManager
-      .getTilemap("tilemap")
-      .layers.find(x => x.name == "SpiderSpawn").objects;
-    const ghostSpawn = this.resourceManager
-      .getTilemap("tilemap")
-      .layers.find(x => x.name == "GhostSpawn").objects;
+  initPhase(phase: number) {
+    switch (phase) {
+      case 1: {
+        const spiderSpawn = this.resourceManager
+          .getTilemap("tilemap")
+          .layers.find(x => x.name == "SpiderSpawn").objects;
+        const ghostSpawn = this.resourceManager
+          .getTilemap("tilemap")
+          .layers.find(x => x.name == "GhostSpawn").objects;
 
-    // spawn spiders at the top
-    for (let i = 0; i < 1; i++) {
-      const spider = new Spider(
-        this.add.animatedSprite("Spider", Layers.Main),
-        new Vec2(spiderSpawn[i].x, spiderSpawn[i].y),
-      );
-      this.enemies.push(spider);
-    }
+        // spawn spiders at the top
+        for (let i = 0; i < spiderSpawn.length; i++) {
+          const spider = new Spider(
+            this.add.animatedSprite("Spider", Layers.Main),
+            new Vec2(spiderSpawn[i].x, spiderSpawn[i].y),
+          );
+          this.enemies.push(spider);
+        }
 
-    // spawn ghosts
-    for (let i = 0; i < ghostSpawn.length; i++) {
-      const ghost = new Ghost(
-        this.add.animatedSprite("RedSoul", Layers.Main),
-        new Vec2(ghostSpawn[i].x, ghostSpawn[i].y),
-        GhostType.RED,
-      );
-      this.enemies.push(ghost);
+        // spawn ghosts
+        for (let i = 0; i < ghostSpawn.length; i++) {
+          const ghost = new Ghost(
+            this.add.animatedSprite("RedSoul", Layers.Main),
+            new Vec2(ghostSpawn[i].x, ghostSpawn[i].y),
+            GhostType.RED,
+          );
+          this.enemies.push(ghost);
+        }
+
+        break;
+      }
+      case 2: {
+        break;
+      }
     }
   }
 }

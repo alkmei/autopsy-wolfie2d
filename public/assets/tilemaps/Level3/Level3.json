@@ -189,6 +189,29 @@
         }, 
         {
          "draworder":"topdown",
+         "id":9,
+         "name":"Monoliths",
+         "objects":[
+                {
+                 "height":0,
+                 "id":44,
+                 "name":"The coccoon might be flammable...",
+                 "point":true,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":0,
+                 "x":704,
+                 "y":320
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
          "id":7,
          "name":"BossSpawn",
          "objects":[
@@ -210,8 +233,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":36,
+ "nextlayerid":10,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

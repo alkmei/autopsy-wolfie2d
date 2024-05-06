@@ -7,12 +7,14 @@ import Enemy from "../Enemy";
 import { SState } from "./SpiderController";
 import Dying from "./SpiderStates/Dying";
 import SpiderState from "./SpiderStates/SpiderState";
+import Walking from "../Zombie/ZombieStates/Walking";
 
 export enum SpiderAnimations {
   Idle = "Idle",
   Walking = "Walking",
   Dying = "Dying",
   Dead = "Dead",
+  TakeDamage = "Take Damage",
 }
 
 export default class Spider extends Enemy {
@@ -29,13 +31,18 @@ export default class Spider extends Enemy {
     this.node.addAI(SpiderController);
     this.node.setGroup(PhysicsGroups.ENEMY_PHYS);
     this.node.position = pos;
-    this.node.animation.play(SpiderAnimations.Idle, true);
+    this.node.animation.play(SpiderAnimations.Walking, true);
     this.health = 4;
   }
 
   die() {
     (<SpiderController>this.node._ai).changeState(SState.Dying);
     (<SpiderState>(<SpiderController>this.node._ai).getState()).isDying = true;
+  }
+
+  takeDamage() {
+    this.node.animation.play(SpiderAnimations.TakeDamage);
+    this.node.animation.queue(SpiderAnimations.Walking, true);
   }
 
   knockback() {
