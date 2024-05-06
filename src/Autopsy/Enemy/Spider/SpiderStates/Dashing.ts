@@ -15,16 +15,17 @@ export default class Dashing extends SpiderState {
     this.dashTimer = new Timer(
       300,
       () => {
-        if (!this.isDying)
-          this.finished(SState.Following);
+        if (!this.isDying) this.finished(SState.Following);
       },
       false,
     );
     this.pauseTimer = new Timer(
       1200,
       () => {
-        this.dashTimer.start();
-        this.isDashing = true;
+        if (!this.isDying) {
+          this.dashTimer.start();
+          this.isDashing = true;
+        }
       },
       false,
     );

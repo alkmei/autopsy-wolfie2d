@@ -12,7 +12,7 @@ export default class AttackDown extends PlayerActionState {
     this.stateName = "AttackDown";
     this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheDown, false);
     this.emitter.fireEvent(GameEventType.PLAY_SFX, {
-      key: PlayerSounds.Slash + Math.ceil(Math.random() * 3),
+      key: PlayerSounds.Slash,
       loop: false,
       keepReference: false,
     });

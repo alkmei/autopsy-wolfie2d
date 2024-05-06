@@ -12,11 +12,10 @@ export default class AttackUpper extends PlayerActionState {
     this.stateName = "AttackUpper";
     this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheUpper);
     this.emitter.fireEvent(GameEventType.PLAY_SFX, {
-      key: PlayerSounds.Slash + Math.ceil(Math.random() * 3),
+      key: PlayerSounds.Slash,
       loop: false,
       keepReference: false,
     });
-
 
     const offset = new Vec2(10, -60);
 

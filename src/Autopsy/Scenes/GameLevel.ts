@@ -80,18 +80,7 @@ export default class GameLevel extends Scene {
     this.load.audio(PlayerSounds.Dash, "assets/sounds/Player/dash.wav");
     this.load.audio(PlayerSounds.Hurt, "assets/sounds/Player/hurt.wav");
     this.load.audio(PlayerSounds.Heal, "assets/sounds/Player/heal.wav");
-    this.load.audio(
-      PlayerSounds.Slash + "1",
-      "assets/sounds/Player/slash1.wav",
-    );
-    this.load.audio(
-      PlayerSounds.Slash + "2",
-      "assets/sounds/Player/slash2.wav",
-    );
-    this.load.audio(
-      PlayerSounds.Slash + "3",
-      "assets/sounds/Player/slash3.wav",
-    );
+    this.load.audio(PlayerSounds.Slash, "assets/sounds/Player/slash.wav");
     this.load.audio(PlayerSounds.Death, "assets/sounds/Player/death.wav");
     this.load.audio(PlayerSounds.Jump, "assets/sounds/Player/jump.wav");
 

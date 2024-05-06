@@ -5,6 +5,8 @@ import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
 import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
 
 export default class Level3 extends GameLevel {
+  badMood: boolean = false;
+
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Level6/Level6.json");
@@ -68,5 +70,13 @@ export default class Level3 extends GameLevel {
 
   updateScene(deltaT: number) {
     super.updateScene(deltaT);
+    if (this.player.node.position.x >= 3264 && !this.badMood) {
+      this.darkenMood();
+    }
+  }
+
+  darkenMood() {
+    this.badMood = true;
+    this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "calm" });
   }
 }
