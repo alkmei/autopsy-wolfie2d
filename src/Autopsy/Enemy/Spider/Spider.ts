@@ -6,6 +6,8 @@ import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
 import { SState } from "./SpiderController";
 import SpiderState from "./SpiderStates/SpiderState";
+import Emitter from "@/Wolfie2D/Events/Emitter";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 export enum SpiderAnimations {
   Idle = "Idle",
@@ -41,6 +43,12 @@ export default class Spider extends Enemy {
   takeDamage() {
     this.node.animation.play(SpiderAnimations.TakeDamage);
     this.node.animation.queue(SpiderAnimations.Walking, true);
+
+    this.emitter.fireEvent(GameEventType.PLAY_SFX, {
+      key: "playerHurt",
+      loop: false,
+      holdReference: false,
+    });
   }
 
   knockback() {

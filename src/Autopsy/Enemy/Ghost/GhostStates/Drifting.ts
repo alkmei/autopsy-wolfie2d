@@ -11,7 +11,7 @@ export default class Drifting extends GhostState {
   update(deltaT: number) {
     super.update(deltaT);
 
-    if (this.withinXBlock(3)) this.canFollow = true;
+    if (this.withinXBlock(8)) this.canFollow = true;
 
     if (this.canFollow) {
       this.finished(GState.Following);

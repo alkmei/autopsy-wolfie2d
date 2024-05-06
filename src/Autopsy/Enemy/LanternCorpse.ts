@@ -4,6 +4,7 @@ import Enemy from "./Enemy";
 import AABB from "@/Wolfie2D/DataTypes/Shapes/AABB";
 import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
 import Updateable from "@/Wolfie2D/DataTypes/Interfaces/Updateable";
+import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 const enum LanternAnimations {
   Idle = "Idle",
@@ -40,5 +41,13 @@ export default class LanternCorpse extends Enemy {
                 this.node.destroy();
         }
     };
+  }
+
+  takeDamage(): void {
+    this.emitter.fireEvent(GameEventType.PLAY_SFX, {
+      key: "soulDeath",
+      loop: false,
+      holdReference: false,
+    });
   }
 }
