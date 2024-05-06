@@ -194,14 +194,14 @@
          "objects":[
                 {
                  "height":0,
-                 "id":44,
+                 "id":57,
                  "name":"The coccoon is too tough for my scythe... Maybe fire could work",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":704,
+                 "x":928,
                  "y":320
                 }],
          "opacity":1,
@@ -234,7 +234,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":57,
+ "nextobjectid":59,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",

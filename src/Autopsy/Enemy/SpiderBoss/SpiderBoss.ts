@@ -32,7 +32,7 @@ export default class SpiderBoss extends Enemy {
     this.node.setGroup(PhysicsGroups.ENEMY_PHYS);
     this.node.position = pos;
     this.node.animation.play(SpiderBossAnimations.Cocooned, true);
-    this.health = 10;
+    this.health = 30;
   }
 
   takeDamage() {

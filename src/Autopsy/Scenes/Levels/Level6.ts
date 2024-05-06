@@ -15,6 +15,8 @@ import GameEvent from "@/Wolfie2D/Events/GameEvent";
 import MainMenu from "../MainMenu";
 import LanternCorpse from "@/Autopsy/Enemy/LanternCorpse";
 import { SpiderBossEvents } from "@/Autopsy/Enemy/SpiderBoss/SpiderBossController";
+import Rect from "@/Wolfie2D/Nodes/Graphics/Rect";
+import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
 
 export default class Level6 extends GameLevel {
   bossHealthBar: Label;
@@ -83,17 +85,26 @@ export default class Level6 extends GameLevel {
 
   update(deltaT: number): void {
     super.update(deltaT);
-    if (!this.triggeredBoss && this.player.node.position.x > 672) {
+    if (!this.triggeredBoss && this.player.node.position.x > 704) {
       this.triggeredBoss = true;
       this.spawnBoss();
       this.initPhase(this.phase);
       this.initBossHp();
+
+      const blocker = <Rect>this.add.graphic(GraphicType.RECT, Layers.Main, {
+        position: new Vec2(665, 272),
+        size: new Vec2(50, 160),
+      });
+      blocker.color = new Color(66, 70, 99, 1);
+    } else if (this.triggeredBoss && this.player.node.position.x <= 715) {
+      this.player.node.position.x = 712;
     }
 
     if (this.phase === 1 && this.enemies.length === 1)
       this.initPhase(++this.phase);
 
-    if (this.phase === 2 && this.lantern.node.onGround) this.initPhase(++this.phase);
+    if (this.phase === 2 && this.lantern.node.onGround)
+      this.initPhase(++this.phase);
 
     if (this.triggeredBoss && this.enemies.length === 0)
       this.sceneManager.changeToScene(MainMenu);
@@ -210,7 +221,7 @@ export default class Level6 extends GameLevel {
           // damage animation
           this.boss.takeDamage();
 
-          this.bossHealthBar.size.x = 600 * (this.boss.health / 10);
+          this.bossHealthBar.size.x = 600 * (this.boss.health / 50);
 
           if (enemy.health <= 0)
             this.emitter.fireEvent(Events.ENEMY_DEATH, { enemy: enemy });

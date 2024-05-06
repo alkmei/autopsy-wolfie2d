@@ -195,7 +195,6 @@ export default class GameLevel extends Scene {
       case Events.ENEMY_DAMAGE: {
         const enemy: Enemy = event.data.get("enemy");
         const damage = event.data.get("damage");
-        console.log(enemy.isInvincible);
         if (!enemy.isInvincible) {
           enemy.health -= damage;
           console.log(`Enemy: ${enemy.health}`);

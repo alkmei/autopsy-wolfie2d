@@ -34,7 +34,6 @@ export default class LanternCorpse extends Enemy {
     this.node.animation.play(LanternAnimations.Falling, true);
     this.node.update = (deltaT: number) => {
         if (this.falling) this.node.move(new Vec2(0, 400 * deltaT));
-        console.log(this.node.onGround);
         if (this.node.onGround) {
             this.node.animation.playIfNotAlready(LanternAnimations.Impact);
             if (!this.node.animation.isPlaying(LanternAnimations.Impact))
