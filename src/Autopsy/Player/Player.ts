@@ -40,6 +40,7 @@ export default class Player implements Updateable {
   canDash: boolean;
   lastGroundedPosition: Vec2;
   attackCooldown: Timer;
+  invincible: boolean;
 
   // State Machines
   movementStateMachine: StateMachine;

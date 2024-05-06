@@ -48,7 +48,7 @@ export const PhysicsGroups = {
 export const SpriteSizes = {
   SOUL: new Vec2(9, 12),
   PLAYER: new Vec2(18, 24),
-  ZOMBIE: new Vec2(24,32),
+  ZOMBIE: new Vec2(24, 32),
 };
 
 export const Levels = {
@@ -58,13 +58,13 @@ export const Levels = {
   Level4: Level4,
   Level5: Level5,
   Level6: Level6,
-}
+};
 
 export const EnemyType = {
   GHOST_RED: "ghost_red",
   SPIDER: "spider",
   ZOMBIE: "zombie",
-}
+};
 
 /*
 Rows in the collisions array represent each physics group by index, 
