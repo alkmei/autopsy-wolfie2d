@@ -3,9 +3,9 @@ import GameNode from "../../Wolfie2D/Nodes/GameNode";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import HitboxState from "./HitboxStates/HitboxState";
 import Active from "./HitboxStates/Active";
-import { HState } from "./Hitbox";
-import ManageHitbox from "./HitboxStates/ManageHitbox";
+import { HType } from "./Hitbox";
 import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import Projectile from "./HitboxStates/Projectile";
 
 export default class HitboxController extends StateMachineAI {
   // The entity that this hitbox is coming from
@@ -16,6 +16,8 @@ export default class HitboxController extends StateMachineAI {
   invertX: boolean;
   offset: Vec2;
   eventType: string;
+  type: string;
+  initPos: Vec2;
 
   initializeAI(owner: GameNode, config: Record<string, any>) {
     this.owner = owner;
@@ -23,18 +25,27 @@ export default class HitboxController extends StateMachineAI {
     this.offset = config.offset;
     this.eventType = config.eventType;
     this.owningEntity = config.owner;
-    // subscribe to events maybe
+    this.type = config.type;
+    this.velocity = config.velocity;
+    this.initPos = config.initPos;
 
     this.initializeStates();
   }
 
   initializeStates() {
     // add states
-    this.addState(HState.Active, new Active(this, this.owner));
-    this.addState(HState.Manager, new ManageHitbox(this, this.owner));
+    this.addState(HType.Active, new Active(this, this.owner));
+    this.addState(HType.Projectile, new Projectile(this, this.owner));
 
     // add initial state
-    this.initialize(HState.Manager);
+    switch (this.type) {
+      case HType.Active:
+        this.initialize(HType.Active);
+        break;
+      case HType.Projectile:
+        this.initialize(HType.Projectile);
+        break;
+    }
   }
 
   update(deltaT: number) {

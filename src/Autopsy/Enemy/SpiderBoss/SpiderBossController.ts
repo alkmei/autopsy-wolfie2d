@@ -15,6 +15,7 @@ export enum SpiderBossStates {
 
 export enum SpiderBossEvents {
   Transition = "Transition",
+  Cocoon = "Cocoon",
 }
 
 export default class SpiderBossController extends StateMachineAI {
@@ -28,6 +29,7 @@ export default class SpiderBossController extends StateMachineAI {
     this.initializeStates();
 
     this.subscribe(SpiderBossEvents.Transition);
+    this.subscribe(SpiderBossEvents.Cocoon);
   }
 
   initializeStates() {
@@ -51,6 +53,11 @@ export default class SpiderBossController extends StateMachineAI {
     switch (event.type) {
       case SpiderBossEvents.Transition: {
         this.changeState(SpiderBossStates.Enraged);
+        break;
+      }
+      case SpiderBossEvents.Cocoon: {
+        this.changeState(SpiderBossStates.Cocooned);
+        break;
       }
     }
   }

@@ -12,7 +12,7 @@ export default class Following extends SpiderState {
   update(deltaT: number) {
     super.update(deltaT);
 
-    if (this.withinXBlock(4) && !this.isDying) {
+    if (this.withinXBlock(3) && !this.isDying) {
         this.finished(SState.Dashing);
     } else {
       if (this.playerPos) {

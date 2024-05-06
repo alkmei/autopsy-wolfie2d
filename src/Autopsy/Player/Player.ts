@@ -64,7 +64,7 @@ export default class Player implements Updateable {
     this.emitter = new Emitter();
     this.receiver = new Receiver();
 
-    this.receiver.subscribe(Events.ENEMY_DAMAGE);
+    // this.receiver.subscribe(Events.ENEMY_DAMAGE);
     this.updateGravity();
     this.initializeAI();
     this.attackCooldown = new Timer(300);

@@ -1,8 +1,6 @@
 import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import SpiderBoss, {
-  SpiderBossAnimations,
-} from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
+import SpiderBoss from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
 import Spider from "@/Autopsy/Enemy/Spider/Spider";
 import Ghost, { GhostType } from "@/Autopsy/Enemy/Ghost/Ghost";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
@@ -18,6 +16,8 @@ import { SpiderBossEvents } from "@/Autopsy/Enemy/SpiderBoss/SpiderBossControlle
 import Rect from "@/Wolfie2D/Nodes/Graphics/Rect";
 import { GraphicType } from "@/Wolfie2D/Nodes/Graphics/GraphicTypes";
 import Timer from "@/Wolfie2D/Timing/Timer";
+import Hitbox, { HType } from "@/Autopsy/Hitbox/Hitbox";
+import { DamageType } from "@/Autopsy/Hitbox/DamageType";
 
 export default class Level6 extends GameLevel {
   bossHealthBar: Label;
@@ -27,6 +27,8 @@ export default class Level6 extends GameLevel {
 
   boss: SpiderBoss;
   lantern: LanternCorpse;
+  projTimer: Timer;
+  projSpeed: number;
 
   loadScene() {
     super.loadScene();
@@ -70,6 +72,15 @@ export default class Level6 extends GameLevel {
     this.triggeredBoss = false;
     this.phase = 1;
 
+    this.projTimer = new Timer(
+      1900,
+      () => {
+        this.spawnProjectiles();
+      },
+      true,
+    );
+    this.projSpeed = 300;
+
     this.initializeMonoliths();
   }
 
@@ -83,7 +94,7 @@ export default class Level6 extends GameLevel {
     if (!this.triggeredBoss && this.player.node.position.x > 704) {
       this.triggeredBoss = true;
       this.spawnBoss();
-      this.initPhase(this.phase);
+      this.initPhase(this.phase); // Phase 1
       this.initBossHp();
 
       this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
@@ -104,17 +115,21 @@ export default class Level6 extends GameLevel {
       if (e.node.position.x <= 715) e.node.position.x = 712;
     });
 
-    if (this.phase === 1 && this.enemies.length === 1)
+    if (
+      (this.phase === 1 && this.enemies.length === 1) || // Phase 2
+      (this.phase === 2 && this.lantern.node.onGround) || // Phase 3
+      (this.phase === 3 && this.boss.health <= 30) || // Phase 4
+      (this.phase === 4 && this.enemies.length === 1) || // Phase 5
+      (this.phase === 5 && this.lantern.node.onGround) || // Phase 6
+      (this.phase === 6 && this.boss.health <= 15) // Phase 7
+    )
       this.initPhase(++this.phase);
 
-    if (this.phase === 2 && this.lantern.node.onGround)
-      this.initPhase(++this.phase);
-
-    if (this.triggeredBoss && this.enemies.length === 0) {
+    if (this.triggeredBoss && this.boss.health === 0) { // Handle boss death
       new Timer(
         2000,
         () => {
-          this.sceneManager.changeToScene(MainMenu);
+          this.sceneManager.changeToScene(MainMenu);  // TODO: Create congratulations screen
         },
         false,
       ).start();
@@ -124,49 +139,164 @@ export default class Level6 extends GameLevel {
   initPhase(phase: number) {
     switch (phase) {
       case 1: {
-        const spiderSpawn = this.resourceManager
-          .getTilemap("tilemap")
-          .layers.find(x => x.name == "SpiderSpawn").objects;
-        const ghostSpawn = this.resourceManager
-          .getTilemap("tilemap")
-          .layers.find(x => x.name == "GhostSpawn").objects;
-
-        // spawn spiders at the top
-        for (let i = 0; i < spiderSpawn.length; i++) {
-          const spider = new Spider(
-            this.add.animatedSprite("Spider", Layers.Main),
-            new Vec2(spiderSpawn[i].x, spiderSpawn[i].y),
-          );
-          this.enemies.push(spider);
-        }
-
-        // spawn ghosts
-        for (let i = 0; i < ghostSpawn.length; i++) {
-          const ghost = new Ghost(
-            this.add.animatedSprite("RedSoul", Layers.Main),
-            new Vec2(ghostSpawn[i].x, ghostSpawn[i].y),
-            GhostType.RED,
-          );
-          this.enemies.push(ghost);
-        }
-
+        this.spawnSpiders(4);
+        this.spawnGhosts();
         break;
       }
       case 2: {
-        const lanternSpawn = this.resourceManager
-          .getTilemap("tilemap")
-          .layers.find(x => x.name == "LanternSpawn").objects;
-
-        this.lantern = new LanternCorpse(
-          this.add.animatedSprite("LanternCorpse", Layers.Main),
-          new Vec2(lanternSpawn[0].x, lanternSpawn[0].y),
-        );
-        this.enemies.push(this.lantern);
+        this.spawnLantern();
+        this.spawnProjectiles();
+        this.projTimer.start();
         break;
       }
       case 3: {
         this.emitter.fireEvent(SpiderBossEvents.Transition);
+        break;
       }
+      case 4: {
+        this.emitter.fireEvent(SpiderBossEvents.Cocoon);
+
+        this.projTimer.reset();
+        this.projTimer.pause();
+
+        this.spawnSpiders(4);
+        this.spawnGhosts();
+        new Timer(
+          7000,
+          () => {
+            this.spawnSpiders(2);
+          },
+          false,
+        ).start();
+        break;
+      }
+      case 5: {
+        this.spawnProjectiles();
+        this.spawnLantern();
+        this.projTimer.start();
+        break;
+      }
+      case 6: {
+        this.emitter.fireEvent(SpiderBossEvents.Transition);
+        this.spawnSpiders(2);
+        break;
+      }
+      case 7: {
+        this.projTimer.reset();
+        this.projTimer.pause();
+        this.projTimer = new Timer(
+          2100,
+          () => {
+            this.spawnProjectiles();
+          },
+          true,
+        );
+        this.projSpeed = 250;
+        this.projTimer.start();
+
+        this.spawnSpiders(3);
+        this.spawnGhosts();
+        
+        const spawnWaves = new Timer(
+          12000,
+          () => {
+            this.spawnSpiders(2);
+            this.spawnGhosts();
+          },
+          true,
+        );
+        spawnWaves.start();
+        break;
+      }
+    }
+  }
+
+  spawnLantern() {
+    const lanternSpawn = this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "LanternSpawn").objects;
+
+    this.lantern = new LanternCorpse(
+      this.add.animatedSprite("LanternCorpse", Layers.Main),
+      new Vec2(lanternSpawn[0].x, lanternSpawn[0].y),
+    );
+    this.enemies.push(this.lantern);
+  }
+
+  spawnSpiders(count: number) {
+    const spiderSpawn = this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "SpiderSpawn").objects;
+
+    // spawn spiders
+    for (let i = 0; i < count; i++) {
+      const spider = new Spider(
+        this.add.animatedSprite("Spider", Layers.Main),
+        new Vec2(spiderSpawn[i].x, spiderSpawn[i].y),
+      );
+      this.enemies.push(spider);
+    }
+  }
+  spawnGhosts() {
+    const ghostSpawn = this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "GhostSpawn").objects;
+
+    // spawn ghosts
+    for (let i = 0; i < ghostSpawn.length; i++) {
+      const ghost = new Ghost(
+        this.add.animatedSprite("RedSoul", Layers.Main),
+        new Vec2(ghostSpawn[i].x, ghostSpawn[i].y),
+        GhostType.RED,
+      );
+      this.enemies.push(ghost);
+    }
+  }
+
+  spawnProjectiles(): void {
+    const leftSpawn = this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "ProjectileLeft").objects;
+
+    const rightSpawn = this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "ProjectileRight").objects;
+
+    for (let i = 0; i < leftSpawn.length; i++) {
+      const proj = this.add.animatedSprite("WebProjectile", Layers.Main);
+      new Hitbox(
+        this.boss.node,
+        proj,
+        DamageType.TO_PLAYER,
+        new Vec2(16, 7),
+        true,
+        Vec2.ZERO,
+        HType.Projectile,
+        new Vec2(this.projSpeed, 0),
+        new Vec2(leftSpawn[i].x, leftSpawn[i].y),
+      );
+
+      const rightDelay = new Timer(
+        2100,
+        () => {
+          for (let i = 0; i < rightSpawn.length; i++) {
+            const proj = this.add.animatedSprite("WebProjectile", Layers.Main);
+            new Hitbox(
+              this.boss.node,
+              proj,
+              DamageType.TO_PLAYER,
+              new Vec2(16, 7),
+              false,
+              Vec2.ZERO,
+              HType.Projectile,
+              new Vec2(-this.projSpeed, 0),
+              new Vec2(rightSpawn[i].x, rightSpawn[i].y),
+            );
+          }
+        },
+        false,
+      );
+      rightDelay.start();
     }
   }
 
@@ -226,9 +356,6 @@ export default class Level6 extends GameLevel {
         const enemy = event.data.get("enemy");
 
         if (!enemy.isInvincible && enemy instanceof SpiderBoss) {
-          this.boss.health -= 1;
-          console.log(`Boss: ${enemy.health}`);
-
           // damage animation
           this.boss.takeDamage();
 

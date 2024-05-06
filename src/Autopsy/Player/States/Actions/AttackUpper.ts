@@ -1,5 +1,5 @@
 import PlayerActionState from "./PlayerActionState";
-import Hitbox from "../../../Hitbox/Hitbox";
+import Hitbox, { HType } from "../../../Hitbox/Hitbox";
 import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 import { ActionState, PlayerAnimations, PlayerSounds } from "../../PlayerEnum";
 import { Layers } from "../../../Scenes/GameLevel";
@@ -28,10 +28,10 @@ export default class AttackUpper extends PlayerActionState {
             .getScene()
             .add.animatedSprite("ScytheUpper", Layers.Main),
           DamageType.TO_ENEMY,
-          new Vec2(0, 0),
           new Vec2(30, 32),
           this.player.node.invertX,
           offset,
+          HType.Active,
         );
       },
       false,

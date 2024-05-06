@@ -32,7 +32,7 @@ export default class Spider extends Enemy {
     this.node.setGroup(PhysicsGroups.ENEMY_PHYS);
     this.node.position = pos;
     this.node.animation.play(SpiderAnimations.Walking, true);
-    this.health = 4;
+    this.health = 3;
   }
 
   die() {

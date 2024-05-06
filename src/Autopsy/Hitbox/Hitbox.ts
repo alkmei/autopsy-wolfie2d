@@ -4,9 +4,9 @@ import AABB from "../../Wolfie2D/DataTypes/Shapes/AABB";
 import HitboxController from "./HitboxController";
 import { PhysicsGroups } from "../../globals";
 
-export enum HState {
+export enum HType {
   Active = "Active",
-  Contact = "Contact",
+  Projectile = "Projectile",
   Manager = "Manager",
 }
 
@@ -17,14 +17,16 @@ export default class Hitbox {
     owner: AnimatedSprite,
     sprite: AnimatedSprite,
     eventType: string,
-    center: Vec2,
     halfSize: Vec2,
     invertX: boolean,
     offset: Vec2,
+    type: string,
+    velocity?: Vec2,
+    initPos?: Vec2,
   ) {
     this.node = sprite;
 
-    this.node.addPhysics(new AABB(center, halfSize), new Vec2(0, 0));
+    this.node.addPhysics(new AABB(Vec2.ZERO, halfSize), new Vec2(0, 0));
     this.node.setGroup(PhysicsGroups.HITBOX_PHYS);
 
     this.node.addAI(HitboxController, {
@@ -32,6 +34,9 @@ export default class Hitbox {
       offset: offset,
       eventType: eventType,
       owner: owner,
+      type: type,
+      velocity: velocity,
+      initPos: initPos,
     });
   }
 }
