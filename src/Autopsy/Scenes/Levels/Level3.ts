@@ -6,6 +6,7 @@ import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
 import Spider from "@/Autopsy/Enemy/Spider/Spider";
 import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
+import Sprite from "@/Wolfie2D/Nodes/Sprites/Sprite";
 
 export default class Level3 extends GameLevel {
   loadScene() {
@@ -27,10 +28,10 @@ export default class Level3 extends GameLevel {
 
   startScene() {
     super.startScene();
-    this.player.node.position = new Vec2(100, 1000);
+    this.player.node.position = new Vec2(100, 2900);
     this.camera.node.position = this.player.node.position.clone();
     this.add.tilemap("tilemap", new Vec2(1, 1));
-    this.viewport.setBounds(0, 0, 6400, 1280);
+    this.viewport.setBounds(0, 0, 1888, 3168);
 
     const background = this.add.sprite("bg", Layers.Parallax);
     background.alpha = 0.4;
@@ -43,12 +44,22 @@ export default class Level3 extends GameLevel {
       holdReference: true,
     });
 
+    const levelEnd = this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "LevelEnd").objects[0];
     this.nextLevel = Level4;
-    this.addLevelEnd(new Vec2(3460, 132), new Vec2(32, 135));
+    this.addLevelEnd(
+      new Vec2(levelEnd.x, levelEnd.y + levelEnd.height / 2),
+      new Vec2(levelEnd.width, levelEnd.height),
+    );
     this.initializeMonoliths();
     this.initializeGhosts();
     this.initializeSpiders();
     this.initializeZombies();
+  }
+
+  updateScene(deltaT: number) {
+    super.updateScene(deltaT);
   }
 
   unloadScene() {

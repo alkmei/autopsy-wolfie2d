@@ -6,13 +6,12 @@ import Camera from "../Camera";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import { UIElementType } from "@/Wolfie2D/Nodes/UIElements/UIElementTypes";
 import Color from "../../Wolfie2D/Utils/Color";
-import { Events, Levels, PhysicsGroups, levelPhysics } from "@/globals";
+import { Action, Events, levelPhysics, Levels, PhysicsGroups } from "@/globals";
 import GameEvent from "../../Wolfie2D/Events/GameEvent";
 import Label from "../../Wolfie2D/Nodes/UIElements/Label";
 import Button from "../../Wolfie2D/Nodes/UIElements/Button";
 import MainMenu from "./MainMenu";
 import Input from "../../Wolfie2D/Input/Input";
-import { Action } from "@/globals";
 import PlayerState from "../Player/States/PlayerState";
 import { GhostType } from "../Enemy/Ghost/Ghost";
 import Viewport from "../../Wolfie2D/SceneGraph/Viewport";
@@ -49,6 +48,8 @@ export default class GameLevel extends Scene {
 
   textColor = new Color(231, 224, 241);
   healthBarColor = new Color(215, 74, 91);
+
+  enemiesLeft: Label;
 
   public constructor(
     viewport: Viewport,
@@ -188,6 +189,8 @@ export default class GameLevel extends Scene {
     while (this.receiver.hasNextEvent()) {
       this.handleEvent(this.receiver.getNextEvent());
     }
+
+    this.enemiesLeft.text = `Enemies Left: ${this.enemies.length}`;
   }
 
   handleEvent(event: GameEvent) {
@@ -296,6 +299,17 @@ export default class GameLevel extends Scene {
     healthBarBorder.borderColor = Color.WHITE;
     healthBarBorder.borderWidth = 2;
     healthBarBorder.borderRadius = 0;
+
+    this.enemiesLeft = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.UI,
+      {
+        position: new Vec2(400, 20),
+        text: `Enemies Left: ${this.enemies.length.toString()}`,
+      },
+    );
+    this.enemiesLeft.font = "Mister Pixel";
+    this.enemiesLeft.textColor = Color.WHITE;
   }
 
   initPauseLayer() {
