@@ -5,7 +5,6 @@ import { PhysicsGroups, SpriteSizes } from "@/globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
 import { SState } from "./SpiderController";
-import Dying from "./SpiderStates/Dying";
 import SpiderState from "./SpiderStates/SpiderState";
 
 export enum SpiderAnimations {
@@ -13,6 +12,7 @@ export enum SpiderAnimations {
   Walking = "Walking",
   Dying = "Dying",
   Dead = "Dead",
+  TakeDamage = "Take Damage",
 }
 
 export default class Spider extends Enemy {
@@ -29,13 +29,18 @@ export default class Spider extends Enemy {
     this.node.addAI(SpiderController);
     this.node.setGroup(PhysicsGroups.ENEMY_PHYS);
     this.node.position = pos;
-    this.node.animation.play(SpiderAnimations.Idle, true);
+    this.node.animation.play(SpiderAnimations.Walking, true);
     this.health = 4;
   }
 
   die() {
     (<SpiderController>this.node._ai).changeState(SState.Dying);
     (<SpiderState>(<SpiderController>this.node._ai).getState()).isDying = true;
+  }
+
+  takeDamage() {
+    this.node.animation.play(SpiderAnimations.TakeDamage);
+    this.node.animation.queue(SpiderAnimations.Walking, true);
   }
 
   knockback() {

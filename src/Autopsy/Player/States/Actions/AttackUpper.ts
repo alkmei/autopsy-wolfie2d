@@ -12,11 +12,10 @@ export default class AttackUpper extends PlayerActionState {
     this.stateName = "AttackUpper";
     this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheUpper);
     this.emitter.fireEvent(GameEventType.PLAY_SFX, {
-      key: PlayerSounds.Slash + Math.ceil(Math.random() * 3),
+      key: PlayerSounds.Slash,
       loop: false,
       keepReference: false,
     });
-
 
     const offset = new Vec2(10, -60);
 
@@ -30,7 +29,7 @@ export default class AttackUpper extends PlayerActionState {
             .add.animatedSprite("ScytheUpper", Layers.Main),
           DamageType.TO_ENEMY,
           new Vec2(0, 0),
-          new Vec2(30, 45),
+          new Vec2(30, 32),
           this.player.node.invertX,
           offset,
         );

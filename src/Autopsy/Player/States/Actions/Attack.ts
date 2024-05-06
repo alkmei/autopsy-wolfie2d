@@ -12,7 +12,7 @@ export default class Attack extends PlayerActionState {
     this.stateName = "Attack";
     this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheSlash);
     this.emitter.fireEvent(GameEventType.PLAY_SFX, {
-      key: PlayerSounds.Slash + Math.ceil(Math.random() * 3),
+      key: PlayerSounds.Slash,
       loop: false,
       keepReference: false,
     });

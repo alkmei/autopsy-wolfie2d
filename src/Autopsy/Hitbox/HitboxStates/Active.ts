@@ -30,7 +30,10 @@ export default class Active extends HitboxState {
         const enemies = (<GameLevel>this.owner.getScene()).enemies;
         enemies.forEach(enemy => {
           if (this.owner.collisionShape.overlaps(enemy.node.collisionShape)) {
-            this.emitter.fireEvent(Events.ENEMY_DAMAGE, { enemy: enemy });
+            this.emitter.fireEvent(Events.ENEMY_DAMAGE, {
+              enemy: enemy,
+              damage: 1,
+            });
             this.hasHit = false;
             enemy.knockback();
           }

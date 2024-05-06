@@ -11,6 +11,7 @@ export default class Dying extends SpiderState {
     this.isDying = true;
     this.contactCooldown = new Timer(10000);
     this.contactCooldown.start();
+    this.stateName = "Dying";
   }
 
   update(deltaT: number) {

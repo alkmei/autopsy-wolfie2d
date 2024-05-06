@@ -50,7 +50,7 @@ export default abstract class SpiderState extends State {
   update(deltaT: number): void {
     if (
       this.contactCooldown.isStopped() &&
-      !this.isDying &&
+      !(this.owner.animation.isPlaying(SpiderAnimations.Dead) || this.owner.animation.isPlaying(SpiderAnimations.Dying)) &&
       this.owner.collisionShape.overlaps(
         (<GameLevel>this.owner.getScene()).player.node.collisionShape,
       )

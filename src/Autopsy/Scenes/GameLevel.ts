@@ -36,8 +36,6 @@ export default class GameLevel extends Scene {
   player: Player;
   camera: Camera;
 
-  playerInvincible: boolean = false;
-
   enemies: Array<Enemy>;
 
   playerStateLabel: Label;
@@ -82,18 +80,7 @@ export default class GameLevel extends Scene {
     this.load.audio(PlayerSounds.Dash, "assets/sounds/Player/dash.wav");
     this.load.audio(PlayerSounds.Hurt, "assets/sounds/Player/hurt.wav");
     this.load.audio(PlayerSounds.Heal, "assets/sounds/Player/heal.wav");
-    this.load.audio(
-      PlayerSounds.Slash + "1",
-      "assets/sounds/Player/slash1.wav",
-    );
-    this.load.audio(
-      PlayerSounds.Slash + "2",
-      "assets/sounds/Player/slash2.wav",
-    );
-    this.load.audio(
-      PlayerSounds.Slash + "3",
-      "assets/sounds/Player/slash3.wav",
-    );
+    this.load.audio(PlayerSounds.Slash, "assets/sounds/Player/slash.wav");
     this.load.audio(PlayerSounds.Death, "assets/sounds/Player/death.wav");
     this.load.audio(PlayerSounds.Jump, "assets/sounds/Player/jump.wav");
 
@@ -102,6 +89,7 @@ export default class GameLevel extends Scene {
       "RedSoul",
       "assets/spritesheets/RedSoul/RedSoul.json",
     );
+    this.load.audio("soulDeath", "assets/sounds/RedSoul/soul_hit.wav");
 
     this.addLayer(Layers.Main, 1);
     this.addUILayer(Layers.UI);
@@ -205,9 +193,11 @@ export default class GameLevel extends Scene {
   handleEvent(event: GameEvent) {
     switch (event.type) {
       case Events.ENEMY_DAMAGE: {
-        const enemy = event.data.get("enemy");
+        const enemy: Enemy = event.data.get("enemy");
+        const damage = event.data.get("damage");
+        console.log(enemy.isInvincible);
         if (!enemy.isInvincible) {
-          enemy.health -= 1;
+          enemy.health -= damage;
           console.log(`Enemy: ${enemy.health}`);
 
           // damage animation
@@ -220,7 +210,7 @@ export default class GameLevel extends Scene {
       }
 
       case Events.PLAYER_DAMAGE: {
-        if (!this.playerInvincible) {
+        if (!this.player.invincible && !this.player.debugInvincible) {
           this.player.changeHealth(-1);
           this.healthBar.size.x = 600 * (this.player.health / 10);
           this.healthBar.position.x = 0;
@@ -276,6 +266,17 @@ export default class GameLevel extends Scene {
   }
 
   initUI() {
+    const healthBarBg = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.UI,
+      {
+        position: new Vec2(0, 30),
+        text: "",
+      },
+    );
+    healthBarBg.size = new Vec2(600, 50);
+    healthBarBg.backgroundColor = Color.BLACK;
+
     this.healthBar = <Label>this.add.uiElement(UIElementType.LABEL, Layers.UI, {
       position: new Vec2(0, 30),
       text: "",
@@ -407,13 +408,9 @@ export default class GameLevel extends Scene {
 
   private handleCheats() {
     if (Input.isJustPressed(Action.Invincible)) {
-      this.playerInvincible = !this.playerInvincible;
-      if (this.playerInvincible) console.log("Player is now invincible.");
+      this.player.debugInvincible = !this.player.debugInvincible;
+      if (this.player.debugInvincible) console.log("Player is now invincible.");
     }
-    if (Input.isJustPressed(Action.Invincible))
-      this.playerInvincible = !this.playerInvincible;
-    if (Input.isJustPressed(Action.Invincible))
-      this.playerInvincible = !this.playerInvincible;
     if (Input.isJustPressed(Action.Level1))
       this.sceneManager.changeToScene(Levels.Level1, {}, levelPhysics);
     if (Input.isJustPressed(Action.Level2))

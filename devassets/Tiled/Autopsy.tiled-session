@@ -3,9 +3,8 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json",
+    "activeFile": "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Level1.json",
     "expandedProjectPaths": [
-        "CaveTileset",
         "Debug",
         "."
     ],
@@ -34,74 +33,26 @@
             "scaleInDock": 1,
             "scaleInEditor": 3
         },
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level1/Level1.json": {
-            "scale": 0.33,
-            "selectedLayer": 1,
-            "viewCenter": {
-                "x": 2445.4545454545455,
-                "y": 522.7272727272727
-            }
-        },
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level1/Level1.json#Limbo": {
-            "scaleInDock": 1
-        },
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json": {
-            "scale": 0.75,
-            "selectedLayer": 4,
-            "viewCenter": {
-                "x": 956.6666666666665,
-                "y": 453.99999999999994
-            }
-        },
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json#Brick": {
-            "scaleInDock": 1
-        },
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json#Cave": {
-            "scaleInDock": 0.75,
-            "scaleInEditor": 1
-        },
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/WaveTest(Level4)/Level4.json": {
-            "scale": 0.4701420454545454,
-            "selectedLayer": 0,
-            "viewCenter": {
-                "x": 1383.624388180555,
-                "y": 275.44866759320803
-            }
-        },
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/WaveTest(Level4)/Level4.json#Debug": {
-            "scaleInDock": 1
-        },
-        "CaveTileset/CaveTileset.tsx": {
-            "scaleInDock": 2,
-            "scaleInEditor": 2
-        },
         "Debug/Debug.tmx": {
             "scale": 1,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 500,
-                "y": 375.5
+                "x": 484,
+                "y": 249.5
             }
         },
         "Debug/Debug.tsj": {
             "scaleInDock": 1
         }
     },
-    "last.imagePath": "C:/Users/aster/OneDrive/Documents/cse380-final/devassets/Tiled/CaveTileset",
-    "map.lastUsedFormat": "json",
     "openFiles": [
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json"
+        "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Level1.json"
     ],
     "project": "Autopsy.tiled-project",
-    "property.type": "bool",
     "recentFiles": [
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/WaveTest(Level4)/Level4.json",
-        "C:/Users/aster/OneDrive/Documents/cse380-final/public/assets/tilemaps/Level3/Level3.json",
-        "CaveTileset/CaveTileset.tsx",
-        "Debug/Debug.tmx",
         "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Level1.json",
-        "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Debug.json"
+        "C:/Users/aster/OneDrive/Documents/cse380-final/dist/assets/tilemaps/Debug/Debug.json",
+        "Debug/Debug.tmx"
     ],
-    "resizeMap.removeObjects": false,
-    "tileset.lastUsedFormat": "tsx"
+    "resizeMap.removeObjects": false
 }

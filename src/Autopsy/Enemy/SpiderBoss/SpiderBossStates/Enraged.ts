@@ -4,11 +4,12 @@ import SpiderBossState from "./SpiderBossState";
 export default class Cocooned extends SpiderBossState {
   onEnter(options: Record<string, any>) {
     this.stateName = "Enraged";
-    this.owner.animation.playIfNotAlready(SpiderBossAnimations.Exposed, true);
+    this.owner.animation.play(SpiderBossAnimations.Transition);
   }
 
   update(deltaT: number) {
     super.update(deltaT);
+    this.owner.animation.playIfNotAlready(SpiderBossAnimations.Exposed, true);
   }
 
   onExit(): Record<string, any> {

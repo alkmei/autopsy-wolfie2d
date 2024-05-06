@@ -5,6 +5,7 @@ import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 
 export default class Dashing extends PlayerActionState {
   private dashTimer: Timer;
+  private invTimer: Timer;
 
   onEnter(options: Record<string, any>): void {
     this.stateName = "Dashing";
@@ -15,17 +16,23 @@ export default class Dashing extends PlayerActionState {
       loop: false,
       holdReference: false,
     });
+    this.player.invincible = true;
 
     this.dashTimer = new Timer(
       200,
       () => this.finished(ActionState.Idle),
       false,
     );
+    this.invTimer = new Timer(
+      150,
+      () => (this.player.invincible = false),
+      false,
+    );
     this.dashTimer.start();
+    this.invTimer.start();
   }
 
   update(deltaT: number) {
-    if (!this.owner.onGround) this.player.canDash = false;
     this.player.velocity.y = this.player.node.onGround ? 0.00001 : 0;
     const direction =
       this.getInputDirection().x == 0
@@ -38,6 +45,7 @@ export default class Dashing extends PlayerActionState {
   }
 
   onExit(): Record<string, any> {
+    if (!this.owner.onGround) this.player.canDash = false;
     return { state: ActionState.Dash };
   }
 }

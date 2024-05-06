@@ -1,20 +1,29 @@
-import GameLevel, { Layers } from "../GameLevel";
+import GameLevel from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level6 from "./Level6";
+import WaveLevel from "../WaveLevel/WaveLevel";
+import Wave from "../WaveLevel/Wave";
+import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
+import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
-import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
+import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
+import { Layers } from "../GameLevel";
 
-export default class Level5 extends GameLevel {
+export default class Level5 extends WaveLevel {
   loadScene() {
     super.loadScene();
-    this.load.tilemap("tilemap", "assets/tilemaps/Debug/Level1.json");
-    this.load.spritesheet(
-      "Zombie",
-      "assets/spritesheets/Zombie/Zombie.json",
-    );
+    this.load.tilemap("tilemap", "assets/tilemaps/Level5/Level5.json");
     this.load.audio("bluddington", "assets/music/bluddington.mp3");
+
+    this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");
+    this.load.spritesheet("Zombie", "assets/spritesheets/Zombie/Zombie.json");
+
+    this.load.spritesheet(
+      "Monolith",
+      "assets/spritesheets/Monolith/Monolith.json",
+    );
   }
-  
+
   unloadScene() {
     this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
     super.unloadScene();
@@ -35,23 +44,32 @@ export default class Level5 extends GameLevel {
       holdReference: true,
     });
 
-    this.addLevelEnd(new Vec2(4576, 128), new Vec2(32, 135));
-    this.initializeZombies();
+    this.initializeMonoliths();
+    
+    this.setLevelEndArea(new Vec2(2877, 670), new Vec2(32, 128));
+
+    //this.waves=[new Wave([1])];
+    let tmap = this.getTilemap('World') as OrthogonalTilemap;
+    this.setTilemap = tmap;
+    
+
+  
+    this.waves=[new Wave([3,2,3]),new Wave([9,5,9]),new Wave([27,11,27])]
+
+    this.startWave();
+
   }
 
-  initializeZombies() {
-    //const zombiePositions = this.resourceManager
-      //.getTilemap("tilemap")
-      //.layers.find(x => x.name == "Zombies").objects;
-    const zombiePositions = [new Vec2(1236,1044), new Vec2(2240, 692), new Vec2(3840, 604)];
-    for (let i = 0; i < 3; i++) {
-      const zombie = new Zombie(
-        this.add.animatedSprite("Zombie", Layers.Main),
-        new Vec2(zombiePositions[i].x, zombiePositions[i].y),
-        "World"
-      );
-
-      this.enemies.push(zombie);
+  initializeMonoliths() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Monoliths")
+      .objects.forEach(m => {
+        new Monolith(
+          this.add.animatedSprite("Monolith", Layers.Main),
+          new Vec2(m.x, m.y),
+          m.name,
+        );
+      });
     }
-  }
 }

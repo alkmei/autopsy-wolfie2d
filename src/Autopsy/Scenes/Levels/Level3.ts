@@ -1,47 +1,54 @@
 import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level4 from "./Level4";
-import SpiderBoss from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
-import Spider from "@/Autopsy/Enemy/Spider/Spider";
-import Ghost, { GhostType } from "@/Autopsy/Enemy/Ghost/Ghost";
+import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
+import Spider from "@/Autopsy/Enemy/Spider/Spider";
+import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
 
 export default class Level3 extends GameLevel {
-  triggeredBoss: Boolean;
-  boss: SpiderBoss;
-
   loadScene() {
     super.loadScene();
-    this.load.tilemap("tilemap", "assets/tilemaps/Level3/Level3.json");
-
+    this.load.tilemap("tilemap", "assets/tilemaps/Level2/Level2.json");
     this.load.spritesheet(
-      "RedSoul",
-      "assets/spritesheets/RedSoul/RedSoul.json",
+      "Monolith",
+      "assets/spritesheets/Monolith/Monolith.json",
     );
+
+    this.load.image("bg", "assets/tilemaps/Level2/lvl2bg.png");
+    this.addParallaxLayer(Layers.Parallax, new Vec2(0.005, 0.01), -1);
+
+    this.load.spritesheet("Ghost", "assets/spritesheets/RedSoul/RedSoul.json");
     this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");
-    this.load.spritesheet(
-      "SpiderBoss",
-      "assets/spritesheets/SpiderBoss/SpiderBoss.json",
-    );
-
+    this.load.spritesheet("Zombie", "assets/spritesheets/Zombie/Zombie.json");
     this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
 
   startScene() {
     super.startScene();
-    this.player.node.position = new Vec2(150, 250);
+    this.player.node.position = new Vec2(100, 1000);
     this.camera.node.position = this.player.node.position.clone();
     this.add.tilemap("tilemap", new Vec2(1, 1));
-    this.viewport.setBounds(0, 0, 2048, 1280);
+    this.viewport.setBounds(0, 0, 6400, 1280);
 
-    this.triggeredBoss = false;
-    this.nextLevel = Level4;
+    const background = this.add.sprite("bg", Layers.Parallax);
+    background.alpha = 0.4;
+    background.position = new Vec2(300, 200);
+    background.scale = new Vec2(1, 1);
 
     this.emitter.fireEvent(GameEventType.PLAY_MUSIC, {
       key: "bluddington",
       loop: true,
       holdReference: true,
     });
+
+    this.nextLevel = Level4;
+    this.addLevelEnd(new Vec2(3460, 132), new Vec2(32, 135));
+    this.initializeMonoliths();
+    this.initializeGhosts();
+    this.initializeSpiders();
+    this.initializeZombies();
   }
 
   unloadScene() {
@@ -49,53 +56,60 @@ export default class Level3 extends GameLevel {
     super.unloadScene();
   }
 
-  update(deltaT: number): void {
-    super.update(deltaT);
-    if (!this.triggeredBoss && this.player.node.position.x > 672) {
-      this.triggeredBoss = true;
-      this.spawnBoss();
-      this.firstWave();
-    }
+  initializeMonoliths() {
+    this.resourceManager
+      .getTilemap("tilemap")
+      .layers.find(x => x.name == "Monoliths")
+      .objects.forEach(m => {
+        new Monolith(
+          this.add.animatedSprite("Monolith", Layers.Main),
+          new Vec2(m.x, m.y),
+          m.name,
+        );
+      });
   }
 
-  spawnBoss() {
-    const bossPosition = this.resourceManager
+  initializeGhosts() {
+    this.resourceManager
       .getTilemap("tilemap")
-      .layers.find(x => x.name == "BossSpawn").objects;
-    const spiderBoss = new SpiderBoss(
-      this.add.animatedSprite("SpiderBoss", Layers.Main),
-      new Vec2(bossPosition[0].x, bossPosition[0].y),
-    );
-
-    this.boss = spiderBoss;
-    this.enemies.push(spiderBoss);
+      .layers.find(x => x.name == "Ghosts")
+      .objects.forEach(m => {
+        this.enemies.push(
+          new Ghost(
+            this.add.animatedSprite("Ghost", Layers.Main),
+            new Vec2(m.x, m.y),
+            "red",
+          ),
+        );
+      });
   }
 
-  firstWave() {
-    const spiderSpawn = this.resourceManager
+  initializeSpiders() {
+    this.resourceManager
       .getTilemap("tilemap")
-      .layers.find(x => x.name == "SpiderSpawn").objects;
-    const ghostSpawn = this.resourceManager
+      .layers.find(x => x.name == "Spiders")
+      .objects.forEach(m => {
+        this.enemies.push(
+          new Spider(
+            this.add.animatedSprite("Spider", Layers.Main),
+            new Vec2(m.x, m.y),
+          ),
+        );
+      });
+  }
+
+  initializeZombies() {
+    this.resourceManager
       .getTilemap("tilemap")
-      .layers.find(x => x.name == "GhostSpawn").objects;
-
-    // spawn spiders at the top
-    for (let i = 0; i < spiderSpawn.length; i++) {
-      const spider = new Spider(
-        this.add.animatedSprite("Spider", Layers.Main),
-        new Vec2(spiderSpawn[i].x, spiderSpawn[i].y),
-      );
-      this.enemies.push(spider);
-    }
-
-    // spawn ghosts
-    for (let i = 0; i < ghostSpawn.length; i++) {
-      const ghost = new Ghost(
-        this.add.animatedSprite("RedSoul", Layers.Main),
-        new Vec2(ghostSpawn[i].x, ghostSpawn[i].y),
-        GhostType.RED,
-      );
-      this.enemies.push(ghost);
-    }
+      .layers.find(x => x.name == "Zombies")
+      .objects.forEach(m => {
+        this.enemies.push(
+          new Zombie(
+            this.add.animatedSprite("Zombie", Layers.Main),
+            new Vec2(m.x, m.y),
+            "World",
+          ),
+        );
+      });
   }
 }
