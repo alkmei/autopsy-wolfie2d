@@ -1,7 +1,5 @@
 import SpiderState from "./SpiderState";
 import { SState } from "../SpiderController";
-import GameLevel from "@/Autopsy/Scenes/GameLevel";
-import { SpiderAnimations } from "../Spider";
 
 export default class Following extends SpiderState {
   onEnter(options: Record<string, any>) {
@@ -13,7 +11,7 @@ export default class Following extends SpiderState {
     super.update(deltaT);
 
     if (this.withinXBlock(4) && !this.isDying) {
-        this.finished(SState.Dashing);
+      this.finished(SState.Dashing);
     } else {
       if (this.playerPos) {
         this.parent.direction = this.owner.position.dirTo(this.playerPos);
@@ -28,7 +26,7 @@ export default class Following extends SpiderState {
     this.owner.move(this.parent.velocity);
     this.owner.rotation = this.angleToPlayer();
   }
-  
+
   onExit(): Record<string, any> {
     //(<AnimatedSprite>this.owner).animation.stop();
     return {};

@@ -4,7 +4,7 @@ import HitboxState from "./HitboxState";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import GameLevel from "../../Scenes/GameLevel";
 import { DamageType } from "../DamageType";
-import { Events } from "@/globals";
+import { Events } from "../../../globals";
 
 export default class Active extends HitboxState {
   onEnter(options: Record<string, any>) {

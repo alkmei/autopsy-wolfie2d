@@ -1,5 +1,5 @@
 import Input from "../../../../Wolfie2D/Input/Input";
-import { Action } from "@/globals";
+import { Action } from "../../../../globals";
 import { ActionState, MovementState, PlayerAnimations } from "../../PlayerEnum";
 import PlayerMovementState from "./PlayerMovementState";
 import Idle from "../Actions/Idle";

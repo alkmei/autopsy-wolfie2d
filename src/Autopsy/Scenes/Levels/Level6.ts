@@ -1,20 +1,18 @@
 import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import SpiderBoss, {
-  SpiderBossAnimations,
-} from "@/Autopsy/Enemy/SpiderBoss/SpiderBoss";
-import Spider from "@/Autopsy/Enemy/Spider/Spider";
-import Ghost, { GhostType } from "@/Autopsy/Enemy/Ghost/Ghost";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
-import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
-import Label from "@/Wolfie2D/Nodes/UIElements/Label";
-import { UIElementType } from "@/Wolfie2D/Nodes/UIElements/UIElementTypes";
-import Color from "@/Wolfie2D/Utils/Color";
-import { Events } from "@/globals";
-import GameEvent from "@/Wolfie2D/Events/GameEvent";
+import SpiderBoss from "../../Enemy/SpiderBoss/SpiderBoss";
+import Spider from "../../Enemy/Spider/Spider";
+import Ghost, { GhostType } from "../../Enemy/Ghost/Ghost";
+import { GameEventType } from "../../../Wolfie2D/Events/GameEventType";
+import Monolith from "../../Enemy/Monolith/Monolith";
+import Label from "../../../Wolfie2D/Nodes/UIElements/Label";
+import { UIElementType } from "../../../Wolfie2D/Nodes/UIElements/UIElementTypes";
+import Color from "../../../Wolfie2D/Utils/Color";
+import { Events } from "../../../globals";
+import GameEvent from "../../../Wolfie2D/Events/GameEvent";
 import MainMenu from "../MainMenu";
-import LanternCorpse from "@/Autopsy/Enemy/LanternCorpse";
-import { SpiderBossEvents } from "@/Autopsy/Enemy/SpiderBoss/SpiderBossController";
+import LanternCorpse from "../../Enemy/LanternCorpse";
+import { SpiderBossEvents } from "../../Enemy/SpiderBoss/SpiderBossController";
 
 export default class Level6 extends GameLevel {
   bossHealthBar: Label;
@@ -93,7 +91,8 @@ export default class Level6 extends GameLevel {
     if (this.phase === 1 && this.enemies.length === 1)
       this.initPhase(++this.phase);
 
-    if (this.phase === 2 && this.lantern.node.onGround) this.initPhase(++this.phase);
+    if (this.phase === 2 && this.lantern.node.onGround)
+      this.initPhase(++this.phase);
 
     if (this.triggeredBoss && this.enemies.length === 0)
       this.sceneManager.changeToScene(MainMenu);

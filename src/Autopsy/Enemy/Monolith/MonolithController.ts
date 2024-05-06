@@ -1,12 +1,12 @@
-import ControllerAI from "@/Wolfie2D/AI/ControllerAI";
-import GameEvent from "@/Wolfie2D/Events/GameEvent";
-import GameNode from "@/Wolfie2D/Nodes/GameNode";
-import AnimatedSprite from "@/Wolfie2D/Nodes/Sprites/AnimatedSprite";
-import GameLevel, { Layers } from "@/Autopsy/Scenes/GameLevel";
-import { UIElementType } from "@/Wolfie2D/Nodes/UIElements/UIElementTypes";
-import Label from "@/Wolfie2D/Nodes/UIElements/Label";
-import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
-import Color from "@/Wolfie2D/Utils/Color";
+import ControllerAI from "../../../Wolfie2D/AI/ControllerAI";
+import GameEvent from "../../../Wolfie2D/Events/GameEvent";
+import GameNode from "../../../Wolfie2D/Nodes/GameNode";
+import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import GameLevel, { Layers } from "../../Scenes/GameLevel";
+import { UIElementType } from "../../../Wolfie2D/Nodes/UIElements/UIElementTypes";
+import Label from "../../../Wolfie2D/Nodes/UIElements/Label";
+import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
+import Color from "../../../Wolfie2D/Utils/Color";
 
 export default class MonolithController extends ControllerAI {
   active: boolean;

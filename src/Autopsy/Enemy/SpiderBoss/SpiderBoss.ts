@@ -1,7 +1,7 @@
 import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import SpiderBossController, { SpiderBossStates } from "./SpiderBossController";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import { PhysicsGroups, SpriteSizes } from "@/globals";
+import { PhysicsGroups } from "../../../globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
 
@@ -13,7 +13,6 @@ export enum SpiderBossAnimations {
   Dying = "Dying",
   Dead = "Dead",
 }
-
 
 export default class SpiderBoss extends Enemy {
   node: AnimatedSprite;
@@ -27,8 +26,8 @@ export default class SpiderBoss extends Enemy {
       new Vec2(0, 0),
     );
     this.node.addAI(SpiderBossController, {
-        boss: this,
-      });
+      boss: this,
+    });
     this.node.setGroup(PhysicsGroups.ENEMY_PHYS);
     this.node.position = pos;
     this.node.animation.play(SpiderBossAnimations.Cocooned, true);

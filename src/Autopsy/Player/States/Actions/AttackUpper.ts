@@ -5,7 +5,7 @@ import { ActionState, PlayerAnimations, PlayerSounds } from "../../PlayerEnum";
 import { Layers } from "../../../Scenes/GameLevel";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 import { DamageType } from "../../../Hitbox/DamageType";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import { GameEventType } from "../../../../Wolfie2D/Events/GameEventType";
 
 export default class AttackUpper extends PlayerActionState {
   onEnter(options: Record<string, any>): void {

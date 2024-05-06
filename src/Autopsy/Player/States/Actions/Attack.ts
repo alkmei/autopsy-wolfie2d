@@ -1,11 +1,11 @@
 import PlayerActionState from "./PlayerActionState";
-import Hitbox from "@/Autopsy/Hitbox/Hitbox";
-import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
+import Hitbox from "../../../Hitbox/Hitbox";
+import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 import { ActionState, PlayerAnimations, PlayerSounds } from "../../PlayerEnum";
-import { Layers } from "@/Autopsy/Scenes/GameLevel";
-import Timer from "@/Wolfie2D/Timing/Timer";
-import { DamageType } from "@/Autopsy/Hitbox/DamageType";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import { Layers } from "../../../Scenes/GameLevel";
+import Timer from "../../../../Wolfie2D/Timing/Timer";
+import { DamageType } from "../../../Hitbox/DamageType";
+import { GameEventType } from "../../../../Wolfie2D/Events/GameEventType";
 
 export default class Attack extends PlayerActionState {
   onEnter(options: Record<string, any>): void {

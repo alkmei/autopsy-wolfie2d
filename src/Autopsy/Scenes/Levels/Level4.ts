@@ -1,24 +1,21 @@
 import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level5 from "./Level5";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
-import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
-import Spider from "@/Autopsy/Enemy/Spider/Spider";
-import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
-import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
+import { GameEventType } from "../../../Wolfie2D/Events/GameEventType";
+import Zombie from "../../Enemy/Zombie/Zombie";
+import Spider from "../../Enemy/Spider/Spider";
+import Ghost from "../../Enemy/Ghost/Ghost";
+import Monolith from "../../Enemy/Monolith/Monolith";
 
 export default class Level4 extends GameLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Level4/Level4.json");
-    this.load.spritesheet(
-      "Zombie",
-      "assets/spritesheets/Zombie/Zombie.json",
-    );
+    this.load.spritesheet("Zombie", "assets/spritesheets/Zombie/Zombie.json");
     this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");
     this.load.audio("bluddington", "assets/music/bluddington.mp3");
   }
-  
+
   unloadScene() {
     this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
     super.unloadScene();

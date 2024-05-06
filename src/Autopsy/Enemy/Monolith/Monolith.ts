@@ -1,7 +1,7 @@
-import AnimatedSprite from "@/Wolfie2D/Nodes/Sprites/AnimatedSprite";
-import Enemy from "@/Autopsy/Enemy/Enemy";
-import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
-import MonolithController from "@/Autopsy/Enemy/Monolith/MonolithController";
+import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import Enemy from "../Enemy";
+import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
+import MonolithController from "./MonolithController";
 
 export default class Monolith extends Enemy {
   // IMPORTANT: NOT ENEMY

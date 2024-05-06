@@ -1,7 +1,7 @@
 import GhostState from "./GhostState";
 import { GhostAnimations } from "../Ghost";
-import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
+import { GameEventType } from "../../../../Wolfie2D/Events/GameEventType";
 
 export default class Dying extends GhostState {
   onEnter(options: Record<string, any>) {

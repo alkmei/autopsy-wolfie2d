@@ -1,11 +1,11 @@
 import GameLevel, { Layers } from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level4 from "./Level4";
-import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
-import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
-import Spider from "@/Autopsy/Enemy/Spider/Spider";
-import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
+import Monolith from "../../Enemy/Monolith/Monolith";
+import { GameEventType } from "../../../Wolfie2D/Events/GameEventType";
+import Ghost from "../../Enemy/Ghost/Ghost";
+import Spider from "../../Enemy/Spider/Spider";
+import Zombie from "../../Enemy/Zombie/Zombie";
 
 export default class Level3 extends GameLevel {
   loadScene() {

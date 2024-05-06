@@ -12,20 +12,20 @@ import Jump from "./States/Actions/Jump";
 import Attack from "./States/Actions/Attack";
 import AttackDown from "./States/Actions/AttackDown";
 import AttackUpper from "./States/Actions/AttackUpper";
-import { Events, PhysicsGroups, SpriteSizes } from "@/globals";
+import { Events, PhysicsGroups, SpriteSizes } from "../../globals";
 import Dead from "./States/Actions/Dead";
 import {
   ActionState,
   MovementState,
   PlayerAnimations,
   PlayerSounds,
-} from "@/Autopsy/Player/PlayerEnum";
-import Emitter from "@/Wolfie2D/Events/Emitter";
-import MathUtils from "@/Wolfie2D/Utils/MathUtils";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
-import Timer from "@/Wolfie2D/Timing/Timer";
-import GameEvent from "@/Wolfie2D/Events/GameEvent";
-import Receiver from "@/Wolfie2D/Events/Receiver";
+} from "./PlayerEnum";
+import Emitter from "../../Wolfie2D/Events/Emitter";
+import MathUtils from "../../Wolfie2D/Utils/MathUtils";
+import { GameEventType } from "../../Wolfie2D/Events/GameEventType";
+import Timer from "../../Wolfie2D/Timing/Timer";
+import GameEvent from "../../Wolfie2D/Events/GameEvent";
+import Receiver from "../../Wolfie2D/Events/Receiver";
 
 export default class Player implements Updateable {
   node: AnimatedSprite;

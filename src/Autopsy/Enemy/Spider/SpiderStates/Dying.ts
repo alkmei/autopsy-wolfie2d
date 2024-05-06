@@ -1,7 +1,7 @@
 import SpiderState from "./SpiderState";
 import { SpiderAnimations } from "../Spider";
-import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
-import Timer from "@/Wolfie2D/Timing/Timer";
+import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
+import Timer from "../../../../Wolfie2D/Timing/Timer";
 
 export default class Dying extends SpiderState {
   onEnter(options: Record<string, any>) {

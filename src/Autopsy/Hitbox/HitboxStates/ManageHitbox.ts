@@ -1,5 +1,4 @@
 import GameEvent from "../../../Wolfie2D/Events/GameEvent";
-import { DamageType } from "../DamageType";
 import { HState } from "../Hitbox";
 import HitboxState from "./HitboxState";
 

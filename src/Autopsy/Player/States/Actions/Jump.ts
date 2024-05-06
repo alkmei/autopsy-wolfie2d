@@ -1,9 +1,8 @@
-import PlayerActionState from "./PlayerActionState";
 import Input from "../../../../Wolfie2D/Input/Input";
-import { Action } from "@/globals";
+import { Action } from "../../../../globals";
 import { ActionState, MovementState, PlayerSounds } from "../../PlayerEnum";
 import Idle from "./Idle";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import { GameEventType } from "../../../../Wolfie2D/Events/GameEventType";
 
 export default class Jump extends Idle {
   fromDash: boolean;

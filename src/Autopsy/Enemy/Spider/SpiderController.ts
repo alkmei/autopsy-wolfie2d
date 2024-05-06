@@ -1,7 +1,7 @@
-import StateMachineAI from "@/Wolfie2D/AI/StateMachineAI";
+import StateMachineAI from "../../../Wolfie2D/AI/StateMachineAI";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import SpiderState from "./SpiderStates/SpiderState";
-import AnimatedSprite from "@/Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import Following from "./SpiderStates/Following";
 import Knockback from "./SpiderStates/Knockback";
 import Dying from "./SpiderStates/Dying";
@@ -38,9 +38,8 @@ export default class SpiderController extends StateMachineAI {
 
   update(deltaT: number) {
     super.update(deltaT);
-    
-    if (this.owner)
-      this.owner.move(this.velocity);
+
+    if (this.owner) this.owner.move(this.velocity);
   }
 
   get state() {

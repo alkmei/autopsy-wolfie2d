@@ -1,13 +1,13 @@
-import StateMachineAI from "@/Wolfie2D/AI/StateMachineAI";
+import StateMachineAI from "../../../Wolfie2D/AI/StateMachineAI";
 import GameNode from "../../../Wolfie2D/Nodes/GameNode";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import AnimatedSprite from "@/Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import Dying from "./ZombieStates/Dying";
 import Walking from "./ZombieStates/Walking";
 import Idle from "./ZombieStates/Idle";
 import Attacking from "./ZombieStates/Walking";
 import ZombieState from "./ZombieStates/ZombieState";
-import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
+import OrthogonalTilemap from "../../../Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 
 export enum ZState {
   Idle = "Idle",

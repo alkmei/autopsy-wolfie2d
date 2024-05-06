@@ -6,9 +6,7 @@ import Timer from "../../../../Wolfie2D/Timing/Timer";
 import ZombieController, { ZState } from "../ZombieController";
 import AnimatedSprite from "../../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GameLevel from "../../../Scenes/GameLevel";
-import GameNode from "../../../../Wolfie2D/Nodes/GameNode";
 import { Events } from "../../../../globals";
-import Dying from "@/Autopsy/Enemy/Ghost/GhostStates/Dying";
 
 export default abstract class ZombieState extends State {
   owner: AnimatedSprite;
@@ -46,24 +44,28 @@ export default abstract class ZombieState extends State {
 
   //tile data is manually inputted
   //cliff to the right
-  onCliffRight(){
-    
-    let searchBlock = new Vec2(this.owner.position.x+(this.owner.sizeWithZoom.x/2)+1, this.owner.position.y+(this.owner.sizeWithZoom.y/2)+1);
-    return this.parent.tilemap.getTileAtWorldPosition(searchBlock) === 0
+  onCliffRight() {
+    let searchBlock = new Vec2(
+      this.owner.position.x + this.owner.sizeWithZoom.x / 2 + 1,
+      this.owner.position.y + this.owner.sizeWithZoom.y / 2 + 1,
+    );
+    return this.parent.tilemap.getTileAtWorldPosition(searchBlock) === 0;
   }
 
-  onCliffLeft(){
-    
-    let searchBlock = new Vec2(this.owner.position.x-(this.owner.size.x/2)-1, this.owner.position.y+(this.owner.size.y/2)+1);
-    return this.parent.tilemap.getTileAtWorldPosition(searchBlock) === 0
+  onCliffLeft() {
+    let searchBlock = new Vec2(
+      this.owner.position.x - this.owner.size.x / 2 - 1,
+      this.owner.position.y + this.owner.size.y / 2 + 1,
+    );
+    return this.parent.tilemap.getTileAtWorldPosition(searchBlock) === 0;
   }
 
   update(deltaT: number): void {
     //if (this.owner.onWall) {
-      // Flip around
-      //this.parent.direction.x *= -1;
-      //(<AnimatedSprite>this.owner).invertX = !(<AnimatedSprite>this.owner)
-        //.invertX;
+    // Flip around
+    //this.parent.direction.x *= -1;
+    //(<AnimatedSprite>this.owner).invertX = !(<AnimatedSprite>this.owner)
+    //.invertX;
     //}
 
     if (
@@ -79,7 +81,7 @@ export default abstract class ZombieState extends State {
     }
 
     //if (this.owner.onCeiling || this.owner.onGround) {
-      //this.parent.direction.y *= -1;
+    //this.parent.direction.y *= -1;
     //}
   }
 }

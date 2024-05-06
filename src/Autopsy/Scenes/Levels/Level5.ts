@@ -1,12 +1,10 @@
-import GameLevel from "../GameLevel";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import Level6 from "./Level6";
 import WaveLevel from "../WaveLevel/WaveLevel";
 import Wave from "../WaveLevel/Wave";
-import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
-import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
-import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
+import OrthogonalTilemap from "../../../Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
+import { GameEventType } from "../../../Wolfie2D/Events/GameEventType";
+import Monolith from "../../Enemy/Monolith/Monolith";
 import { Layers } from "../GameLevel";
 
 export default class Level5 extends WaveLevel {
@@ -45,19 +43,20 @@ export default class Level5 extends WaveLevel {
     });
 
     this.initializeMonoliths();
-    
+
     this.setLevelEndArea(new Vec2(2877, 670), new Vec2(32, 128));
 
     //this.waves=[new Wave([1])];
-    let tmap = this.getTilemap('World') as OrthogonalTilemap;
+    let tmap = this.getTilemap("World") as OrthogonalTilemap;
     this.setTilemap = tmap;
-    
 
-  
-    this.waves=[new Wave([3,2,3]),new Wave([9,5,9]),new Wave([27,11,27])]
+    this.waves = [
+      new Wave([3, 2, 3]),
+      new Wave([9, 5, 9]),
+      new Wave([27, 11, 27]),
+    ];
 
     this.startWave();
-
   }
 
   initializeMonoliths() {
@@ -71,5 +70,5 @@ export default class Level5 extends WaveLevel {
           m.name,
         );
       });
-    }
+  }
 }

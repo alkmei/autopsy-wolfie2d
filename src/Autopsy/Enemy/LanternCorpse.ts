@@ -1,9 +1,8 @@
-import AnimatedSprite from "@/Wolfie2D/Nodes/Sprites/AnimatedSprite";
-import { PhysicsGroups } from "@/globals";
+import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import { PhysicsGroups } from "../../globals";
 import Enemy from "./Enemy";
-import AABB from "@/Wolfie2D/DataTypes/Shapes/AABB";
-import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
-import Updateable from "@/Wolfie2D/DataTypes/Interfaces/Updateable";
+import AABB from "../../Wolfie2D/DataTypes/Shapes/AABB";
+import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 
 const enum LanternAnimations {
   Idle = "Idle",
@@ -33,13 +32,13 @@ export default class LanternCorpse extends Enemy {
     this.falling = true;
     this.node.animation.play(LanternAnimations.Falling, true);
     this.node.update = (deltaT: number) => {
-        if (this.falling) this.node.move(new Vec2(0, 400 * deltaT));
-        console.log(this.node.onGround);
-        if (this.node.onGround) {
-            this.node.animation.playIfNotAlready(LanternAnimations.Impact);
-            if (!this.node.animation.isPlaying(LanternAnimations.Impact))
-                this.node.destroy();
-        }
+      if (this.falling) this.node.move(new Vec2(0, 400 * deltaT));
+      console.log(this.node.onGround);
+      if (this.node.onGround) {
+        this.node.animation.playIfNotAlready(LanternAnimations.Impact);
+        if (!this.node.animation.isPlaying(LanternAnimations.Impact))
+          this.node.destroy();
+      }
     };
   }
 }

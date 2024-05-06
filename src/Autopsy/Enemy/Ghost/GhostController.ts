@@ -1,11 +1,10 @@
-import StateMachineAI from "@/Wolfie2D/AI/StateMachineAI";
-import GameNode from "../../../Wolfie2D/Nodes/GameNode";
+import StateMachineAI from "../../../Wolfie2D/AI/StateMachineAI";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
 import GhostState from "./GhostStates/GhostState";
 import Drifting from "./GhostStates/Drifting";
 import Following from "./GhostStates/Following";
 import Knockback from "./GhostStates/Knockback";
-import AnimatedSprite from "@/Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import Dying from "./GhostStates/Dying";
 
 export enum GState {
@@ -43,9 +42,8 @@ export default class GhostController extends StateMachineAI {
 
   update(deltaT: number) {
     super.update(deltaT);
-    
-    if (this.owner)
-      this.owner.move(this.velocity);
+
+    if (this.owner) this.owner.move(this.velocity);
   }
 
   randomDirection() {

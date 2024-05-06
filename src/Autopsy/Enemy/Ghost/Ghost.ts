@@ -1,10 +1,10 @@
 import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GhostController from "./GhostController";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import { PhysicsGroups, SpriteSizes } from "@/globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
 import { GState } from "./GhostController";
+import { PhysicsGroups, SpriteSizes } from "../../../globals";
 
 export enum GhostType {
   RED = "red",

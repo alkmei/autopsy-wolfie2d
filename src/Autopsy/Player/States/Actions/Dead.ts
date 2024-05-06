@@ -1,7 +1,7 @@
 import PlayerActionState from "./PlayerActionState";
 import { PlayerAnimations, PlayerSounds } from "../../PlayerEnum";
-import GameEvent from "@/Wolfie2D/Events/GameEvent";
-import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
+import GameEvent from "../../../../Wolfie2D/Events/GameEvent";
+import { GameEventType } from "../../../../Wolfie2D/Events/GameEventType";
 
 export default class Dead extends PlayerActionState {
   onEnter(options: Record<string, any>): void {

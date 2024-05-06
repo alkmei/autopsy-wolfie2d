@@ -1,11 +1,11 @@
 import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import ZombieController from "./ZombieController";
 import Vec2 from "../../../Wolfie2D/DataTypes/Vec2";
-import { PhysicsGroups, SpriteSizes } from "@/globals";
+import { PhysicsGroups, SpriteSizes } from "../../../globals";
 import AABB from "../../../Wolfie2D/DataTypes/Shapes/AABB";
 import Enemy from "../Enemy";
 import { ZState } from "./ZombieController";
-import OrthogonalTilemap from "@/Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
+import OrthogonalTilemap from "../../../Wolfie2D/Nodes/Tilemaps/OrthogonalTilemap";
 
 export enum ZombieAnimations {
   Idle = "Idle",

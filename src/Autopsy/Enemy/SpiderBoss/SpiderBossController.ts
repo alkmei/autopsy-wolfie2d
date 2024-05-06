@@ -2,14 +2,14 @@ import StateMachineAI from "../../../Wolfie2D/AI/StateMachineAI";
 import SpiderBossState from "./SpiderBossStates/SpiderBossState";
 import Cocooned from "./SpiderBossStates/Cocooned";
 import SpiderBoss from "./SpiderBoss";
-import AnimatedSprite from "@/Wolfie2D/Nodes/Sprites/AnimatedSprite";
+import AnimatedSprite from "../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import Dying from "./SpiderBossStates/Dying";
-import GameEvent from "@/Wolfie2D/Events/GameEvent";
+import GameEvent from "../../../Wolfie2D/Events/GameEvent";
 
 export enum SpiderBossStates {
-    Cocooned = "Cocooned",
-    Enraged = "Enraged",
-    Dying = "Dying",
+  Cocooned = "Cocooned",
+  Enraged = "Enraged",
+  Dying = "Dying",
 }
 
 export enum SpiderBossEvents {
@@ -30,8 +30,14 @@ export default class SpiderBossController extends StateMachineAI {
   }
 
   initializeStates() {
-    this.addState(SpiderBossStates.Cocooned, new Cocooned(this, this.owner, this.boss));
-    this.addState(SpiderBossStates.Dying, new Dying(this, this.owner, this.boss))
+    this.addState(
+      SpiderBossStates.Cocooned,
+      new Cocooned(this, this.owner, this.boss),
+    );
+    this.addState(
+      SpiderBossStates.Dying,
+      new Dying(this, this.owner, this.boss),
+    );
 
     this.initialize(SpiderBossStates.Cocooned);
   }

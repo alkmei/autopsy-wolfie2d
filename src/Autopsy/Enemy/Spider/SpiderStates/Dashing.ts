@@ -1,9 +1,8 @@
-import Vec2 from "@/Wolfie2D/DataTypes/Vec2";
+import Vec2 from "../../../../Wolfie2D/DataTypes/Vec2";
 import Timer from "../../../../Wolfie2D/Timing/Timer";
 import { SState } from "../SpiderController";
 import SpiderState from "./SpiderState";
-import GameLevel from "@/Autopsy/Scenes/GameLevel";
-import { SpiderAnimations } from "../Spider";
+import GameLevel from "../../../Scenes/GameLevel";
 
 export default class Dashing extends SpiderState {
   private dashTimer: Timer;

@@ -6,9 +6,7 @@ import Timer from "../../../../Wolfie2D/Timing/Timer";
 import GhostController from "../GhostController";
 import AnimatedSprite from "../../../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import GameLevel from "../../../Scenes/GameLevel";
-import GameNode from "../../../../Wolfie2D/Nodes/GameNode";
 import { Events } from "../../../../globals";
-import Dying from "@/Autopsy/Enemy/Ghost/GhostStates/Dying";
 
 export default abstract class GhostState extends State {
   owner: AnimatedSprite;
