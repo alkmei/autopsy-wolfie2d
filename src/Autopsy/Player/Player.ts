@@ -26,6 +26,7 @@ import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import Timer from "@/Wolfie2D/Timing/Timer";
 import GameEvent from "@/Wolfie2D/Events/GameEvent";
 import Receiver from "@/Wolfie2D/Events/Receiver";
+import Queue from "@/Wolfie2D/DataTypes/Queue";
 
 export default class Player implements Updateable {
   node: AnimatedSprite;
@@ -106,8 +107,12 @@ export default class Player implements Updateable {
   }
 
   update(deltaT: number): void {
-    while (this.receiver.hasNextEvent())
-      this.handleEvent(this.receiver.getNextEvent());
+    try {
+      while (this.receiver.hasNextEvent())
+        this.handleEvent(this.receiver.getNextEvent());
+    } catch (e) {
+      console.log((<any>(<any>this.receiver).q).size);
+    }
     this.movementStateMachine.update(deltaT);
     this.actionStateMachine.update(deltaT);
     this.node.move(this.velocity);
