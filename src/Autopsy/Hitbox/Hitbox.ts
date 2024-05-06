@@ -2,7 +2,6 @@ import AnimatedSprite from "../../Wolfie2D/Nodes/Sprites/AnimatedSprite";
 import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import AABB from "../../Wolfie2D/DataTypes/Shapes/AABB";
 import HitboxController from "./HitboxController";
-import Sprite from "../../Wolfie2D/Nodes/Sprites/Sprite";
 import { PhysicsGroups } from "../../globals";
 
 export enum HState {
