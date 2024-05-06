@@ -43,13 +43,13 @@ export default class Level3 extends GameLevel {
       holdReference: true,
     });
 
-    const levelEnd = this.resourceManager
-      .getTilemap("tilemap")
-      .layers.find(x => x.name == "LevelEnd").objects[0];
+    // const levelEnd = this.resourceManager
+    //   .getTilemap("tilemap")
+    //   .layers.find(x => x.name == "LevelEnd").objects[0];
     this.nextLevel = Level4;
     this.addLevelEnd(
-      new Vec2(levelEnd.x, levelEnd.y + levelEnd.height / 2),
-      new Vec2(levelEnd.width, levelEnd.height),
+      new Vec2(1664.00, 416.00 + 288.00 / 2),
+      new Vec2(32.00, 288.00),
     );
     this.initializeMonoliths();
     this.initializeGhosts();
