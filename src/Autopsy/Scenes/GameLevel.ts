@@ -252,7 +252,6 @@ export default class GameLevel extends Scene {
 
       case Events.LEVEL_END: {
         this.sceneManager.changeToScene(this.nextLevel, {}, levelPhysics);
-
         break;
       }
 

@@ -73,13 +73,13 @@ export default class Level6 extends GameLevel {
     this.phase = 1;
 
     this.projTimer = new Timer(
-      1900,
+      2500,
       () => {
         this.spawnProjectiles();
       },
       true,
     );
-    this.projSpeed = 300;
+    this.projSpeed = 270;
 
     this.initializeMonoliths();
   }
@@ -126,10 +126,11 @@ export default class Level6 extends GameLevel {
       this.initPhase(++this.phase);
 
     if (this.triggeredBoss && this.boss.health === 0) { // Handle boss death
+      this.player.debugInvincible = true;
       new Timer(
         2000,
         () => {
-          this.sceneManager.changeToScene(MainMenu);  // TODO: Create congratulations screen
+          this.sceneManager.changeToScene(MainMenu); 
         },
         false,
       ).start();
@@ -159,10 +160,10 @@ export default class Level6 extends GameLevel {
         this.projTimer.reset();
         this.projTimer.pause();
 
-        this.spawnSpiders(4);
+        this.spawnSpiders(3);
         this.spawnGhosts();
         new Timer(
-          7000,
+          9000,
           () => {
             this.spawnSpiders(2);
           },
@@ -277,7 +278,7 @@ export default class Level6 extends GameLevel {
       );
 
       const rightDelay = new Timer(
-        2100,
+        3000,
         () => {
           for (let i = 0; i < rightSpawn.length; i++) {
             const proj = this.add.animatedSprite("WebProjectile", Layers.Main);
