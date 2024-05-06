@@ -4,7 +4,7 @@ import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import Zombie from "@/Autopsy/Enemy/Zombie/Zombie";
 import Monolith from "@/Autopsy/Enemy/Monolith/Monolith";
 import Ghost from "@/Autopsy/Enemy/Ghost/Ghost";
-import Level3 from "@/Autopsy/Scenes/Levels/Level4";
+import Level3 from "@/Autopsy/Scenes/Levels/Level3";
 import Sprite from "@/Wolfie2D/Nodes/Sprites/Sprite";
 
 export default class Level2 extends GameLevel {

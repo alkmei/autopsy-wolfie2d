@@ -8,8 +8,12 @@ import { DamageType } from "@/Autopsy/Hitbox/DamageType";
 import { GameEventType } from "@/Wolfie2D/Events/GameEventType";
 import GameEvent from "@/Wolfie2D/Events/GameEvent";
 import { Events } from "@/globals";
+import HitboxController from "@/Autopsy/Hitbox/HitboxController";
 
 export default class AttackDown extends PlayerActionState {
+  hitBox: Hitbox;
+  jumped: boolean;
+
   onEnter(options: Record<string, any>): void {
     this.stateName = "AttackDown";
     this.owner.animation.playIfNotAlready(PlayerAnimations.ScytheDown, false);
@@ -24,7 +28,7 @@ export default class AttackDown extends PlayerActionState {
     const timer = new Timer(
       120,
       () => {
-        new Hitbox(
+        this.hitBox = new Hitbox(
           this.player.node,
           this.player.node
             .getScene()
@@ -38,6 +42,7 @@ export default class AttackDown extends PlayerActionState {
       },
       false,
     );
+    this.jumped = false;
 
     timer.start();
   }
@@ -46,16 +51,19 @@ export default class AttackDown extends PlayerActionState {
     return {};
   }
 
-  handleInput(event: GameEvent) {
-    switch (event.type) {
-      case Events.ENEMY_DAMAGE: {
-        this.player.velocity.y = this.player.jumpVelocity;
-      }
-    }
-  }
+  handleInput(event: GameEvent) {}
 
   update(deltaT: number): void {
     if (!this.owner.animation.isPlaying(PlayerAnimations.ScytheDown))
       this.player.actionStateMachine.changeState(ActionState.Idle);
+    if (
+      this.hitBox &&
+      this.hitBox.node._ai &&
+      !(this.hitBox.node._ai as HitboxController).state.hasHit &&
+      !this.jumped
+    ) {
+      this.player.velocity.y = this.player.jumpVelocity;
+      this.jumped = true;
+    }
   }
 }
