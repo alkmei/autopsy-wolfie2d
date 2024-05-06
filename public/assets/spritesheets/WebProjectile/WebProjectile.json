@@ -1,0 +1,39 @@
+{
+    "name": "WebProjectile",
+    "spriteSheetImage": "WebProjectile.png",
+    "spriteWidth": 32,
+    "spriteHeight": 32,
+    "columns": 2,
+    "rows": 2,
+    "animations": [
+        {
+            "name": "animation",
+            "frames": [
+                {
+                    "index": 0,
+                    "duration": 10.0,
+                    "x": 0,
+                    "y": 0
+                },
+                {
+                    "index": 1,
+                    "duration": 10.0,
+                    "x": 32,
+                    "y": 0
+                },
+                {
+                    "index": 2,
+                    "duration": 10.0,
+                    "x": 0,
+                    "y": 32
+                },
+                {
+                    "index": 3,
+                    "duration": 10.0,
+                    "x": 32,
+                    "y": 32
+                }
+            ]
+        }
+    ]
+}

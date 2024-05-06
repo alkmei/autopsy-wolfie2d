@@ -136,15 +136,15 @@
          "objects":[
                 {
                  "height":0,
-                 "id":31,
+                 "id":55,
                  "name":"",
                  "point":true,
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":0,
-                 "x":1239.33333333333,
-                 "y":114
+                 "x":1225,
+                 "y":95
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -195,7 +195,7 @@
                 {
                  "height":0,
                  "id":44,
-                 "name":"The coccoon might be flammable...",
+                 "name":"The coccoon is too tough for my scythe... Maybe fire could work",
                  "point":true,
                  "rotation":0,
                  "type":"",
@@ -234,7 +234,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":48,
+ "nextobjectid":57,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.10.2",
