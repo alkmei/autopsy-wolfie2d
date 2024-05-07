@@ -61,6 +61,19 @@ export default class Spawning extends WaveLevelState{
                     }
             
                 }
+                else if(chosenEnemy === EnemyType.SPIDER){
+                    if(spawnPos.distanceTo(this.level.player.node.position) < 32 * 6 ||
+                    this.level.tilemap.getTileAtWorldPosition(spawnPos) !== 0 ||
+                    this.level.tilemap.getTileAtWorldPosition(new Vec2((spawnPos.x+20),(spawnPos.y+24))) !== 0 ||
+                    this.level.tilemap.getTileAtWorldPosition(new Vec2((spawnPos.x-20),(spawnPos.y+24))) !== 0 ||
+                    this.level.tilemap.getTileAtWorldPosition(new Vec2((spawnPos.x+20),(spawnPos.y-24))) !== 0 ||
+                    this.level.tilemap.getTileAtWorldPosition(new Vec2((spawnPos.x-20),(spawnPos.y-24))) !== 0){
+                        spawnPos = RandUtils.randVec(0, worldSize.x, 0, worldSize.y);
+                    }
+                    else{
+                        validPos = true;
+                    }
+                }
                 else{
                     if(spawnPos.distanceTo(this.level.player.node.position) < 32 * 6 ||
                     this.level.tilemap.getTileAtWorldPosition(spawnPos) !== 0){
