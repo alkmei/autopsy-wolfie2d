@@ -5,13 +5,14 @@ import Vec2 from "../../Wolfie2D/DataTypes/Vec2";
 import Color from "../../Wolfie2D/Utils/Color";
 import Label, { HAlign } from "../../Wolfie2D/Nodes/UIElements/Label";
 import UILayer from "../../Wolfie2D/Scene/Layers/UILayer";
-import { PhysicsGroups, levelPhysics } from "../../globals";
+import { Action, levelPhysics } from "../../globals";
 import Level1 from "./Levels/Level1";
 import Level2 from "./Levels/Level2";
 import Level3 from "./Levels/Level3";
 import Level4 from "./Levels/Level4";
 import Level5 from "./Levels/Level5";
 import Level6 from "./Levels/Level6";
+import Input from "@/Wolfie2D/Input/Input";
 
 enum Layers {
   Main = "main",
@@ -19,6 +20,7 @@ enum Layers {
   Controls = "control",
   Help = "help",
   Back = "back",
+  Splash = "splash",
 }
 
 export default class MainMenu extends Scene {
@@ -34,6 +36,7 @@ export default class MainMenu extends Scene {
       [Layers.Controls]: this.addUILayer(Layers.Controls),
       [Layers.Help]: this.addUILayer(Layers.Help),
       [Layers.Back]: this.addUILayer(Layers.Back),
+      [Layers.Splash]: this.addUILayer(Layers.Splash),
     };
   }
 
@@ -42,7 +45,7 @@ export default class MainMenu extends Scene {
     const halfSize = this.viewport.getHalfSize();
     this.viewport.setFocus(halfSize);
     this.viewport.setZoomLevel(1);
-    this.currentScreen = Layers.Main;
+    this.currentScreen = Layers.Splash;
 
     for (const screensKey in this.screens)
       this.screens[screensKey].setHidden(true);
@@ -52,15 +55,47 @@ export default class MainMenu extends Scene {
     this.initHelpLayer();
     this.initControlsMenu();
     this.initBackLayer();
+    this.initSplashLayer();
 
-    this.screens[Layers.Main].setHidden(false);
+    this.screens[Layers.Splash].setHidden(false);
   }
 
   private changeLayer(newLayer: Layers) {
     this.screens[this.currentScreen].disable();
     this.screens[newLayer].enable();
     this.currentScreen = newLayer;
-    this.screens[Layers.Back].setHidden(this.currentScreen == Layers.Main);
+    this.screens[Layers.Back].setHidden(
+      this.currentScreen == Layers.Main || this.currentScreen == Layers.Splash,
+    );
+  }
+
+  private initSplashLayer() {
+    const logo = (this.add.sprite("logo", Layers.Splash).position = new Vec2(
+      400,
+      200,
+    ));
+    logo.scale(1.5);
+
+    const label = <Label>this.add.uiElement(
+      UIElementType.LABEL,
+      Layers.Splash,
+      {
+        text: "CLICK TO PLAY",
+        position: new Vec2(
+          this.viewport.getHalfSize().x,
+          this.viewport.getHalfSize().y + 200,
+        ),
+      },
+    );
+    label.textColor = Color.WHITE;
+    label.font = "MEGAPIX";
+    label.fontSize = 64;
+  }
+
+  updateScene(deltaT: number) {
+    if (Input.isMouseJustPressed() && this.currentScreen == Layers.Splash) {
+      this.changeLayer(Layers.Main);
+    }
   }
 
   private initBackLayer() {
