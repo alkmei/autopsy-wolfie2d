@@ -4,7 +4,7 @@
     "spriteWidth": 48,
     "spriteHeight": 64,
     "columns": 5,
-    "rows": 4,
+    "rows": 5,
     "animations": [
         {
             "name": "Idle",
@@ -75,31 +75,31 @@
             "frames": [
                 {
                     "index": 10,
-                    "duration": 10.0,
+                    "duration": 5.0,
                     "x": 0,
                     "y": 128
                 },
                 {
                     "index": 11,
-                    "duration": 10.0,
+                    "duration": 5.0,
                     "x": 48,
                     "y": 128
                 },
                 {
                     "index": 12,
-                    "duration": 10.0,
+                    "duration": 5.0,
                     "x": 96,
                     "y": 128
                 },
                 {
                     "index": 13,
-                    "duration": 10.0,
+                    "duration": 4.0,
                     "x": 144,
                     "y": 128
                 },
                 {
                     "index": 14,
-                    "duration": 10.0,
+                    "duration": 3.0,
                     "x": 192,
                     "y": 128
                 }
@@ -142,6 +142,17 @@
                     "duration": 10.0,
                     "x": 192,
                     "y": 192
+                }
+            ]
+        },
+        {
+            "name": "Hurt",
+            "frames": [
+                {
+                    "index": 20,
+                    "duration": 10.0,
+                    "x":0,
+                    "y": 256
                 }
             ]
         }

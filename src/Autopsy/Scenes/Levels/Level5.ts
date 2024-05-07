@@ -54,7 +54,7 @@ export default class Level5 extends WaveLevel {
     
 
   
-    this.waves=[new Wave([3,2,3]),new Wave([9,5,9]),new Wave([27,11,27])]
+    this.waves=[new Wave([3,2,3]),new Wave([9,5,9]),new Wave([27,10,27])]
 
     this.startWave();
 

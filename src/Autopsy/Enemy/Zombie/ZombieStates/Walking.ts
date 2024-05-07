@@ -11,12 +11,24 @@ export default class Walking extends ZombieState{
         this.parent.direction.x *= -1;
         (<AnimatedSprite>this.owner).invertX = !(<AnimatedSprite>this.owner)
         .invertX;
-        this.owner.animation.playIfNotAlready(ZombieAnimations.Walking,true);
+        if(!this.owner.animation.isPlaying(ZombieAnimations.Hurt) && !this.owner.animation.isPlaying(ZombieAnimations.Attacking)){
+            this.owner.animation.playIfNotAlready(ZombieAnimations.Walking,true);
+        }
+        else{
+            this.owner.animation.queue(ZombieAnimations.Walking,true);
+        }
         this.justEnter = true;
     }
 
     update(deltaT: number): void {
         super.update(deltaT);
+
+        if(!this.owner.animation.isPlaying(ZombieAnimations.Hurt) && !this.owner.animation.isPlaying(ZombieAnimations.Attacking)){
+            this.owner.animation.playIfNotAlready(ZombieAnimations.Walking,true);
+        }
+        else{
+            this.owner.animation.queue(ZombieAnimations.Walking,true);
+        }
         
         this.parent.velocity.x =
             this.parent.direction.x * this.parent.speed * deltaT;

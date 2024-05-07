@@ -15,6 +15,7 @@ export enum ZombieAnimations {
   Dead = "Dead",
   Attacking = "Attacking",
   Walking = "Walking",
+  Hurt = "Hurt"
 }
 
 export default class Zombie extends Enemy {
@@ -50,6 +51,7 @@ export default class Zombie extends Enemy {
       loop: false,
       holdReference: false,
     });
+    this.node.animation.playIfNotAlready(ZombieAnimations.Hurt,false);
   }
 
   knockback() {

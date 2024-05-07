@@ -7,7 +7,12 @@ export default class Idle extends ZombieState {
   onEnter(options: Record<string, any>) {
     //this.parent.direction = this.parent.randomDirection();
     this.stateName = "Idle";
-    this.owner.animation.playIfNotAlready(ZombieAnimations.Idle,true);
+    if(!this.owner.animation.isPlaying(ZombieAnimations.Hurt) && !this.owner.animation.isPlaying(ZombieAnimations.Attacking)){
+      this.owner.animation.playIfNotAlready(ZombieAnimations.Idle,true);
+    }
+    else{
+      this.owner.animation.queue(ZombieAnimations.Idle,true);
+    }
     this.idleTimer.start();
     
   }
@@ -37,6 +42,13 @@ export default class Idle extends ZombieState {
         
         //this.parent.tilemap.getTileAtWorldPosition(new Vec2(this.owner.position.x+this.owner.s, this.owner.position.y))
     //}
+    if(!this.owner.animation.isPlaying(ZombieAnimations.Hurt) && !this.owner.animation.isPlaying(ZombieAnimations.Attacking)){
+      this.owner.animation.playIfNotAlready(ZombieAnimations.Idle,true);
+    }
+    else{
+      this.owner.animation.queue(ZombieAnimations.Idle,true);
+    }
+
     if(this.idleTimer.isStopped() && this.owner.onGround){
         this.finished(ZState.Walking);
         

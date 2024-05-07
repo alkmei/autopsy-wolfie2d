@@ -9,6 +9,7 @@ import GameLevel from "../../../Scenes/GameLevel";
 import GameNode from "../../../../Wolfie2D/Nodes/GameNode";
 import { Events } from "../../../../globals";
 import Dying from "@/Autopsy/Enemy/Ghost/GhostStates/Dying";
+import { ZombieAnimations } from "../Zombie";
 
 export default abstract class ZombieState extends State {
   owner: AnimatedSprite;
@@ -75,6 +76,7 @@ export default abstract class ZombieState extends State {
     ) {
       this.emitter.fireEvent(Events.PLAYER_DAMAGE);
       //this.finished(ZState.Attacking);
+      this.owner.animation.playIfNotAlready(ZombieAnimations.Attacking,false)
       this.contactCooldown.start();
     }
 
