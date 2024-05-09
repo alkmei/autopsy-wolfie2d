@@ -13,6 +13,7 @@ import Level4 from "./Levels/Level4";
 import Level5 from "./Levels/Level5";
 import Level6 from "./Levels/Level6";
 import Input from "@/Wolfie2D/Input/Input";
+import Timer from "@/Wolfie2D/Timing/Timer";
 
 enum Layers {
   Main = "main",
@@ -94,7 +95,8 @@ export default class MainMenu extends Scene {
 
   updateScene(deltaT: number) {
     if (Input.isMouseJustPressed() && this.currentScreen == Layers.Splash) {
-      this.changeLayer(Layers.Main);
+      const timer = new Timer(70, () => this.changeLayer(Layers.Main));
+      timer.start();
     }
   }
 

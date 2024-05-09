@@ -11,14 +11,11 @@ export default class Level4 extends GameLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Level4/Level4.json");
-    this.load.spritesheet(
-      "Zombie",
-      "assets/spritesheets/Zombie/Zombie.json",
-    );
+    this.load.spritesheet("Zombie", "assets/spritesheets/Zombie/Zombie.json");
     this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");
-    this.load.audio("bluddington", "assets/music/bluddington.mp3");
+    this.load.audio("bluddington", "assets/music/fire4.mp3");
   }
-  
+
   unloadScene() {
     this.emitter.fireEvent(GameEventType.STOP_SOUND, { key: "bluddington" });
     super.unloadScene();
