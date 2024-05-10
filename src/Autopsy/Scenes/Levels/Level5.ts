@@ -13,7 +13,7 @@ export default class Level5 extends WaveLevel {
   loadScene() {
     super.loadScene();
     this.load.tilemap("tilemap", "assets/tilemaps/Level5/Level5.json");
-    this.load.audio("bluddington", "assets/music/bluddington.mp3");
+    this.load.audio("bluddington", "assets/music/what.mp3");
 
     this.load.spritesheet("Spider", "assets/spritesheets/Spider/Spider.json");
     this.load.spritesheet("Zombie", "assets/spritesheets/Zombie/Zombie.json");
@@ -45,19 +45,20 @@ export default class Level5 extends WaveLevel {
     });
 
     this.initializeMonoliths();
-    
+
     this.setLevelEndArea(new Vec2(2877, 670), new Vec2(32, 128));
 
     //this.waves=[new Wave([1])];
-    let tmap = this.getTilemap('World') as OrthogonalTilemap;
+    let tmap = this.getTilemap("World") as OrthogonalTilemap;
     this.setTilemap = tmap;
-    
 
-  
-    this.waves=[new Wave([3,2,3]),new Wave([9,5,9]),new Wave([27,10,27])]
+    this.waves = [
+      new Wave([3, 2, 3]),
+      new Wave([9, 5, 9]),
+      new Wave([27, 10, 27]),
+    ];
 
     this.startWave();
-
   }
 
   initializeMonoliths() {
@@ -71,5 +72,5 @@ export default class Level5 extends WaveLevel {
           m.name,
         );
       });
-    }
+  }
 }
