@@ -1,5 +1,9 @@
 # Autopsy
 
+[![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC_BY--NC--SA_4.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
+
+A typescript video game made in the Wolfie2D game engine developed by professors and students in Stony Brook University, with slight modifications by me.
+
 ## Run and Build Instructions
 
 This project uses Vite instead of Gulp. The only big difference is that game assets are stored
